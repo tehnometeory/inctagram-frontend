@@ -17,6 +17,7 @@ RUN npm install -g pnpm && pnpm run build:production
 FROM node:20.11-alpine as runner
 WORKDIR /app
 ENV NODE_ENV production
+RUN npm install -g pnpm
 COPY --from=builder /app/ ./
 EXPOSE 3000
 CMD ["pnpm", "start"]
