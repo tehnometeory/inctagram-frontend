@@ -2,6 +2,8 @@ import type { Metadata } from 'next'
 
 import { ReactNode } from 'react'
 
+import '@rambo-react/ui-meteors/dist/style.css'
+
 export const metadata: Metadata = {
   description:
     "Create an account or log in to Inctagram - Share what you're into with the people who get you.",
