@@ -10,7 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@rambo-react/ui-meteors": "^0.0.9",
+    "@rambo-react/ui-meteors": "^0.1.3",
     "@reduxjs/toolkit": "^2.3.0",
     "next": "15.0.2",
     "react": "19.0.0-rc-02c0e824-20241028",
