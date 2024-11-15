@@ -1,14 +1,9 @@
-import { ComponentPropsWithoutRef } from 'react'
+import { ComponentProps, ComponentPropsWithoutRef } from 'react'
 import { Controller, FieldValues, UseControllerProps } from 'react-hook-form'
 
 import { Input } from '@rambo-react/ui-meteors'
 
-type InputProps = {
-  containerClassName?: string
-  errorMsg?: string
-  label?: string
-  type?: 'email' | 'password' | 'search' | 'text'
-} & ComponentPropsWithoutRef<'input'>
+type InputProps = ComponentProps<typeof Input>
 
 export type ControlledInputProps<TFieldValues extends FieldValues> = Omit<
   InputProps,
