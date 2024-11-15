@@ -1,0 +1,23 @@
+.signInContainer {
+  display: flex;
+  place-content: center center;
+}
+
+.title {
+  margin: 0;
+  font-size: 20px;
+}
+
+.passwordInput {
+  margin-top: 24px;
+}
+
+.forgotPass {
+  margin: 36px 0 24px;
+  text-align: end;
+}
+
+.footer {
+  margin: 18px 0 6px;
+  text-align: center;
+}
