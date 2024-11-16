@@ -1,20 +1,63 @@
+@import '@rambo-react/ui-meteors/dist/typography';
+
 .signInContainer {
   display: flex;
-  place-content: center center;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.socialContainer {
+  display: flex;
+  gap: 60px;
+  align-items: center;
+  justify-content: center;
+
+  margin: 13px 0 24px;
 }
 
 .title {
   margin: 0;
-  font-size: 20px;
+
+  @include H1;
+}
+
+.emailInput {
+  label {
+    @include Regular_text_16;
+
+    color: var(--color-light-900);
+  }
+
+  input {
+    background-color: transparent;
+  }
 }
 
 .passwordInput {
   margin-top: 24px;
+
+  label {
+    @include Regular_text_16;
+
+    color: var(--color-light-900);
+  }
+
+  input {
+    background-color: transparent;
+  }
 }
 
 .forgotPass {
-  margin: 36px 0 24px;
-  text-align: end;
+  text-decoration: none;
+
+  p {
+    margin: 36px 0 24px;
+    color: var(--color-light-900);
+    text-align: end;
+
+    @include Regular_text_14;
+  }
 }
 
 .footer {
