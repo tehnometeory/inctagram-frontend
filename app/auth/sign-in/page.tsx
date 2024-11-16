@@ -42,20 +42,20 @@ export default function SignIn() {
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
             <div className={styles.emailInput}>
-              <label htmlFor={'email'}>Email</label>
               <ControlledInput
                 control={methods.control}
                 defaultValue={''}
+                label={'Email'}
                 name={'email'}
                 placeholder={'Epam@epam.com'}
                 rules={{ required: 'Email is required' }}
               />
             </div>
             <div className={styles.passwordInput}>
-              <label htmlFor={'password'}>Password</label>
               <ControlledInput
                 control={methods.control}
                 defaultValue={''}
+                label={'Password'}
                 name={'password'}
                 placeholder={'*********'}
                 rules={{ required: 'Password is required' }}
