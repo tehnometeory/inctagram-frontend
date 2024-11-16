@@ -3,7 +3,8 @@
 import { FormProvider, useForm } from 'react-hook-form'
 
 import { ControlledInput } from '@/shared/ui'
-import { Button, Card } from '@rambo-react/ui-meteors'
+import { Button, Card, Github, Google } from '@rambo-react/ui-meteors'
+import { useRouter } from 'next/navigation'
 
 import styles from './page.module.scss'
 
@@ -14,9 +15,14 @@ type FormValues = {
 
 export default function SignIn() {
   const methods = useForm<FormValues>()
+  const router = useRouter()
+
+  const routeToSignUpHandler = () => {
+    router.push('sign-up')
+  }
 
   const onSubmit = (data: FormValues) => {
-    console.log(1)
+    console.log(data)
   }
 
   return (
@@ -25,11 +31,13 @@ export default function SignIn() {
         <h1 className={styles.title} style={{ textAlign: 'center' }}>
           Sign In
         </h1>
-        <div
-          style={{ alignItems: 'center', display: 'flex', gap: '20px', justifyContent: 'center' }}
-        >
-          <a href={''}>google</a>
-          <a href={''}>gh</a>
+        <div className={styles.socialContainer}>
+          <a href={'/#'}>
+            <Google height={36} width={36} />
+          </a>
+          <a href={'#'}>
+            <Github fill={'white'} height={36} width={36} />
+          </a>
         </div>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -54,7 +62,9 @@ export default function SignIn() {
                 type={'password'}
               />
             </div>
-            <p className={styles.forgotPass}>Forgot Password</p>
+            <a className={styles.forgotPass} href={'/auth/forgot-password'}>
+              <p>Forgot Password</p>
+            </a>
             <Button fullWidth type={'submit'}>
               Sign In
             </Button>
@@ -62,7 +72,7 @@ export default function SignIn() {
         </FormProvider>
         <div>
           <p className={styles.footer}>{`Don't have an account?`}</p>
-          <Button fullWidth variant={'text'}>
+          <Button fullWidth onClick={routeToSignUpHandler} variant={'text'}>
             Sign Up
           </Button>
         </div>
