@@ -1,4 +1,4 @@
-@import "@rambo-react/ui-meteors/dist/typography";
+@import "../../../node_modules/@rambo-react/ui-meteors/dist/typography";
 
 .comeBackButton{
   margin: 24px auto 24px 64px;
@@ -12,6 +12,13 @@
 
   svg{
     margin-right: 12px;
+    fill: var(--color-light-100);
+  }
+
+  &:hover{
+    svg{
+      fill: var(--color-accent-100);
+    }
   }
 }
 
