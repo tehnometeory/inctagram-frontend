@@ -9,6 +9,9 @@ import Link from 'next/link'
 
 import s from './SignUp.module.scss'
 
+import { useRegistrationMutation } from '../api/signUpApi'
+import { RegistrationErrorResponse } from '../api/types'
+
 type FormValues = {
   agreement: boolean
   email: string
@@ -27,6 +30,7 @@ export const SignUp = () => {
     control,
     formState: { errors },
     handleSubmit,
+    setError,
     watch,
   } = useForm<FormValues>({
     defaultValues: {
@@ -39,20 +43,33 @@ export const SignUp = () => {
     mode: 'onBlur',
   })
 
-  const onFormSubmit = (data: FormValues) => {
-    console.log(data)
+  const [registerUser] = useRegistrationMutation()
+
+  const onFormSubmit = async ({ agreement, passwordConfirmation, ...userData }: FormValues) => {
+    const response = await registerUser(userData)
+
+    if (response.error) {
+      if ('data' in response.error) {
+        const errorMessage = (response.error.data as RegistrationErrorResponse).errorsMessages[0]
+          .message
+
+        if (errorMessage === 'Username is already used') {
+          setError('username', { message: 'User with this username is already registered' })
+        }
+      }
+    }
   }
 
   const passwordValue = watch('password')
-
   const checkboxErrorMessage = errors.agreement?.message
+  const { email, password, username } = errors
 
   return (
     <Card>
       <form className={s.form} onSubmit={handleSubmit(onFormSubmit)}>
         <h1 className={s.header}>Sign Up</h1>
 
-        <div className={s.inputs}>
+        <div>
           <div className={s.icons}>
             <Google height={36} width={36} />
 
@@ -60,6 +77,7 @@ export const SignUp = () => {
           </div>
 
           <ControlledInput
+            containerClassName={clsx(!username && s.inputContainer)}
             control={control}
             label={'Username'}
             name={'username'}
@@ -84,6 +102,7 @@ export const SignUp = () => {
           />
 
           <ControlledInput
+            containerClassName={clsx(!email && s.inputContainer)}
             control={control}
             label={'Email'}
             name={'email'}
@@ -100,6 +119,7 @@ export const SignUp = () => {
           />
 
           <ControlledInput
+            containerClassName={clsx(!password && s.inputContainer)}
             control={control}
             label={'Password'}
             name={'password'}
@@ -113,7 +133,7 @@ export const SignUp = () => {
                 value: 6,
               },
               pattern: {
-                message: `Use letters, numbers, and at least one special character`,
+                message: `Password must contain a-z, A-Z, 0-9, ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _\` { | } ~`,
                 value: PASSWORD_REG_EXP,
               },
               required: {
@@ -155,7 +175,7 @@ export const SignUp = () => {
           <span>and</span>
           <Link href={'privacy-policy'}>Privacy Policy</Link>
 
-          <p className={clsx(s.checkboxErrorMessage, { [s.show]: checkboxErrorMessage })}>
+          <p className={clsx(s.checkboxErrorMessage, checkboxErrorMessage && s.show)}>
             {checkboxErrorMessage}
           </p>
         </div>

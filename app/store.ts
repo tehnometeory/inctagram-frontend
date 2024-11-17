@@ -1,9 +1,11 @@
+import { signUpApi } from '@/features/SignUp/api/signUpApi'
 import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({
-  middleware: getDefaultMiddleware => getDefaultMiddleware(),
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(signUpApi.middleware),
   reducer: {
     reducer: () => ({}),
+    [signUpApi.reducerPath]: signUpApi.reducer,
   },
 })
 

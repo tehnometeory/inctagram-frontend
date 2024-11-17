@@ -12,20 +12,19 @@
   text-align: center;
 }
 
-.inputs {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-}
-
 .icons {
   display: flex;
   gap: 60px;
   justify-content: center;
+  margin-bottom: 24px;
 
   svg {
     cursor: pointer;
   }
+}
+
+.inputContainer {
+  padding-bottom: 24px;
 }
 
 .agreement {
