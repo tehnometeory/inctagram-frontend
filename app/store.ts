@@ -2,7 +2,9 @@ import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({
   middleware: getDefaultMiddleware => getDefaultMiddleware(),
-  reducer: {},
+  reducer: {
+    reducer: () => ({}),
+  },
 })
 
 // types
