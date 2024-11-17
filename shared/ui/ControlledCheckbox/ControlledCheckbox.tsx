@@ -5,18 +5,15 @@ import { CheckBox } from '@rambo-react/ui-meteors'
 
 type CheckboxProps = ComponentProps<typeof CheckBox>
 
-type Props<T extends FieldValues> = { required?: boolean } & Omit<
-  CheckboxProps,
-  'checked' | 'onCheckedChange'
-> &
-  Omit<UseControllerProps<T>, 'rules'>
+type Props<T extends FieldValues> = Omit<CheckboxProps, 'checked' | 'onCheckedChange'> &
+  UseControllerProps<T>
 
 export const ControlledCheckbox = <T extends FieldValues>({
   control,
   defaultValue,
   disabled,
   name,
-  required,
+  rules,
   shouldUnregister,
   ...CheckboxProps
 }: Props<T>) => {
@@ -27,9 +24,7 @@ export const ControlledCheckbox = <T extends FieldValues>({
     defaultValue,
     disabled,
     name,
-    rules: {
-      required: required,
-    },
+    rules,
     shouldUnregister,
   })
 
