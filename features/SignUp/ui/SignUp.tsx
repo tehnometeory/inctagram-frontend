@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 
 import { ControlledCheckbox, ControlledInput } from '@/shared/ui'
 import { Button, Card, Github, Google } from '@rambo-react/ui-meteors/dist'
+import clsx from 'clsx'
 import Link from 'next/link'
 
 import s from './SignUp.module.scss'
@@ -19,10 +20,15 @@ type FormValues = {
 const EMAIL_REG_EXP =
   /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/
 const USERNAME_REG_EXP = /^[a-zA-Z0-9_-]{6,30}$/
-const PASSWORD_REG_EXP = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>?/`~\-]).+$/
+const PASSWORD_REG_EXP = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>?/`~\\-]).+$/
 
 export const SignUp = () => {
-  const { control, handleSubmit, watch } = useForm<FormValues>({
+  const {
+    control,
+    formState: { errors },
+    handleSubmit,
+    watch,
+  } = useForm<FormValues>({
     defaultValues: {
       agreement: false,
       email: '',
@@ -30,6 +36,7 @@ export const SignUp = () => {
       passwordConfirmation: '',
       username: '',
     },
+    mode: 'onBlur',
   })
 
   const onFormSubmit = (data: FormValues) => {
@@ -37,6 +44,8 @@ export const SignUp = () => {
   }
 
   const passwordValue = watch('password')
+
+  const checkboxErrorMessage = errors.agreement?.message
 
   return (
     <Card>
@@ -131,11 +140,24 @@ export const SignUp = () => {
         </div>
 
         <div className={s.agreement}>
-          <ControlledCheckbox control={control} name={'agreement'} required />
+          <ControlledCheckbox
+            control={control}
+            name={'agreement'}
+            rules={{
+              required: {
+                message: 'This field is required',
+                value: true,
+              },
+            }}
+          />
           <span>I agree to the</span>
           <Link href={'terms-of-service'}>Terms of Service</Link>
           <span>and</span>
           <Link href={'privacy-policy'}>Privacy Policy</Link>
+
+          <p className={clsx(s.checkboxErrorMessage, { [s.show]: checkboxErrorMessage })}>
+            {checkboxErrorMessage}
+          </p>
         </div>
 
         <Button className={s.submitButton} fullWidth>
@@ -144,9 +166,11 @@ export const SignUp = () => {
 
         <span className={s.question}>Do you have an account?</span>
 
-        <Link className={s.signIn} href={'sign-in'}>
-          Sign In
-        </Link>
+        <Button type={'button'} variant={'text'}>
+          <Link className={s.signIn} href={'sign-in'}>
+            Sign In
+          </Link>
+        </Button>
       </form>
     </Card>
   )
