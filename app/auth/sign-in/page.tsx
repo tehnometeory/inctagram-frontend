@@ -1,29 +1,23 @@
 'use client'
 
-import { FormProvider, useForm } from 'react-hook-form'
+import { FormProvider } from 'react-hook-form'
 
+import { useSignIn } from '@/hooks/useSignIn'
 import { ControlledInput } from '@/shared/ui'
 import { Button, Card, Github, Google } from '@rambo-react/ui-meteors'
-import { useRouter } from 'next/navigation'
 
 import styles from './page.module.scss'
 
-type FormValues = {
-  email: string
-  password: string
-}
-
 export default function SignIn() {
-  const methods = useForm<FormValues>()
-  const router = useRouter()
-
-  const routeToSignUpHandler = () => {
-    router.push('sign-up')
-  }
-
-  const onSubmit = (data: FormValues) => {
-    console.log(data)
-  }
+  const {
+    REGULAR_FOR_EMAIL,
+    RULES_FOR_PASSWORD,
+    githubAuth,
+    googleAuth,
+    methods,
+    onSubmit,
+    routeToSignUpHandler,
+  } = useSignIn()
 
   return (
     <section className={styles.signInContainer}>
@@ -32,40 +26,48 @@ export default function SignIn() {
           Sign In
         </h1>
         <div className={styles.socialContainer}>
-          <a href={'/#'}>
+          <Button as={'a'} onClick={googleAuth} variant={'text'}>
             <Google height={36} width={36} />
-          </a>
-          <a href={'#'}>
+          </Button>
+          <Button as={'a'} onClick={githubAuth} variant={'text'}>
             <Github fill={'white'} height={36} width={36} />
-          </a>
+          </Button>
         </div>
         <FormProvider {...methods}>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
-            <div className={styles.emailInput}>
+            <div className={styles.InputContainer}>
               <ControlledInput
+                containerClassName={styles.emailInput}
                 control={methods.control}
                 defaultValue={''}
                 label={'Email'}
                 name={'email'}
                 placeholder={'Epam@epam.com'}
-                rules={{ required: 'Email is required' }}
+                rules={{
+                  pattern: {
+                    message: 'Invalid email',
+                    value: REGULAR_FOR_EMAIL,
+                  },
+                  required: 'Email is required',
+                }}
               />
             </div>
-            <div className={styles.passwordInput}>
+            <div className={styles.InputContainer}>
               <ControlledInput
+                containerClassName={styles.passwordInput}
                 control={methods.control}
                 defaultValue={''}
                 label={'Password'}
                 name={'password'}
                 placeholder={'*********'}
-                rules={{ required: 'Password is required' }}
+                rules={RULES_FOR_PASSWORD}
                 type={'password'}
               />
             </div>
             <a className={styles.forgotPass} href={'/auth/forgot-password'}>
-              <p>Forgot Password</p>
+              Forgot Password
             </a>
-            <Button fullWidth type={'submit'}>
+            <Button disabled={!methods.formState.isValid} fullWidth type={'submit'}>
               Sign In
             </Button>
           </form>
