@@ -52,7 +52,9 @@ function ForgotPassword() {
       <Link className={s.signIn} href={'sign-in'}>
         Back to Sign In
       </Link>
-      <Recaptcha label={'I’m not a robot'} variant={reCaptcha} />
+      <form className={s.reCaptcha}>
+        <Recaptcha label={'I’m not a robot'} variant={reCaptcha} />
+      </form>
       <Modal isOpen={showModal} onClose={handleCloseShowModal} title={'Email sent'}>
         <p className={s.textModal}>We have sent a link to confirm your email to {email}</p>
         <div className={s.btnWrapper}>
