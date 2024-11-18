@@ -35,34 +35,36 @@ function ForgotPassword() {
   // }
 
   return (
-    <Card>
-      <h1 className={s.title}>Forgot Password</h1>
-      <form>
-        <ControlledInput
-          control={control}
-          label={'Email'}
-          name={'email'}
-          placeholder={email ?? 'Epam@epam.com'}
-        />
-        <p className={s.text}>
-          Enter your email address and we will send you further instructions{' '}
-        </p>
-        <Button fullWidth>Send Link</Button>
-      </form>
-      <Link className={s.signIn} href={'sign-in'}>
-        Back to Sign In
-      </Link>
-      <form className={s.reCaptcha}>
-        <Recaptcha label={'I’m not a robot'} variant={reCaptcha} />
-      </form>
-      <Modal isOpen={showModal} onClose={handleCloseShowModal} title={'Email sent'}>
-        <p className={s.textModal}>We have sent a link to confirm your email to {email}</p>
-        <div className={s.btnWrapper}>
-          <Button className={s.btnModal} onClick={handleCloseShowModal}>
-            OK
-          </Button>
-        </div>
-      </Modal>
-    </Card>
+    <section className={s.cardWrapper}>
+      <Card>
+        <h1 className={s.title}>Forgot Password</h1>
+        <form>
+          <ControlledInput
+            control={control}
+            label={'Email'}
+            name={'email'}
+            placeholder={email ?? 'Epam@epam.com'}
+          />
+          <p className={s.text}>
+            Enter your email address and we will send you further instructions
+          </p>
+          <Button fullWidth>Send Link</Button>
+        </form>
+        <Link className={s.signIn} href={'sign-in'}>
+          Back to Sign In
+        </Link>
+        <form className={s.reCaptcha}>
+          <Recaptcha label={'I’m not a robot'} variant={reCaptcha} />
+        </form>
+        <Modal isOpen={showModal} onClose={handleCloseShowModal} title={'Email sent'}>
+          <p className={s.textModal}>We have sent a link to confirm your email to {email}</p>
+          <div className={s.btnWrapper}>
+            <Button className={s.btnModal} onClick={handleCloseShowModal}>
+              OK
+            </Button>
+          </div>
+        </Modal>
+      </Card>
+    </section>
   )
 }
