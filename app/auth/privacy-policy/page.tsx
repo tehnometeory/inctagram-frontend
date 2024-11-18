@@ -1,10 +1,6 @@
 'use client'
-import React from 'react'
-
-import TermsContainer from '@/shared/ui/TermsContainer/TermsContainer'
+import { TermsContainer } from '@/shared'
 
 export default function PrivacyPolicyPage() {
-  const title = 'Privacy Policy'
-
-  return <TermsContainer title={title} />
+  return <TermsContainer title={'Privacy Policy'} />
 }

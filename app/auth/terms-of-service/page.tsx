@@ -1,8 +1,7 @@
 'use client'
-import React from 'react'
-import TermsContainer from "@/shared/ui/TermsContainer/TermsContainer";
+
+import { TermsContainer } from '@/shared'
 
 export default function TermsOfService() {
-  const title = 'Terms of Service'
-  return <TermsContainer title={title}/>
+  return <TermsContainer title={'Terms of Service'} />
 }
