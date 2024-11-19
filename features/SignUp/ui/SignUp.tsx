@@ -9,7 +9,11 @@ import Link from 'next/link'
 
 import s from './SignUp.module.scss'
 
-import { useRegistrationMutation } from '../api/signUpApi'
+import {
+  useLazyRegistrationViaGitHubQuery,
+  useLazyRegistrationViaGoogleQuery,
+  useRegistrationMutation,
+} from '../api/signUpApi'
 import { RegistrationErrorResponse } from '../api/types'
 
 type FormValues = {
@@ -49,6 +53,8 @@ export const SignUp = ({ onSuccessfulSubmit }: Props) => {
   })
 
   const [registerUser] = useRegistrationMutation()
+  const [triggerRegistrationViaGoogle] = useLazyRegistrationViaGoogleQuery()
+  const [triggerRegistrationViaGitHub] = useLazyRegistrationViaGitHubQuery()
 
   const passwordValue = watch('password')
   const checkboxErrorMessage = errors.agreement?.message
@@ -79,9 +85,18 @@ export const SignUp = ({ onSuccessfulSubmit }: Props) => {
 
         <div>
           <div className={s.icons}>
-            <Google height={36} width={36} />
+            <Google
+              height={36}
+              onClick={() => triggerRegistrationViaGoogle(undefined)}
+              width={36}
+            />
 
-            <Github fill={'#fff'} height={36} width={36} />
+            <Github
+              fill={'#fff'}
+              height={36}
+              onClick={() => triggerRegistrationViaGitHub(undefined)}
+              width={36}
+            />
           </div>
 
           <ControlledInput
