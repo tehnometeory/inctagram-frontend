@@ -1,6 +1,6 @@
 'use client'
-import { TermsContainer } from '@/shared'
+import { TermsPageTemplate } from '@/shared'
 
-export default function PrivacyPolicyPage() {
-  return <TermsContainer title={'Privacy Policy'} />
+export default function PrivacyPolicy() {
+  return <TermsPageTemplate title={'Privacy Policy'} />
 }

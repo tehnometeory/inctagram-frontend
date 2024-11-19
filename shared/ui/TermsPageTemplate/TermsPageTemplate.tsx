@@ -1,15 +1,13 @@
-import React from 'react'
-
 import { ArrowBackOutline } from '@rambo-react/ui-meteors'
 import Link from 'next/link'
 
-import styles from './Terms.module.scss'
+import styles from './TermsPageTemplate.module.scss'
 
-type TermsContainerProps = {
+type Props = {
   title?: string
 }
 
-export function TermsContainer({ title }: TermsContainerProps) {
+export function TermsPageTemplate({ title }: Props) {
   return (
     <>
       <Link className={styles.comeBackLink} href={'/auth/sign-up'}>

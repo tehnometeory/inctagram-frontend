@@ -1,7 +1,7 @@
 'use client'
 
-import { TermsContainer } from '@/shared'
+import { TermsPageTemplate } from '@/shared'
 
 export default function TermsOfService() {
-  return <TermsContainer title={'Terms of Service'} />
+  return <TermsPageTemplate title={'Terms of Service'} />
 }

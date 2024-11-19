@@ -1,3 +1,3 @@
 export * from './ControlledCheckbox'
 export * from './ControlledInput'
-export * from './TermsContainer'
+export * from './TermsPageTemplate'
