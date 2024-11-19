@@ -1,0 +1,20 @@
+@import '@rambo-react/ui-meteors/dist/typography';
+
+.sentModalContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+
+  width: 100%;
+  max-width: 330px;
+
+  p {
+    @include Regular_text_16;
+  }
+
+  button {
+    align-self: flex-end;
+    width: 100%;
+    max-width: 96px;
+  }
+}
