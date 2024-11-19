@@ -25,11 +25,16 @@ const EMAIL_REG_EXP =
 const USERNAME_REG_EXP = /^[a-zA-Z0-9_-]{6,30}$/
 const PASSWORD_REG_EXP = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>?/`~\\-]).+$/
 
-export const SignUp = () => {
+type Props = {
+  onSuccessfulSubmit: (email: string) => void
+}
+
+export const SignUp = ({ onSuccessfulSubmit }: Props) => {
   const {
     control,
-    formState: { errors },
+    formState: { errors, isSubmitting },
     handleSubmit,
+    reset,
     setError,
     watch,
   } = useForm<FormValues>({
@@ -45,6 +50,10 @@ export const SignUp = () => {
 
   const [registerUser] = useRegistrationMutation()
 
+  const passwordValue = watch('password')
+  const checkboxErrorMessage = errors.agreement?.message
+  const { email: emailError, password: passwordError, username: usernameError } = errors
+
   const onFormSubmit = async ({ agreement, passwordConfirmation, ...userData }: FormValues) => {
     const response = await registerUser(userData)
 
@@ -57,12 +66,11 @@ export const SignUp = () => {
           setError('username', { message: 'User with this username is already registered' })
         }
       }
+    } else {
+      onSuccessfulSubmit(userData.email)
+      reset()
     }
   }
-
-  const passwordValue = watch('password')
-  const checkboxErrorMessage = errors.agreement?.message
-  const { email, password, username } = errors
 
   return (
     <Card>
@@ -77,8 +85,9 @@ export const SignUp = () => {
           </div>
 
           <ControlledInput
-            containerClassName={clsx(!username && s.inputContainer)}
+            containerClassName={clsx(!usernameError && s.inputContainer)}
             control={control}
+            disabled={isSubmitting}
             label={'Username'}
             name={'username'}
             rules={{
@@ -102,8 +111,9 @@ export const SignUp = () => {
           />
 
           <ControlledInput
-            containerClassName={clsx(!email && s.inputContainer)}
+            containerClassName={clsx(!emailError && s.inputContainer)}
             control={control}
+            disabled={isSubmitting}
             label={'Email'}
             name={'email'}
             rules={{
@@ -119,8 +129,9 @@ export const SignUp = () => {
           />
 
           <ControlledInput
-            containerClassName={clsx(!password && s.inputContainer)}
+            containerClassName={clsx(!passwordError && s.inputContainer)}
             control={control}
+            disabled={isSubmitting}
             label={'Password'}
             name={'password'}
             rules={{
@@ -146,6 +157,7 @@ export const SignUp = () => {
 
           <ControlledInput
             control={control}
+            disabled={isSubmitting}
             label={'Password confirmation'}
             name={'passwordConfirmation'}
             rules={{
@@ -162,6 +174,7 @@ export const SignUp = () => {
         <div className={s.agreement}>
           <ControlledCheckbox
             control={control}
+            disabled={isSubmitting}
             name={'agreement'}
             rules={{
               required: {
@@ -180,7 +193,7 @@ export const SignUp = () => {
           </p>
         </div>
 
-        <Button className={s.submitButton} fullWidth>
+        <Button className={s.submitButton} disabled={isSubmitting} fullWidth>
           Sign Up
         </Button>
 
