@@ -13,7 +13,7 @@ export const SentEmailModal = ({ email, isOpen, onCloseHandler }: Props) => {
     <Modal isOpen={isOpen} onClose={onCloseHandler} title={'Email sent'}>
       <div className={styles.sentModalContainer}>
         <p>We have sent a link to confirm your email to {email}</p>
-        <Button>OK</Button>
+        <Button onClick={onCloseHandler}>OK</Button>
       </div>
     </Modal>
   )
