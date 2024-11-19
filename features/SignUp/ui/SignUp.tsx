@@ -10,11 +10,11 @@ import Link from 'next/link'
 import s from './SignUp.module.scss'
 
 import {
+  RegistrationErrorResponse,
   useLazyRegistrationViaGitHubQuery,
   useLazyRegistrationViaGoogleQuery,
   useRegistrationMutation,
-} from '../api/signUpApi'
-import { RegistrationErrorResponse } from '../api/types'
+} from '../api'
 
 type FormValues = {
   agreement: boolean
