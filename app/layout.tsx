@@ -1,14 +1,11 @@
-import type { Metadata } from 'next'
+'use client'
 
 import { ReactNode } from 'react'
+import { Provider } from 'react-redux'
 
 import '@rambo-react/ui-meteors/dist/style.css'
 
-export const metadata: Metadata = {
-  description:
-    "Create an account or log in to Inctagram - Share what you're into with the people who get you.",
-  title: 'Inctagram',
-}
+import { store } from './store'
 
 export default function RootLayout({
   children,
@@ -17,7 +14,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang={'en'}>
-      <body>{children}</body>
+      <body>
+        <Provider store={store}>{children}</Provider>
+      </body>
     </html>
   )
 }
