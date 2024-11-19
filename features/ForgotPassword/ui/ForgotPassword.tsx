@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { useForm } from 'react-hook-form'
 
-import { ControlledInput } from '@/shared/ui'
+import { ControlledInput, SentEmailModal } from '@/shared/ui'
 import { Button, Card, Modal, Recaptcha } from '@rambo-react/ui-meteors'
 import Link from 'next/link'
 
@@ -27,7 +27,7 @@ function ForgotPassword() {
 
   const [sendLinkStatus, setSendLinkStatus] = useState<'initial' | 'success'>('initial')
 
-  const [email, setEmail] = useState(null)
+  const [email, setEmail] = useState('')
   const { executeRecaptcha } = useGoogleReCaptcha()
   const handleCloseShowModal = () => {
     setShowModal(false)
@@ -94,14 +94,7 @@ function ForgotPassword() {
             <Recaptcha label={'I’m not a robot'} variant={reCaptcha} />
           </form>
         )}
-        <Modal isOpen={showModal} onClose={handleCloseShowModal} title={'Email sent'}>
-          <p className={s.textModal}>We have sent a link to confirm your email to {email}</p>
-          <div className={s.btnWrapper}>
-            <Button className={s.btnModal} onClick={handleCloseShowModal}>
-              OK
-            </Button>
-          </div>
-        </Modal>
+        <SentEmailModal email={email} isOpen={showModal} onCloseHandler={handleCloseShowModal} />
       </Card>
     </section>
   )
