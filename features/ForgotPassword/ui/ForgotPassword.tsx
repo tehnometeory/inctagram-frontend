@@ -1,10 +1,11 @@
 'use client'
-import { useState } from 'react'
+import { FormEvent, useState } from 'react'
 import { GoogleReCaptchaProvider, useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { useForm } from 'react-hook-form'
 
+import { useValidEmailMutation } from '@/features/ForgotPassword/model/passwordRecoveryApi'
 import { ControlledInput, SentEmailModal } from '@/shared/ui'
-import { Button, Card, Modal, Recaptcha } from '@rambo-react/ui-meteors'
+import { Button, Card, Recaptcha } from '@rambo-react/ui-meteors'
 import Link from 'next/link'
 
 import s from './ForgotPassword.module.scss'
@@ -18,25 +19,38 @@ export function ForgotPasswordRecaptchaWrapper() {
 }
 
 function ForgotPassword() {
-  const { control, handleSubmit, reset, setError } = useForm()
+  const [email, setEmail] = useState('')
   const [showModal, setShowModal] = useState(false)
-  const [reCaptchaToken, setReCaptchaToken] = useState('')
-  const [reCaptcha, setReCaptcha] = useState<
+  const [recaptchaValue, setRecaptchaValue] = useState('')
+  const [sendLinkStatus, setSendLinkStatus] = useState<'initial' | 'success'>('initial')
+  const [reCaptchaStatus, setReCaptchaStatus] = useState<
     'checked' | 'expired' | 'initial' | 'loading' | 'withError'
   >('initial')
 
-  const [sendLinkStatus, setSendLinkStatus] = useState<'initial' | 'success'>('initial')
-
-  const [email, setEmail] = useState('')
+  const { control, handleSubmit, reset, setError } = useForm({ defaultValues: { email: '' } })
+  const [validEmail] = useValidEmailMutation()
   const { executeRecaptcha } = useGoogleReCaptcha()
+
   const handleCloseShowModal = () => {
     setShowModal(false)
     reset()
   }
 
-  const handleSubmitReCaptchaForm = async (event: any) => {
+  const handleSubmitDataForm = handleSubmit(async data => {
+    try {
+      await validEmail({ email: data.email, recaptchaValue }).unwrap()
+      setEmail(data.email)
+      setSendLinkStatus('success')
+      setShowModal(true)
+    } catch {
+      setError('email', { message: "User with this email doesn't exist", type: 'manual' })
+    }
+  })
+
+  const handleSubmitReCaptchaForm = async (event: FormEvent) => {
     event.preventDefault()
-    setReCaptcha('loading')
+    setReCaptchaStatus('loading')
+
     if (!executeRecaptcha) {
       setError('email', { message: 'Execute recaptcha not yet available', type: 'manual' })
 
@@ -45,28 +59,22 @@ function ForgotPassword() {
 
     const token = await executeRecaptcha('password_recovery')
 
-    setReCaptchaToken(token)
-    setReCaptcha('checked')
+    setRecaptchaValue(token)
+    setReCaptchaStatus('checked')
   }
 
-  const isDisabled = () => {
-    if (sendLinkStatus === 'success') {
-      return false
-    }
-
-    return !reCaptchaToken
-  }
+  const isDisabled = !recaptchaValue && sendLinkStatus !== 'success'
 
   return (
     <section className={s.cardWrapper}>
       <Card>
         <h1 className={s.title}>Forgot Password</h1>
-        <form>
+        <form onSubmit={handleSubmitDataForm}>
           <ControlledInput
             control={control}
             label={'Email'}
             name={'email'}
-            placeholder={email ?? 'Epam@epam.com'}
+            placeholder={'Epam@epam.com'}
           />
           <p className={s.text}>
             Enter your email address and we will send you further instructions
@@ -77,7 +85,7 @@ function ForgotPassword() {
             </p>
           )}
           <Button
-            disabled={isDisabled()}
+            disabled={isDisabled}
             fullWidth
             type={sendLinkStatus === 'success' ? 'button' : 'submit'}
             variant={'primary'}
@@ -91,7 +99,7 @@ function ForgotPassword() {
 
         {sendLinkStatus !== 'success' && (
           <form className={s.reCaptcha} onSubmit={handleSubmitReCaptchaForm}>
-            <Recaptcha label={'I’m not a robot'} variant={reCaptcha} />
+            <Recaptcha label={'I’m not a robot'} variant={reCaptchaStatus} />
           </form>
         )}
         <SentEmailModal email={email} isOpen={showModal} onCloseHandler={handleCloseShowModal} />
