@@ -1,9 +1,10 @@
+import { setPasswordApi } from '@/features/new-password/model/api'
 import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({
-  middleware: getDefaultMiddleware => getDefaultMiddleware(),
+  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(setPasswordApi.middleware),
   reducer: {
-    reducer: () => ({}),
+    [setPasswordApi.reducerPath]: setPasswordApi.reducer,
   },
 })
 
