@@ -2,7 +2,6 @@ import React from 'react'
 
 import styles from './EmailConfirmationWrapper.module.scss'
 
-import { MessageBlock } from './MessageBlock'
 import { ResponsiveImage } from './ResponsiveImage'
 
 type EmailConfirmationWrapperProps = {
@@ -28,7 +27,8 @@ export const EmailConfirmationWrapper = ({
   return (
     <div className={styles.container}>
       <main className={styles.content}>
-        <MessageBlock description={description} title={title} />
+        <h1 className={styles.title}>{title}</h1>
+        <p className={styles.description}>{description}</p>
         {children}
         <div className={styles.imageContainer}>
           <ResponsiveImage
