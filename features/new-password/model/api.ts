@@ -1,11 +1,11 @@
-import { API_BASE_URL } from '@/shared'
+import { BASE_URL_API } from '@/shared'
 import { FetchBaseQueryError, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 import { ErrorResponse, SetPasswordArg, SetPasswordResponse } from './types'
 
 export const setPasswordApi = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: API_BASE_URL,
+    baseUrl: BASE_URL_API,
     prepareHeaders: headers => {
       headers.set('Content-type', 'application/json; charset=utf-8')
     },
