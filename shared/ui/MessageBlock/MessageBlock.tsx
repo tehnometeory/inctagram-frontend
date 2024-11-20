@@ -1,4 +1,4 @@
-import styles from '@/app/auth/confirmed-email/ConfirmedEmail.module.scss'
+import styles from './MessageBlock.module.scss'
 
 type MessageBlockProps = {
   description: string
