@@ -111,7 +111,7 @@ function ForgotPassword() {
                 disabled={isDisabled}
                 fullWidth
                 onClick={sendLinkStatus === 'success' ? () => handleResendEmail(email) : undefined}
-                type={sendLinkStatus === 'success' ? 'button' : 'submit'}
+                type={'submit'}
                 variant={'primary'}
               >
                 {sendLinkStatus === 'success' ? 'Send Link Again' : 'Send Link'}
