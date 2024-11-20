@@ -34,7 +34,7 @@ export const NewPasswordForm = () => {
   })
 
   return (
-    <Card>
+    <Card className={s.card}>
       <h1 className={s.title}>Create New Password</h1>
       <FormProvider {...methods}>
         <form className={s.form} onSubmit={onSubmitHandler}>

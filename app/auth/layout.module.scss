@@ -10,3 +10,9 @@
   align-items: center;
   justify-content: center;
 }
+
+@media (width <= 360px) {
+  .container {
+    flex: none;
+  }
+}
