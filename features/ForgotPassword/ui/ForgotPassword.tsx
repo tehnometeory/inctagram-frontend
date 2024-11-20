@@ -68,8 +68,12 @@ function ForgotPassword() {
   }
 
   const handleResendEmail = async (email: string) => {
-    await resendEmail({ email }).unwrap()
-    setShowModal(true)
+    try {
+      await resendEmail({ email }).unwrap()
+      setShowModal(true)
+    } catch {
+      setError('email', { message: "User with this email doesn't exist", type: 'manual' })
+    }
   }
   const email = watch('email')
   const isDisabled = !email || !recaptchaValue
