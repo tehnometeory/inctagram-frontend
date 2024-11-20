@@ -14,9 +14,7 @@ export const setPasswordApi = createApi({
     setPassword: builder.mutation<SetPasswordResponse, SetPasswordArg>({
       query: body => {
         return {
-          body: {
-            body,
-          },
+          body,
           method: 'POST',
           url: 'auth/set-password',
         }
