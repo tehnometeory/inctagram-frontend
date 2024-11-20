@@ -1,10 +1,11 @@
+import { API_BASE_URL } from '@/shared'
 import { FetchBaseQueryError, createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 import { ErrorResponse, SetPasswordArg } from './types'
 
 export const setPasswordApi = createApi({
   baseQuery: fetchBaseQuery({
-    baseUrl: '/api/v1',
+    baseUrl: API_BASE_URL,
     prepareHeaders: headers => {
       headers.set('Content-Type', 'application/json; charset=utf-8')
     },
@@ -17,7 +18,7 @@ export const setPasswordApi = createApi({
             body,
           },
           method: 'POST',
-          url: '/auth/set-password',
+          url: 'auth/set-password',
         }
       },
       transformErrorResponse: (error: FetchBaseQueryError, _meta, _arg): { message: string } => {
@@ -32,7 +33,7 @@ export const setPasswordApi = createApi({
           if (detailedErrors && detailedErrors.length > 0) {
             const messages = detailedErrors.map(e => `${e.field}: ${e.message}`).join('; ')
 
-            return { message: `Validation error: ${messages}` }
+            return { message: `Validation error! ${messages}` }
           }
 
           return { message: 'InputModel has incorrect values or code is not valid or expired.' }
