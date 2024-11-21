@@ -2,7 +2,7 @@
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3'
 
 import { FormForgotPassword } from '@/features/ForgotPassword'
-import { useIsMobile } from '@/shared'
+import { useScreenDetector } from '@/shared'
 import { Card } from '@rambo-react/ui-meteors'
 
 import s from './ForgotPassword.module.scss'
@@ -16,7 +16,7 @@ export function ForgotPasswordRecaptchaWrapper() {
 }
 
 function ForgotPassword() {
-  const isMobile = useIsMobile(576)
+  const { isMobile } = useScreenDetector()
 
   return (
     <section className={s.cardWrapper}>
