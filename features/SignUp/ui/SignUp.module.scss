@@ -1,5 +1,28 @@
 @import '@rambo-react/ui-meteors/dist/typography';
 
+@mixin respond-to-mobile {
+  @media (width <= 360px) {
+    @content;
+  }
+}
+
+.cardWrapper {
+  margin-top: 24px;
+
+  @include respond-to-mobile {
+    margin-top: 0;
+
+    > div {
+      width: 100%;
+      max-width: 378px;
+      padding: 17px 15px 28px;
+
+      background-color: unset;
+      border: unset;
+    }
+  }
+}
+
 .form {
   display: flex;
   flex-direction: column;
@@ -10,6 +33,12 @@
   @include H1;
 
   text-align: center;
+
+  @include respond-to-mobile {
+    @include H2;
+
+    margin-bottom: 8px;
+  }
 }
 
 .icons {
@@ -20,6 +49,10 @@
 
   svg {
     cursor: pointer;
+  }
+
+  @include respond-to-mobile {
+    margin-bottom: 12px;
   }
 }
 
@@ -34,9 +67,11 @@
   display: flex;
   align-items: center;
 
-  span,
-  a {
-    margin-right: 4px;
+  &Text {
+    span,
+    a {
+      margin-right: 4px;
+    }
   }
 }
 
@@ -64,12 +99,20 @@
 
 .submitButton {
   margin-bottom: 6px;
+
+  @include respond-to-mobile {
+    height: 48px;
+  }
 }
 
 .question {
   @include Regular_text_16;
 
   text-align: center;
+
+  @include respond-to-mobile {
+    @include Regular_text_14;
+  }
 }
 
 .signIn {
