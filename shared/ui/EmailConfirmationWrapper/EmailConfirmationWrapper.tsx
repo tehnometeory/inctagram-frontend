@@ -29,7 +29,7 @@ export const EmailConfirmationWrapper = ({
       <main className={styles.content}>
         <h1 className={styles.title}>{title}</h1>
         <p className={styles.description}>{description}</p>
-        {children}
+        <div className={styles.children}>{children}</div>
         <div className={styles.imageContainer}>
           <ResponsiveImage
             alt={'Email confirmed illustration'}

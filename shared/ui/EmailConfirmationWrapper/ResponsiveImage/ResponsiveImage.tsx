@@ -1,6 +1,6 @@
-import { useScreenDetector } from '@/shared'
 import Image from 'next/image'
 
+import styles from './ResponsiveImage.module.scss'
 interface ImageSize {
   height: number
   width: number
@@ -17,24 +17,29 @@ interface ResponsiveImageProps {
 }
 
 export const ResponsiveImage = ({ alt, sizes, src }: ResponsiveImageProps) => {
-  const { isDesktop, isTablet } = useScreenDetector()
-
-  function getDeviceSize(
-    isDesktop: boolean,
-    isTablet: boolean,
-    sizes: { desktop: ImageSize; mobile: ImageSize; tablet: ImageSize }
-  ) {
-    if (isDesktop) {
-      return sizes.desktop
-    }
-    if (isTablet) {
-      return sizes.tablet
-    }
-
-    return sizes.mobile
-  }
-
-  const { height, width } = getDeviceSize(isDesktop, isTablet, sizes)
-
-  return <Image alt={alt} height={height} src={src} width={width} />
+  return (
+    <div
+      className={styles.responsiveImage}
+      style={
+        {
+          '--desktop-width': `${sizes.desktop.width}px`,
+          '--mobile-width': `${sizes.mobile.width}px`,
+          '--tablet-width': `${sizes.tablet.width}px`,
+        } as React.CSSProperties
+      }
+    >
+      <Image
+        alt={alt}
+        height={sizes.desktop.height}
+        sizes={`(max-width: 768px) ${sizes.mobile.width}px,
+                (max-width: 1024px) ${sizes.tablet.width}px,
+                ${sizes.desktop.width}px`}
+        src={src}
+        style={{
+          width: '100%',
+        }}
+        width={sizes.desktop.width}
+      />
+    </div>
+  )
 }

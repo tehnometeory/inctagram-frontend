@@ -12,6 +12,31 @@
   align-items: center;
   text-align: center;
   margin-top: 100px;
+  .children {
+    order: 1;
+  }
+  .imageContainer {
+    order: 2;
+  }
+  @media (max-width: 768px) {
+    margin-top: 17px;
+    .children {
+      order: 2;
+      button {
+        width: 330px;
+        height: 48px;
+      }
+    }
+    .imageContainer {
+      order: 1;
+    }
+  }
+  @media (max-width: 425px) {
+    .children button {
+      width: 92vw;
+      height: 48px;
+    }
+  }
 }
 
 .imageContainer {
@@ -19,6 +44,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: 768px) {
+    margin: 10px auto 10px;
+  }
 }
 
 .title {
@@ -27,6 +55,9 @@
   line-height: 36px;
   margin-bottom: 20px;
   letter-spacing: 0;
+  @media (max-width: 768px) {
+    margin-bottom: 13px;
+  }
 }
 
 .description {
@@ -34,4 +65,7 @@
   line-height: 24px;
   margin-bottom: 54px;
   max-width: 294px;
+  @media (max-width: 768px) {
+    margin-bottom: 0;
+  }
 }
