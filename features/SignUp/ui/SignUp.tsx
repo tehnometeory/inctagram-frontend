@@ -103,7 +103,6 @@ export const SignUp = ({ onSuccessfulSubmit }: Props) => {
             <ControlledInput
               containerClassName={clsx(!usernameError && s.inputContainer)}
               control={control}
-              disabled={isSubmitting}
               label={'Username'}
               name={'username'}
               rules={{
@@ -129,7 +128,6 @@ export const SignUp = ({ onSuccessfulSubmit }: Props) => {
             <ControlledInput
               containerClassName={clsx(!emailError && s.inputContainer)}
               control={control}
-              disabled={isSubmitting}
               label={'Email'}
               name={'email'}
               rules={{
@@ -147,7 +145,6 @@ export const SignUp = ({ onSuccessfulSubmit }: Props) => {
             <ControlledInput
               containerClassName={clsx(!passwordError && s.inputContainer)}
               control={control}
-              disabled={isSubmitting}
               label={'Password'}
               name={'password'}
               rules={{
@@ -173,7 +170,6 @@ export const SignUp = ({ onSuccessfulSubmit }: Props) => {
 
             <ControlledInput
               control={control}
-              disabled={isSubmitting}
               label={'Password confirmation'}
               name={'passwordConfirmation'}
               rules={{
@@ -190,7 +186,6 @@ export const SignUp = ({ onSuccessfulSubmit }: Props) => {
           <div className={s.agreement}>
             <ControlledCheckbox
               control={control}
-              disabled={isSubmitting}
               name={'agreement'}
               rules={{
                 required: {
