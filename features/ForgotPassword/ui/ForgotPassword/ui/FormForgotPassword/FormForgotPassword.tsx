@@ -7,6 +7,7 @@ import { useResendEmailMutation, useValidEmailMutation } from '@/features/Forgot
 import { ControlledInput, SentEmailModal } from '@/shared/ui'
 import { Button, Recaptcha } from '@rambo-react/ui-meteors'
 import Link from 'next/link'
+import { Simulate } from 'react-dom/test-utils'
 
 import s from './FormForgotPassword.module.scss'
 
@@ -21,7 +22,7 @@ export function FormForgotPassword() {
     'checked' | 'expired' | 'initial' | 'loading' | 'withError'
   >('initial')
 
-  const { control, handleSubmit, setError, setValue, watch } = useForm({
+  const { control, handleSubmit, reset, setError, setValue, watch } = useForm({
     defaultValues: { email: '' },
   })
   const [validEmail, { isLoading: isLoadingValidEmail }] = useValidEmailMutation()
@@ -31,6 +32,7 @@ export function FormForgotPassword() {
   const formRef = useRef<HTMLFormElement>(null)
   const handleCloseShowModal = () => {
     setShowModal(false)
+    reset()
   }
 
   const handleSubmitDataForm = handleSubmit(async data => {
@@ -41,6 +43,7 @@ export function FormForgotPassword() {
       setShowModal(true)
     } catch {
       setError('email', { message: "User with this email doesn't exist", type: 'manual' })
+      setReCaptchaStatus('expired')
     }
   })
 
@@ -69,7 +72,7 @@ export function FormForgotPassword() {
     }
   }
   const email = watch('email')
-  const isDisabled = !email || !recaptchaValue
+  const isDisabled = !email || reCaptchaStatus !== 'checked'
 
   return (
     <>
@@ -104,30 +107,20 @@ export function FormForgotPassword() {
               </p>
             )}
           </form>
-
-          {sendLinkStatus === 'success' ? (
-            <Button
-              className={s.btnForm}
-              disabled={isDisabled}
-              fullWidth
-              onClick={() => handleResendEmail(email)}
-              type={'submit'}
-              variant={'primary'}
-            >
-              Send Link Again
-            </Button>
-          ) : (
-            <Button
-              className={s.btnForm}
-              disabled={isDisabled}
-              fullWidth
-              onClick={() => handleSubmitDataForm()}
-              type={'submit'}
-              variant={'primary'}
-            >
-              Send Link
-            </Button>
-          )}
+          <Button
+            className={s.btnForm}
+            disabled={isDisabled}
+            fullWidth
+            onClick={
+              sendLinkStatus === 'success'
+                ? () => handleResendEmail(email)
+                : () => handleSubmitDataForm()
+            }
+            type={'submit'}
+            variant={'primary'}
+          >
+            {sendLinkStatus === 'success' ? 'Send Link Again' : 'Send Link'}
+          </Button>
           <Link className={s.signIn} href={'sign-in'}>
             Back to Sign In
           </Link>
