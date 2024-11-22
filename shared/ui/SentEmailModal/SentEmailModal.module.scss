@@ -10,11 +10,32 @@
 
   p {
     @include Regular_text_16;
+
+    color: var(--color-light-100);
   }
 
   button {
+    @include H3;
+
     align-self: flex-end;
     width: 100%;
     max-width: 96px;
+  }
+}
+
+@media screen and (width <= 576px) {
+  .sentModalContainer {
+    width: 100%;
+    max-width: 306px;
+    margin: 0 auto;
+
+    p {
+      text-align: center;
+    }
+
+    button {
+      max-width: 306px;
+      height: 48px;
+    }
   }
 }
