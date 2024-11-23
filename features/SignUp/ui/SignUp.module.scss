@@ -1,0 +1,125 @@
+@use '@rambo-react/ui-meteors/dist/typography' as typography;
+
+@mixin respond-to-mobile {
+  @media (width <= 360px) {
+    @content;
+  }
+}
+
+.card {
+  @include respond-to-mobile {
+    width: 100%;
+    max-width: 378px;
+    padding: 17px 15px 28px;
+
+    background-color: unset;
+    border: unset;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    box-shadow: 0 0 0 1000px var(--color-dark-500) inset;
+
+    -webkit-text-fill-color: var(--color-light-100);
+
+    @include respond-to-mobile {
+      box-shadow: 0 0 0 1000px var(--color-dark-700) inset;
+    }
+  }
+}
+
+.header {
+  @include typography.H1;
+
+  text-align: center;
+
+  @include respond-to-mobile {
+    @include typography.H2;
+
+    margin-bottom: 8px;
+  }
+}
+
+.icons {
+  display: flex;
+  gap: 60px;
+  justify-content: center;
+  margin-bottom: 24px;
+
+  svg {
+    cursor: pointer;
+  }
+
+  @include respond-to-mobile {
+    margin-bottom: 12px;
+  }
+}
+
+.inputContainer {
+  padding-bottom: 24px;
+}
+
+.agreement {
+  @include typography.Small_text;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+
+  &Text {
+    span,
+    a {
+      margin-right: 4px;
+    }
+  }
+}
+
+.checkboxErrorMessage {
+  @include typography.Small_text;
+
+  position: absolute;
+  bottom: -10px;
+  left: 8px;
+  color: var(--color-danger-500);
+}
+
+.submitButton {
+  margin-bottom: 6px;
+
+  @include respond-to-mobile {
+    height: 48px;
+  }
+}
+
+.question {
+  @include typography.Regular_text_16;
+
+  text-align: center;
+
+  @include respond-to-mobile {
+    @include typography.Regular_text_14;
+  }
+}
+
+.signIn {
+  @include typography.H3;
+
+  display: flex;
+  justify-content: center;
+
+  margin-bottom: 6px;
+
+  color: var(--color-accent-500);
+  text-decoration: none;
+
+  &:visited {
+    color: var(--color-accent-500);
+  }
+}
