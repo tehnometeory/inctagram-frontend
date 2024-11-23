@@ -1,10 +1,6 @@
-import {
-  ResendEmailArgs,
-  ResendEmailResponse,
-  ValidEmailArgs,
-  ValidEmailResponse,
-} from '@/features/ForgotPassword/model/passwordRecoveryTypes'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+
+import { ResendEmailArgs, ResendEmailResponse, ValidEmailArgs, ValidEmailResponse } from './types'
 
 export const passwordRecoveryApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: 'https://auth.tehnom.org/api/v1/auth/' }),

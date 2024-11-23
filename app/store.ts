@@ -1,4 +1,4 @@
-import { passwordRecoveryApi } from '@/features/ForgotPassword/model'
+import { passwordRecoveryApi } from '@/features/ForgotPassword/api'
 import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({

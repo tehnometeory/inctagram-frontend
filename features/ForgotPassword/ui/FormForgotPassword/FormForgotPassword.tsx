@@ -3,11 +3,10 @@ import { FormEvent, useRef, useState } from 'react'
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { useForm } from 'react-hook-form'
 
-import { useResendEmailMutation, useValidEmailMutation } from '@/features/ForgotPassword/model'
+import { useResendEmailMutation, useValidEmailMutation } from '@/features/ForgotPassword/api'
 import { ControlledInput, SentEmailModal } from '@/shared/ui'
-import { Button, Recaptcha } from '@rambo-react/ui-meteors'
+import { Button, Card, Recaptcha } from '@rambo-react/ui-meteors'
 import Link from 'next/link'
-import { Simulate } from 'react-dom/test-utils'
 
 import s from './FormForgotPassword.module.scss'
 
@@ -43,7 +42,7 @@ export function FormForgotPassword() {
       setShowModal(true)
     } catch {
       setError('email', { message: "User with this email doesn't exist", type: 'manual' })
-      setReCaptchaStatus('expired')
+      setReCaptchaStatus('withError')
     }
   })
 
@@ -72,66 +71,63 @@ export function FormForgotPassword() {
     }
   }
   const email = watch('email')
-  const isDisabled = !email || reCaptchaStatus !== 'checked'
+  const isDisabled =
+    !email || reCaptchaStatus !== 'checked' || isLoadingResendEmail || isLoadingValidEmail
 
   return (
-    <>
+    <Card className={s.card}>
       <h1 className={s.title}>Forgot Password</h1>
-      {isLoadingValidEmail || isLoadingResendEmail ? (
-        <div>...Loading</div>
-      ) : (
-        <div className={s.formContainer}>
-          <form onSubmit={handleSubmitDataForm} ref={formRef}>
-            <ControlledInput
-              control={control}
-              label={'Email'}
-              name={'email'}
-              placeholder={'Epam@epam.com'}
-              rules={{
-                pattern: {
-                  message: 'The email must match the format example@example.com',
-                  value: EMAIL_REG_EXP,
-                },
-                required: {
-                  message: 'This field is required',
-                  value: true,
-                },
-              }}
-            />
-            <p className={s.text}>
-              Enter your email address and we will send you further instructions
+      <div className={s.formContainer}>
+        <form onSubmit={handleSubmitDataForm} ref={formRef}>
+          <ControlledInput
+            control={control}
+            label={'Email'}
+            name={'email'}
+            placeholder={'Epam@epam.com'}
+            rules={{
+              pattern: {
+                message: 'The email must match the format example@example.com',
+                value: EMAIL_REG_EXP,
+              },
+              required: {
+                message: 'This field is required',
+                value: true,
+              },
+            }}
+          />
+          <p className={s.text}>
+            Enter your email address and we will send you further instructions
+          </p>
+          {sendLinkStatus === 'success' && (
+            <p className={s.textSuccess}>
+              The link has been sent by email. If you don’t receive an email send link again
             </p>
-            {sendLinkStatus === 'success' && (
-              <p className={s.textSuccess}>
-                The link has been sent by email. If you don’t receive an email send link again
-              </p>
-            )}
-          </form>
-          <Button
-            className={s.btnForm}
-            disabled={isDisabled}
-            fullWidth
-            onClick={
-              sendLinkStatus === 'success'
-                ? () => handleResendEmail(email)
-                : () => handleSubmitDataForm()
-            }
-            type={'submit'}
-            variant={'primary'}
-          >
-            {sendLinkStatus === 'success' ? 'Send Link Again' : 'Send Link'}
-          </Button>
-          <Link className={s.signIn} href={'sign-in'}>
-            Back to Sign In
-          </Link>
-          {sendLinkStatus !== 'success' && (
-            <form className={s.reCaptcha} onSubmit={handleSubmitReCaptchaForm}>
-              <Recaptcha label={'I’m not a robot'} variant={reCaptchaStatus} />
-            </form>
           )}
-        </div>
-      )}
+        </form>
+        <Button
+          className={s.btnForm}
+          disabled={isDisabled}
+          fullWidth
+          onClick={
+            sendLinkStatus === 'success'
+              ? () => handleResendEmail(email)
+              : () => handleSubmitDataForm()
+          }
+          type={'submit'}
+          variant={'primary'}
+        >
+          {sendLinkStatus === 'success' ? 'Send Link Again' : 'Send Link'}
+        </Button>
+        <Link className={s.signIn} href={'sign-in'}>
+          Back to Sign In
+        </Link>
+        {sendLinkStatus !== 'success' && (
+          <form className={s.reCaptcha} onSubmit={handleSubmitReCaptchaForm}>
+            <Recaptcha label={'I’m not a robot'} variant={reCaptchaStatus} />
+          </form>
+        )}
+      </div>
       <SentEmailModal email={email} isOpen={showModal} onCloseHandler={handleCloseShowModal} />
-    </>
+    </Card>
   )
 }

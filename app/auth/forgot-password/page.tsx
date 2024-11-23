@@ -1,9 +1,5 @@
-import { ForgotPasswordRecaptchaWrapper } from '@/features'
+import { ForgotPassword } from '@/features'
 
 export default function ForgotPasswordPage() {
-  return (
-    <div>
-      <ForgotPasswordRecaptchaWrapper />
-    </div>
-  )
+  return <ForgotPassword />
 }
