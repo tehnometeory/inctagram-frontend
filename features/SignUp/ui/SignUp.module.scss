@@ -87,20 +87,7 @@
   position: absolute;
   bottom: -10px;
   left: 8px;
-
   color: var(--color-danger-500);
-
-  visibility: hidden;
-  opacity: 0;
-
-  transition:
-    visibility 0.3s ease,
-    opacity 0.3s ease;
-
-  &.show {
-    visibility: visible;
-    opacity: 1;
-  }
 }
 
 .submitButton {

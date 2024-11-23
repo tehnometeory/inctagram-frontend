@@ -130,9 +130,7 @@ export const SignUp = ({ onSuccessfulSubmit }: Props) => {
             <Link href={'privacy-policy'}>Privacy Policy</Link>
           </div>
 
-          <p className={clsx(s.checkboxErrorMessage, checkboxErrorMessage && s.show)}>
-            {checkboxErrorMessage}
-          </p>
+          {checkboxErrorMessage && <p className={s.checkboxErrorMessage}>{checkboxErrorMessage}</p>}
         </div>
 
         <Button className={s.submitButton} disabled={isSubmitting} fullWidth>
