@@ -1,3 +1,7 @@
+'use client'
+
+import { NewPasswordForm } from '@/features/new-password'
+
 export default function NewPassword() {
-  return <div>New Password</div>
+  return <NewPasswordForm />
 }

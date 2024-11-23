@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.1",
     "@rambo-react/ui-meteors": "0.2.6",
     "@reduxjs/toolkit": "^2.3.0",
     "clsx": "^2.1.1",
@@ -19,7 +20,8 @@
     "react-google-recaptcha-v3": "^1.10.1",
     "react-hook-form": "^7.53.1",
     "react-redux": "^9.1.2",
-    "sass": "^1.80.6"
+    "sass": "^1.80.6",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@it-incubator/eslint-config": "^1.0.3",
