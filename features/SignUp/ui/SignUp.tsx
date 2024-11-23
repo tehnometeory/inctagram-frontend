@@ -3,9 +3,11 @@
 import { useForm } from 'react-hook-form'
 
 import { ControlledCheckbox, ControlledInput } from '@/shared/ui'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Card, Github, Google } from '@rambo-react/ui-meteors/dist'
 import clsx from 'clsx'
 import Link from 'next/link'
+import { z } from 'zod'
 
 import s from './SignUp.module.scss'
 
@@ -15,19 +17,9 @@ import {
   useLazyRegistrationViaGoogleQuery,
   useRegistrationMutation,
 } from '../api'
+import { signUpSchema } from '../model'
 
-type FormValues = {
-  agreement: boolean
-  email: string
-  password: string
-  passwordConfirmation: string
-  username: string
-}
-
-const EMAIL_REG_EXP =
-  /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/
-const USERNAME_REG_EXP = /^[a-zA-Z0-9_-]{6,30}$/
-const PASSWORD_REG_EXP = /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[!@#$%^&*()_+[\]{};':"\\|,.<>?/`~\\-]).+$/
+type FormValues = z.infer<typeof signUpSchema>
 
 type Props = {
   onSuccessfulSubmit: (email: string) => void
@@ -40,7 +32,6 @@ export const SignUp = ({ onSuccessfulSubmit }: Props) => {
     handleSubmit,
     reset,
     setError,
-    watch,
   } = useForm<FormValues>({
     defaultValues: {
       agreement: false,
@@ -50,13 +41,13 @@ export const SignUp = ({ onSuccessfulSubmit }: Props) => {
       username: '',
     },
     mode: 'onBlur',
+    resolver: zodResolver(signUpSchema),
   })
 
   const [registerUser] = useRegistrationMutation()
   const [triggerRegistrationViaGoogle] = useLazyRegistrationViaGoogleQuery()
   const [triggerRegistrationViaGitHub] = useLazyRegistrationViaGitHubQuery()
 
-  const passwordValue = watch('password')
   const checkboxErrorMessage = errors.agreement?.message
   const { email: emailError, password: passwordError, username: usernameError } = errors
 
@@ -104,24 +95,6 @@ export const SignUp = ({ onSuccessfulSubmit }: Props) => {
             control={control}
             label={'Username'}
             name={'username'}
-            rules={{
-              maxLength: {
-                message: 'Maximum number of characters 30',
-                value: 30,
-              },
-              minLength: {
-                message: 'Minimum number of characters 6',
-                value: 6,
-              },
-              pattern: {
-                message: "Invalid characters. Only letters, numbers, '_' and '-'",
-                value: USERNAME_REG_EXP,
-              },
-              required: {
-                message: 'This field is required',
-                value: true,
-              },
-            }}
           />
 
           <ControlledInput
@@ -129,16 +102,6 @@ export const SignUp = ({ onSuccessfulSubmit }: Props) => {
             control={control}
             label={'Email'}
             name={'email'}
-            rules={{
-              pattern: {
-                message: 'The email must match the format example@example.com',
-                value: EMAIL_REG_EXP,
-              },
-              required: {
-                message: 'This field is required',
-                value: true,
-              },
-            }}
           />
 
           <ControlledInput
@@ -146,24 +109,6 @@ export const SignUp = ({ onSuccessfulSubmit }: Props) => {
             control={control}
             label={'Password'}
             name={'password'}
-            rules={{
-              maxLength: {
-                message: 'Maximum number of characters 20',
-                value: 20,
-              },
-              minLength: {
-                message: 'Minimum number of characters 6',
-                value: 6,
-              },
-              pattern: {
-                message: `Password must contain a-z, A-Z, 0-9, ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _\` { | } ~`,
-                value: PASSWORD_REG_EXP,
-              },
-              required: {
-                message: 'This field is required',
-                value: true,
-              },
-            }}
             type={'password'}
           />
 
@@ -171,28 +116,12 @@ export const SignUp = ({ onSuccessfulSubmit }: Props) => {
             control={control}
             label={'Password confirmation'}
             name={'passwordConfirmation'}
-            rules={{
-              required: {
-                message: 'This field is required',
-                value: true,
-              },
-              validate: value => value === passwordValue || 'The passwords must match',
-            }}
             type={'password'}
           />
         </div>
 
         <div className={s.agreement}>
-          <ControlledCheckbox
-            control={control}
-            name={'agreement'}
-            rules={{
-              required: {
-                message: 'This field is required',
-                value: true,
-              },
-            }}
-          />
+          <ControlledCheckbox control={control} name={'agreement'} />
 
           <div className={s.agreementText}>
             <span>I agree to the</span>
