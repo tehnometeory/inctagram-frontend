@@ -3,8 +3,11 @@ import { FormEvent, useRef, useState } from 'react'
 import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { useForm } from 'react-hook-form'
 
-import { useResendEmailMutation, useValidEmailMutation } from '@/features/ForgotPassword/api'
-import { passwordRecoverySchema } from '@/features/ForgotPassword/api/validation'
+import {
+  passwordRecoverySchema,
+  useResendEmailMutation,
+  useValidEmailMutation,
+} from '@/features/ForgotPassword/api'
 import { ControlledInput, SentEmailModal } from '@/shared/ui'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Card, Recaptcha } from '@rambo-react/ui-meteors'
