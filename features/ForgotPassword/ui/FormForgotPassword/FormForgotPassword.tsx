@@ -4,14 +4,13 @@ import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { useForm } from 'react-hook-form'
 
 import { useResendEmailMutation, useValidEmailMutation } from '@/features/ForgotPassword/api'
+import { passwordRecoverySchema } from '@/features/ForgotPassword/api/validation'
 import { ControlledInput, SentEmailModal } from '@/shared/ui'
+import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Card, Recaptcha } from '@rambo-react/ui-meteors'
 import Link from 'next/link'
 
 import s from './FormForgotPassword.module.scss'
-
-const EMAIL_REG_EXP =
-  /^([\w-]+(?:\.[\w-]+)*)@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$/
 
 export function FormForgotPassword() {
   const [showModal, setShowModal] = useState(false)
@@ -23,6 +22,7 @@ export function FormForgotPassword() {
 
   const { control, handleSubmit, reset, setError, setValue, watch } = useForm({
     defaultValues: { email: '' },
+    resolver: zodResolver(passwordRecoverySchema),
   })
   const [validEmail, { isLoading: isLoadingValidEmail }] = useValidEmailMutation()
   const [resendEmail, { isLoading: isLoadingResendEmail }] = useResendEmailMutation()
@@ -84,16 +84,6 @@ export function FormForgotPassword() {
             label={'Email'}
             name={'email'}
             placeholder={'Epam@epam.com'}
-            rules={{
-              pattern: {
-                message: 'The email must match the format example@example.com',
-                value: EMAIL_REG_EXP,
-              },
-              required: {
-                message: 'This field is required',
-                value: true,
-              },
-            }}
           />
           <p className={s.text}>
             Enter your email address and we will send you further instructions

@@ -1,1 +1,1 @@
-export * from './passwordRecoveryApi'
+export * from './api'
