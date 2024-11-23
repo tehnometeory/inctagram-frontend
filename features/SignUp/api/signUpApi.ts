@@ -1,9 +1,10 @@
+import { BASE_URL_API } from '@/shared'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 import { RegistrationBody, RegistrationErrorResponse } from './types'
 
 export const signUpApi = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://auth.tehnom.org/api/v1/' }),
+  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL_API }),
   endpoints: builder => ({
     registration: builder.mutation<RegistrationErrorResponse | void, RegistrationBody>({
       query: body => ({
