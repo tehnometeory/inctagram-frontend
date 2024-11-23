@@ -1,3 +1,7 @@
+'use client'
+
+import { TermsPageTemplate } from '@/shared'
+
 export default function TermsOfService() {
-  return <div>Terms of Service</div>
+  return <TermsPageTemplate title={'Terms of Service'} />
 }
