@@ -1,4 +1,4 @@
-@import '@rambo-react/ui-meteors/dist/typography';
+@use '@rambo-react/ui-meteors/dist/typography' as typography;
 
 @mixin respond-to-mobile {
   @media (width <= 360px) {
@@ -6,20 +6,14 @@
   }
 }
 
-.cardWrapper {
-  margin-top: 24px;
-
+.card {
   @include respond-to-mobile {
-    margin-top: 0;
+    width: 100%;
+    max-width: 378px;
+    padding: 17px 15px 28px;
 
-    > div {
-      width: 100%;
-      max-width: 378px;
-      padding: 17px 15px 28px;
-
-      background-color: unset;
-      border: unset;
-    }
+    background-color: unset;
+    border: unset;
   }
 }
 
@@ -30,12 +24,12 @@
 }
 
 .header {
-  @include H1;
+  @include typography.H1;
 
   text-align: center;
 
   @include respond-to-mobile {
-    @include H2;
+    @include typography.H2;
 
     margin-bottom: 8px;
   }
@@ -61,7 +55,7 @@
 }
 
 .agreement {
-  @include Small_text;
+  @include typography.Small_text;
 
   position: relative;
   display: flex;
@@ -76,7 +70,7 @@
 }
 
 .checkboxErrorMessage {
-  @include Small_text;
+  @include typography.Small_text;
 
   position: absolute;
   bottom: -10px;
@@ -106,17 +100,17 @@
 }
 
 .question {
-  @include Regular_text_16;
+  @include typography.Regular_text_16;
 
   text-align: center;
 
   @include respond-to-mobile {
-    @include Regular_text_14;
+    @include typography.Regular_text_14;
   }
 }
 
 .signIn {
-  @include H3;
+  @include typography.H3;
 
   display: flex;
   justify-content: center;

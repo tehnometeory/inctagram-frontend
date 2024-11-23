@@ -79,147 +79,145 @@ export const SignUp = ({ onSuccessfulSubmit }: Props) => {
   }
 
   return (
-    <div className={s.cardWrapper}>
-      <Card>
-        <form className={s.form} onSubmit={handleSubmit(onFormSubmit)}>
-          <h1 className={s.header}>Sign Up</h1>
+    <Card className={s.card}>
+      <form className={s.form} onSubmit={handleSubmit(onFormSubmit)}>
+        <h1 className={s.header}>Sign Up</h1>
 
-          <div>
-            <div className={s.icons}>
-              <Google
-                height={36}
-                onClick={() => triggerRegistrationViaGoogle(undefined)}
-                width={36}
-              />
-
-              <Github
-                fill={'#fff'}
-                height={36}
-                onClick={() => triggerRegistrationViaGitHub(undefined)}
-                width={36}
-              />
-            </div>
-
-            <ControlledInput
-              containerClassName={clsx(!usernameError && s.inputContainer)}
-              control={control}
-              label={'Username'}
-              name={'username'}
-              rules={{
-                maxLength: {
-                  message: 'Maximum number of characters 30',
-                  value: 30,
-                },
-                minLength: {
-                  message: 'Minimum number of characters 6',
-                  value: 6,
-                },
-                pattern: {
-                  message: "Invalid characters. Only letters, numbers, '_' and '-'",
-                  value: USERNAME_REG_EXP,
-                },
-                required: {
-                  message: 'This field is required',
-                  value: true,
-                },
-              }}
+        <div>
+          <div className={s.icons}>
+            <Google
+              height={36}
+              onClick={() => triggerRegistrationViaGoogle(undefined)}
+              width={36}
             />
 
-            <ControlledInput
-              containerClassName={clsx(!emailError && s.inputContainer)}
-              control={control}
-              label={'Email'}
-              name={'email'}
-              rules={{
-                pattern: {
-                  message: 'The email must match the format example@example.com',
-                  value: EMAIL_REG_EXP,
-                },
-                required: {
-                  message: 'This field is required',
-                  value: true,
-                },
-              }}
-            />
-
-            <ControlledInput
-              containerClassName={clsx(!passwordError && s.inputContainer)}
-              control={control}
-              label={'Password'}
-              name={'password'}
-              rules={{
-                maxLength: {
-                  message: 'Maximum number of characters 20',
-                  value: 20,
-                },
-                minLength: {
-                  message: 'Minimum number of characters 6',
-                  value: 6,
-                },
-                pattern: {
-                  message: `Password must contain a-z, A-Z, 0-9, ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _\` { | } ~`,
-                  value: PASSWORD_REG_EXP,
-                },
-                required: {
-                  message: 'This field is required',
-                  value: true,
-                },
-              }}
-              type={'password'}
-            />
-
-            <ControlledInput
-              control={control}
-              label={'Password confirmation'}
-              name={'passwordConfirmation'}
-              rules={{
-                required: {
-                  message: 'This field is required',
-                  value: true,
-                },
-                validate: value => value === passwordValue || 'The passwords must match',
-              }}
-              type={'password'}
+            <Github
+              fill={'#fff'}
+              height={36}
+              onClick={() => triggerRegistrationViaGitHub(undefined)}
+              width={36}
             />
           </div>
 
-          <div className={s.agreement}>
-            <ControlledCheckbox
-              control={control}
-              name={'agreement'}
-              rules={{
-                required: {
-                  message: 'This field is required',
-                  value: true,
-                },
-              }}
-            />
+          <ControlledInput
+            containerClassName={clsx(!usernameError && s.inputContainer)}
+            control={control}
+            label={'Username'}
+            name={'username'}
+            rules={{
+              maxLength: {
+                message: 'Maximum number of characters 30',
+                value: 30,
+              },
+              minLength: {
+                message: 'Minimum number of characters 6',
+                value: 6,
+              },
+              pattern: {
+                message: "Invalid characters. Only letters, numbers, '_' and '-'",
+                value: USERNAME_REG_EXP,
+              },
+              required: {
+                message: 'This field is required',
+                value: true,
+              },
+            }}
+          />
 
-            <div className={s.agreementText}>
-              <span>I agree to the</span>
-              <Link href={'terms-of-service'}>Terms of Service</Link>
-              <span>and</span>
-              <Link href={'privacy-policy'}>Privacy Policy</Link>
-            </div>
+          <ControlledInput
+            containerClassName={clsx(!emailError && s.inputContainer)}
+            control={control}
+            label={'Email'}
+            name={'email'}
+            rules={{
+              pattern: {
+                message: 'The email must match the format example@example.com',
+                value: EMAIL_REG_EXP,
+              },
+              required: {
+                message: 'This field is required',
+                value: true,
+              },
+            }}
+          />
 
-            <p className={clsx(s.checkboxErrorMessage, checkboxErrorMessage && s.show)}>
-              {checkboxErrorMessage}
-            </p>
+          <ControlledInput
+            containerClassName={clsx(!passwordError && s.inputContainer)}
+            control={control}
+            label={'Password'}
+            name={'password'}
+            rules={{
+              maxLength: {
+                message: 'Maximum number of characters 20',
+                value: 20,
+              },
+              minLength: {
+                message: 'Minimum number of characters 6',
+                value: 6,
+              },
+              pattern: {
+                message: `Password must contain a-z, A-Z, 0-9, ! " # $ % & ' ( ) * + , - . / : ; < = > ? @ [ \\ ] ^ _\` { | } ~`,
+                value: PASSWORD_REG_EXP,
+              },
+              required: {
+                message: 'This field is required',
+                value: true,
+              },
+            }}
+            type={'password'}
+          />
+
+          <ControlledInput
+            control={control}
+            label={'Password confirmation'}
+            name={'passwordConfirmation'}
+            rules={{
+              required: {
+                message: 'This field is required',
+                value: true,
+              },
+              validate: value => value === passwordValue || 'The passwords must match',
+            }}
+            type={'password'}
+          />
+        </div>
+
+        <div className={s.agreement}>
+          <ControlledCheckbox
+            control={control}
+            name={'agreement'}
+            rules={{
+              required: {
+                message: 'This field is required',
+                value: true,
+              },
+            }}
+          />
+
+          <div className={s.agreementText}>
+            <span>I agree to the</span>
+            <Link href={'terms-of-service'}>Terms of Service</Link>
+            <span>and</span>
+            <Link href={'privacy-policy'}>Privacy Policy</Link>
           </div>
 
-          <Button className={s.submitButton} disabled={isSubmitting} fullWidth>
-            Sign Up
-          </Button>
+          <p className={clsx(s.checkboxErrorMessage, checkboxErrorMessage && s.show)}>
+            {checkboxErrorMessage}
+          </p>
+        </div>
 
-          <span className={s.question}>Do you have an account?</span>
+        <Button className={s.submitButton} disabled={isSubmitting} fullWidth>
+          Sign Up
+        </Button>
 
-          <Button type={'button'} variant={'text'}>
-            <Link className={s.signIn} href={'sign-in'}>
-              Sign In
-            </Link>
-          </Button>
-        </form>
-      </Card>
-    </div>
+        <span className={s.question}>Do you have an account?</span>
+
+        <Button type={'button'} variant={'text'}>
+          <Link className={s.signIn} href={'sign-in'}>
+            Sign In
+          </Link>
+        </Button>
+      </form>
+    </Card>
   )
 }
