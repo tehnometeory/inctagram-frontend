@@ -5,9 +5,10 @@ import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(setPasswordApi.middleware).concat(passwordRecoveryApi.middleware),
-  middleware: getDefaultMiddleware =>
-    getDefaultMiddleware().concat(signUpApi.middleware).concat(setPasswordApi.middleware),
+    getDefaultMiddleware()
+      .concat(signUpApi.middleware)
+      .concat(setPasswordApi.middleware)
+      .concat(passwordRecoveryApi.middleware),
   reducer: {
     [passwordRecoveryApi.reducerPath]: passwordRecoveryApi.reducer,
     [setPasswordApi.reducerPath]: setPasswordApi.reducer,
