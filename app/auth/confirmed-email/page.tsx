@@ -1,15 +1,45 @@
 'use client'
+import { useEffect } from 'react'
+
 import { Button } from '@rambo-react/ui-meteors'
+import { jwtDecode } from 'jwt-decode'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import styles from './ConfirmedEmail.module.scss'
 
 import ConfirmedEmailImg from '../../../public/images/sign-up.svg'
 
-export default function ConfirmedEmail() {
-  const router = useRouter()
+type JWTPayload = {
+  exp: number
+}
 
+export default function ConfirmedEmailPage() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+
+  useEffect(() => {
+    const token = searchParams.get('code')
+
+    if (!token) {
+      router.replace('/auth/expired-email')
+
+      return
+    }
+    try {
+      const { exp }: JWTPayload = jwtDecode(token)
+      const now = Math.floor(Date.now() / 1000)
+
+      if (now > exp) {
+        router.replace('/auth/expired-email')
+
+        return
+      }
+    } catch (error) {
+      console.error('token processing error: ', error)
+      router.replace('/auth/expired-email')
+    }
+  }, [searchParams, router])
   const handleSignIn = () => {
     router.push('/auth/sign-in')
   }
