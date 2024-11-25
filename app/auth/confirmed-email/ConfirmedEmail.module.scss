@@ -3,9 +3,9 @@
   flex-direction: column;
   align-items: center;
   color: var(--color-light-100);
-  margin: 35px auto 84px;
+  margin: 0 auto 84px;
   @media (max-width: 425px) {
-    margin: 17px auto 112px;
+    margin: 0px auto 112px;
   }
   button {
     order: 1;
