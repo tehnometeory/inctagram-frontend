@@ -15,20 +15,20 @@ export default function ConfirmedEmailPage() {
   const router = useRouter()
   const searchParams = useSearchParams()
 
-  // useEffect(() => {
-  //   const token = searchParams.get('code')
-  //
-  //   if (!token) {
-  //     router.replace('/auth/expired-email')
-  //
-  //     return
-  //   }
-  //   if (!checkTokenValidity(token)) {
-  //     router.replace('/auth/expired-email')
-  //
-  //     return
-  //   }
-  // }, [searchParams, router])
+  useEffect(() => {
+    const token = searchParams.get('code')
+
+    if (!token) {
+      router.replace('/auth/expired-email')
+
+      return
+    }
+    if (!checkTokenValidity(token)) {
+      router.replace('/auth/expired-email')
+
+      return
+    }
+  }, [searchParams, router])
 
   return (
     <div className={styles.container}>
