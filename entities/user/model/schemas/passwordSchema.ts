@@ -16,5 +16,5 @@ export const passwordSchema = z
       /[a-z]/.test(password) &&
       /[A-Z]/.test(password) &&
       REG_EXP_PASSWORD.test(password),
-    { message: PASSWORD_REQUIREMENTS }
+    PASSWORD_REQUIREMENTS
   )
