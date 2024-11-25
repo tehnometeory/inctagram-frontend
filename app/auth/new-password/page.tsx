@@ -1,6 +1,6 @@
 'use client'
 
-import { NewPasswordForm } from '@/features/new-password'
+import { NewPasswordForm } from '@/features/newPassword'
 
 export default function NewPassword() {
   return <NewPasswordForm />

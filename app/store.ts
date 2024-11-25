@@ -1,4 +1,4 @@
-import { setPasswordApi } from '@/features/new-password/model/api'
+import { setPasswordApi } from '@/features/newPassword/model/api'
 import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({
