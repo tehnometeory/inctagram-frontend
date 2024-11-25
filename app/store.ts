@@ -15,6 +15,3 @@ export const store = configureStore({
     [signUpApi.reducerPath]: signUpApi.reducer,
   },
 })
-
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch
