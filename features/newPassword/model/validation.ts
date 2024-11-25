@@ -1,4 +1,5 @@
 import { passwordSchema } from '@/entities'
+import { PASSWORDS_MUST_MATCH_MESSAGE } from '@/shared'
 import { z } from 'zod'
 
 export const newPasswordSchema = z
@@ -7,6 +8,6 @@ export const newPasswordSchema = z
     passwordConfirmation: z.string(),
   })
   .refine(data => data.newPassword === data.passwordConfirmation, {
-    message: 'Passwords must match',
+    message: PASSWORDS_MUST_MATCH_MESSAGE,
     path: ['passwordConfirmation'],
   })

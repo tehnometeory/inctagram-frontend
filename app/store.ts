@@ -1,6 +1,6 @@
 import { passwordRecoveryApi } from '@/features/ForgotPassword/api'
 import { signUpApi } from '@/features/SignUp/api/signUpApi'
-import { setPasswordApi } from '@/features/new-password/model/api'
+import { setPasswordApi } from '@/features/newPassword/model/api'
 import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({
