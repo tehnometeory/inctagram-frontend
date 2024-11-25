@@ -1,4 +1,4 @@
-import { useScreenDetector } from '@/shared/hooks/useScreenDetector'
+import { useScreenDetector } from '@/shared'
 import Image from 'next/image'
 
 interface ImageSize {
