@@ -3,7 +3,8 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { useResendEmailMutation } from '@/features'
-import { ExpiredEmailLinkForm } from '@/features/ExpiredEmailLink/ui'
+
+import { ExpiredEmailLinkForm } from '../ExpiredEmailLinkForm'
 
 export const ExpiredEmailLink = () => {
   const { control, handleSubmit, reset, setError, setValue, watch } = useForm({
@@ -21,7 +22,6 @@ export const ExpiredEmailLink = () => {
       setShowModal(true)
       setValue('email', data.email)
     } catch {
-      debugger
       setError('email', { message: "User with this email doesn't exist", type: 'manual' })
     }
   })

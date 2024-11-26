@@ -6,7 +6,7 @@ import { ControlledInput, SentEmailModal } from '@/shared'
 import { Button } from '@rambo-react/ui-meteors'
 import Image from 'next/image'
 
-import styles from '@/features/ExpiredEmailLink/ui/ExpiredEmailLinkForm/ExpiredEmailLinkForm.module.scss'
+import styles from './ExpiredEmailLinkForm.module.scss'
 
 type ExpiredEmailLinkFormProps = {
   control: Control<{ email: string }, any>
