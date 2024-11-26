@@ -2,13 +2,15 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { useResendEmailMutation } from '@/features'
+import { passwordRecoverySchema, useResendEmailMutation } from '@/features'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 import { ExpiredEmailLinkForm } from '../ExpiredEmailLinkForm'
 
 export const ExpiredEmailLink = () => {
   const { control, handleSubmit, reset, setError, setValue, watch } = useForm({
     defaultValues: { email: '' },
+    resolver: zodResolver(passwordRecoverySchema),
   })
   const [showModal, setShowModal] = useState(false)
   const [resendEmail, { isLoading: isLoadingResendEmail }] = useResendEmailMutation()
@@ -26,6 +28,7 @@ export const ExpiredEmailLink = () => {
     }
   })
   const email = watch('email')
+  const isDisabled = !email || isLoadingResendEmail
 
   return (
     <ExpiredEmailLinkForm
@@ -33,6 +36,7 @@ export const ExpiredEmailLink = () => {
       email={email}
       handleCloseShowModal={handleCloseShowModal}
       handleSubmitDataForm={handleSubmitDataForm}
+      isDisabled={isDisabled}
       showModal={showModal}
     />
   )

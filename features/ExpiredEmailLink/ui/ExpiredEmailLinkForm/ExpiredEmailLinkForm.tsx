@@ -13,6 +13,7 @@ type ExpiredEmailLinkFormProps = {
   email: string
   handleCloseShowModal(): void
   handleSubmitDataForm(): void
+  isDisabled: boolean
   showModal: boolean
 }
 export const ExpiredEmailLinkForm = ({
@@ -20,6 +21,7 @@ export const ExpiredEmailLinkForm = ({
   email,
   handleCloseShowModal,
   handleSubmitDataForm,
+  isDisabled,
   showModal,
 }: ExpiredEmailLinkFormProps) => {
   const formRef = useRef<HTMLFormElement>(null)
@@ -40,6 +42,7 @@ export const ExpiredEmailLinkForm = ({
       </form>
       <Button
         className={styles.btnResendLink}
+        disabled={isDisabled}
         fullWidth={false}
         onClick={() => handleSubmitDataForm()}
         variant={'primary'}
