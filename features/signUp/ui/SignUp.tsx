@@ -2,6 +2,8 @@
 
 import { useForm } from 'react-hook-form'
 
+import { setAlert } from '@/entities'
+import { handleNetworkError, handleServerError, useAppDispatch } from '@/shared'
 import { ControlledCheckbox, ControlledInput } from '@/shared/ui'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Card, Github, Google } from '@rambo-react/ui-meteors/dist'
@@ -26,6 +28,8 @@ type Props = {
 }
 
 export const SignUp = ({ onSuccessfulSubmit }: Props) => {
+  const dispatch = useAppDispatch()
+
   const {
     control,
     formState: { errors, isSubmitting },
@@ -55,7 +59,11 @@ export const SignUp = ({ onSuccessfulSubmit }: Props) => {
     const response = await registerUser(userData)
 
     if (response.error) {
-      if ('data' in response.error) {
+      if ('status' in response.error && response.error.status === 500) {
+        handleServerError(dispatch)
+      } else if ('status' in response.error && response.error.status === 'FETCH_ERROR') {
+        handleNetworkError(dispatch)
+      } else if ('data' in response.error) {
         const errorMessage = (response.error.data as RegistrationErrorResponse).errorsMessages[0]
           .message
 
