@@ -1,6 +1,6 @@
 'use client'
 
-import { useCheckTokenValidity } from '@/shared/hooks/useCheckTokenValidity'
+import { useCheckTokenValidity } from '@/shared'
 import { Button } from '@rambo-react/ui-meteors'
 import Image from 'next/image'
 import Link from 'next/link'
