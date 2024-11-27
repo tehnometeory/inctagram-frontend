@@ -1,6 +1,5 @@
-import { passwordSchema } from '@/entities'
+import { emailSchema, passwordSchema } from '@/entities'
 import {
-  EMAIL_FORMAT_ERROR_MESSAGE,
   MAX_CHARACTERS_MESSAGE,
   MIN_CHARACTERS_MESSAGE,
   PASSWORDS_MUST_MATCH_MESSAGE,
@@ -11,7 +10,7 @@ import { z } from 'zod'
 export const signUpSchema = z
   .object({
     agreement: z.boolean().refine(val => val, 'This field is required'),
-    email: z.string().email(EMAIL_FORMAT_ERROR_MESSAGE),
+    email: emailSchema,
     password: passwordSchema,
     passwordConfirmation: z.string(),
     username: z

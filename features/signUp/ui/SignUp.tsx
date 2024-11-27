@@ -2,7 +2,6 @@
 
 import { useForm } from 'react-hook-form'
 
-import { setAlert } from '@/entities'
 import { handleNetworkError, handleServerError, useAppDispatch } from '@/shared'
 import { ControlledCheckbox, ControlledInput } from '@/shared/ui'
 import { zodResolver } from '@hookform/resolvers/zod'
