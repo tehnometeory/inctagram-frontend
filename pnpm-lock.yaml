@@ -12,8 +12,8 @@ importers:
         specifier: ^3.9.1
         version: 3.9.1(react-hook-form@7.53.1(react@19.0.0-rc-02c0e824-20241028))
       '@rambo-react/ui-meteors':
-        specifier: ^0.2.7
-        version: 0.2.7(@types/react-dom@18.3.1)(@types/react@18.3.12)
+        specifier: ^0.2.8
+        version: 0.2.8(@types/react-dom@18.3.1)(@types/react@18.3.12)
       '@reduxjs/toolkit':
         specifier: ^2.3.0
         version: 2.3.0(react-redux@9.1.2(@types/react@18.3.12)(react@19.0.0-rc-02c0e824-20241028)(redux@5.0.1))(react@19.0.0-rc-02c0e824-20241028)
@@ -866,8 +866,8 @@ packages:
   '@radix-ui/rect@1.1.0':
     resolution: {integrity: sha512-A9+lCBZoaMJlVKcRBz2YByCG+Cp2t6nAnMnNba+XiWxnj6r4JUFqfsgwocMBZU9LPtdxC6wB56ySYpc7LQIoJg==}
 
-  '@rambo-react/ui-meteors@0.2.7':
-    resolution: {integrity: sha512-1x6LV0WfN8ipW3noxHa41FxdAhbCVKGry+5wamtlJRVguFkX+3T4xbF4wT30cnCcUdwumxMkUgg452lyEFwtXg==}
+  '@rambo-react/ui-meteors@0.2.8':
+    resolution: {integrity: sha512-8aUC/ifJEXXbecauVwS+MF9eg/bqsn6Ob7WIZhnjH3Rgs7O45pH/Or6j64oYpAx8/FaB0nQ/4V+D+uAVKVEjbA==}
 
   '@reduxjs/toolkit@2.3.0':
     resolution: {integrity: sha512-WC7Yd6cNGfHx8zf+iu+Q1UPTfEcXhQ+ATi7CV1hlrSAaQBdlPzg7Ww/wJHNQem7qG9rxmWoFCDCPubSvFObGzA==}
@@ -3258,7 +3258,7 @@ snapshots:
 
   '@radix-ui/rect@1.1.0': {}
 
-  '@rambo-react/ui-meteors@0.2.7(@types/react-dom@18.3.1)(@types/react@18.3.12)':
+  '@rambo-react/ui-meteors@0.2.8(@types/react-dom@18.3.1)(@types/react@18.3.12)':
     dependencies:
       '@fontsource/inter': 5.1.0
       '@radix-ui/react-alert-dialog': 1.1.2(@types/react-dom@18.3.1)(@types/react@18.3.12)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)

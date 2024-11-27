@@ -3,6 +3,8 @@
 import { ReactNode } from 'react'
 import { Provider } from 'react-redux'
 
+import { AppAlert } from '@/features'
+
 import '@rambo-react/ui-meteors/dist/style.css'
 
 import { store } from './store'
@@ -15,7 +17,10 @@ export default function RootLayout({
   return (
     <html lang={'en'}>
       <body>
-        <Provider store={store}>{children}</Provider>
+        <Provider store={store}>
+          {children}
+          <AppAlert />
+        </Provider>
       </body>
     </html>
   )
