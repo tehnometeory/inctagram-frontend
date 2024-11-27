@@ -2,14 +2,14 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
 import { Alert, AppState } from './types'
 
-const initialState: AppState = { alert: { message: null, type: null } }
+const initialState: AppState = { alert: { message: '', type: null } }
 
 const appSlice = createSlice({
   initialState,
   name: 'counter',
   reducers: {
     removeAlert(state) {
-      state.alert.message = null
+      state.alert.message = ''
       state.alert.type = null
     },
     setAlert(state, action: PayloadAction<Alert>) {

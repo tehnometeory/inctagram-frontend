@@ -1,5 +1,5 @@
 export type Alert = {
-  message: null | string
+  message: string
   type: 'accepted' | 'error' | null
 }
 export type AppState = {
