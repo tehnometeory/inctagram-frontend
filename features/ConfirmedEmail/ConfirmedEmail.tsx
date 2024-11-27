@@ -5,7 +5,7 @@ import Link from 'next/link'
 
 import styles from './ConfirmedEmail.module.scss'
 
-import ConfirmedEmailImg from '../../../public/images/sign-up.svg'
+import ConfirmedEmailImg from '../../public/images/sign-up.svg'
 
 export const ConfirmedEmail = () => {
   return (
