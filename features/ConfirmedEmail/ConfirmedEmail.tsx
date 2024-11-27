@@ -1,13 +1,21 @@
 'use client'
+import { useEffect, useState } from 'react'
+
+import { checkTokenValidity } from '@/shared'
+import { useCheckTokenValidity } from '@/shared/hooks/useCheckTokenValidity'
 import { Button } from '@rambo-react/ui-meteors'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import styles from './ConfirmedEmail.module.scss'
 
-import ConfirmedEmailImg from '../../public/images/sign-up.svg'
-
 export const ConfirmedEmail = () => {
+  const isRedirecting = useCheckTokenValidity('/auth/expired-email-link')
+
+  if (isRedirecting) {
+    return null
+  }
+
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>Congratulations!</h1>
@@ -22,12 +30,10 @@ export const ConfirmedEmail = () => {
         alt={'confirmed email'}
         className={styles.img}
         height={300}
+        priority
         sizes={`(max-width: 425px) 320px,
                 432px`}
-        src={ConfirmedEmailImg}
-        style={{
-          width: '100%',
-        }}
+        src={'/images/sign-up.svg'}
         width={432}
       />
     </div>
