@@ -1,4 +1,5 @@
 import { appReducer } from '@/entities/app'
+import { expiredEmailLinkApi } from '@/features'
 import { signUpApi } from '@/features'
 import { passwordRecoveryApi } from '@/features/ForgotPassword/api'
 import { setPasswordApi } from '@/features/newPassword/model/api'
@@ -9,9 +10,11 @@ export const store = configureStore({
     getDefaultMiddleware()
       .concat(signUpApi.middleware)
       .concat(setPasswordApi.middleware)
-      .concat(passwordRecoveryApi.middleware),
+      .concat(passwordRecoveryApi.middleware)
+      .concat(expiredEmailLinkApi.middleware),
   reducer: {
     app: appReducer,
+    [expiredEmailLinkApi.reducerPath]: expiredEmailLinkApi.reducer,
     [passwordRecoveryApi.reducerPath]: passwordRecoveryApi.reducer,
     [setPasswordApi.reducerPath]: setPasswordApi.reducer,
     [signUpApi.reducerPath]: signUpApi.reducer,

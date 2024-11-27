@@ -1,4 +1,5 @@
 export * from './ControlledCheckbox'
 export * from './ControlledInput'
+export * from './ExpiredEmailLinkForm'
 export * from './SentEmailModal'
 export * from './TermsPageTemplate'

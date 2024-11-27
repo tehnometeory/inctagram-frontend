@@ -1,1 +1,1 @@
-export * from './ExpiredEmailLinkForm/ExpiredEmailLinkForm'
+export * from './ExpiredEmailLink'

@@ -1,6 +1,6 @@
 @use '@rambo-react/ui-meteors/dist/typography' as typography;
 
-.container {
+.form {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -29,4 +29,8 @@
   @include typography.H3;
 
   margin: 24px auto 36px;
+}
+
+.img {
+  width: 100%;
 }
