@@ -1,3 +1,7 @@
-export default function ExpiredEmail() {
-  return <div>Expired Email</div>
+'use client'
+
+import { ExpiredEmailLink } from '@/features/ExpiredEmailLink/ui/ExpiredEmailLink'
+
+export default function ExpiredEmailPage() {
+  return <ExpiredEmailLink />
 }
