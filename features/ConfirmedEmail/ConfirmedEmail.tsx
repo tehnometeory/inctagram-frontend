@@ -1,7 +1,5 @@
 'use client'
-import { useEffect, useState } from 'react'
 
-import { checkTokenValidity } from '@/shared'
 import { useCheckTokenValidity } from '@/shared/hooks/useCheckTokenValidity'
 import { Button } from '@rambo-react/ui-meteors'
 import Image from 'next/image'
