@@ -1,3 +1,4 @@
+export * from './ConfirmedEmail'
 export * from './AppAlert'
 export * from './ExpiredEmailLink'
 export * from './ForgotPassword'
