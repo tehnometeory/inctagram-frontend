@@ -6,7 +6,7 @@ const initialState: AppState = { alert: { message: '', type: null } }
 
 const appSlice = createSlice({
   initialState,
-  name: 'counter',
+  name: 'app',
   reducers: {
     removeAlert(state) {
       state.alert.message = ''
