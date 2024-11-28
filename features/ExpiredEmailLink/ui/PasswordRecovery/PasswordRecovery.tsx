@@ -1,43 +1,35 @@
 'use client'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
 
-import { passwordRecoverySchema, useValidEmailMutation } from '@/features'
-import { zodResolver } from '@hookform/resolvers/zod'
-
-import { ExpiredEmailLinkForm } from '../ExpiredEmailLinkForm'
+import { ValidEmailArgs } from '@/features/ExpiredEmailLink/api/types'
+import { useValidEmailMutation } from '@/features/ForgotPassword'
+import {
+  ExpiredEmailLinkForm,
+  handleNetworkError,
+  handleServerError,
+  useAppDispatch,
+} from '@/shared'
 
 export const PasswordRecovery = () => {
-  const { control, handleSubmit, reset, setError, setValue, watch } = useForm({
-    defaultValues: { email: '' },
-    resolver: zodResolver(passwordRecoverySchema),
-  })
-  const [showModal, setShowModal] = useState(false)
-  const [validEmail, { isLoading: isLoadingValidEmail }] = useValidEmailMutation()
-  const handleCloseShowModal = () => {
-    setShowModal(false)
-    reset()
-  }
-  const handleSubmitDataForm = handleSubmit(async data => {
-    try {
-      await validEmail({ email: data.email }).unwrap()
-      setShowModal(true)
-      setValue('email', data.email)
-    } catch {
-      setError('email', { message: "User with this email doesn't exist", type: 'manual' })
-    }
-  })
-  const email = watch('email')
-  const isDisabled = !email || isLoadingValidEmail
+  const [validEmail, { isLoading }] = useValidEmailMutation()
 
-  return (
-    <ExpiredEmailLinkForm
-      control={control}
-      email={email}
-      handleCloseShowModal={handleCloseShowModal}
-      handleSubmitDataForm={handleSubmitDataForm}
-      isDisabled={isDisabled}
-      showModal={showModal}
-    />
-  )
+  const dispatch = useAppDispatch()
+
+  const onSubmit = async (data: ValidEmailArgs) => {
+    const response = await validEmail(data)
+
+    if (response.error) {
+      if ('status' in response.error && response.error.status === 500) {
+        handleServerError(dispatch)
+      } else if ('status' in response.error && response.error.status === 'FETCH_ERROR') {
+        handleNetworkError(dispatch)
+      } else if ('data' in response.error) {
+      }
+
+      return false
+    } else {
+      return true
+    }
+  }
+
+  return <ExpiredEmailLinkForm isDisabled={isLoading} onSubmit={onSubmit} />
 }
