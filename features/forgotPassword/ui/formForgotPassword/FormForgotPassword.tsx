@@ -7,7 +7,7 @@ import {
   passwordRecoverySchema,
   useResendEmailMutation,
   useValidEmailMutation,
-} from '@/features/ForgotPassword/api'
+} from '@/features/forgotPassword/api'
 import { ControlledInput, SentEmailModal } from '@/shared/ui'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Card, Recaptcha } from '@rambo-react/ui-meteors'

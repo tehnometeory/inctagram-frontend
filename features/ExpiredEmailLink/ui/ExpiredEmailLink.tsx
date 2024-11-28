@@ -1,5 +1,4 @@
 'use client'
-
 import { useResendConfirmationCodeMutation } from '@/features/ExpiredEmailLink/api'
 import { ResendConfirmationCodeArgs } from '@/features/ExpiredEmailLink/api/types'
 import {
