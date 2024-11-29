@@ -6,7 +6,6 @@ type JWTPayload = {
 
 export const checkTokenValidity = (token: string): boolean => {
   const { exp }: JWTPayload = jwtDecode(token)
-  const now = Math.floor(Date.now() / 1000)
 
-  return now <= exp
+  return exp * 1000 < Date.now()
 }
