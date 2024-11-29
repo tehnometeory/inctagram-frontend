@@ -47,12 +47,16 @@ export const ExpiredEmailLinkForm = ({ isDisabled, onSubmit }: Props) => {
         <p className={styles.description}>
           Looks like the verification link has expired. Not to worry, we can send the link again
         </p>
-        <ControlledInput
-          control={control}
-          label={'Email'}
-          name={'email'}
-          placeholder={'Epam@epam.com'}
-        />
+        <div className={styles.input}>
+          <ControlledInput
+            control={control}
+            label={'Email'}
+            name={'email'}
+            placeholder={'Epam@epam.com'}
+            type={'email'}
+          />
+        </div>
+
         <Button
           className={styles.btnResendLink}
           disabled={isDisabled}

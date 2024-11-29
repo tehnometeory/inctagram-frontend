@@ -12,6 +12,10 @@
   color: var(--color-light-100);
 }
 
+.input {
+  max-width: 229px;
+}
+
 .title {
   @include typography.H1;
 
