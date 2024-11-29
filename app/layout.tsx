@@ -4,6 +4,7 @@ import { ReactNode } from 'react'
 import { Provider } from 'react-redux'
 
 import { AppAlert } from '@/features'
+import { NextNprogress } from '@/shared'
 
 import '@rambo-react/ui-meteors/dist/style.css'
 
@@ -21,6 +22,7 @@ export default function RootLayout({
           {children}
           <AppAlert />
         </Provider>
+        <NextNprogress />
       </body>
     </html>
   )
