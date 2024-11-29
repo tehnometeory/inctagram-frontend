@@ -1,6 +1,6 @@
-export * from './AppAlert'
 export * from './ConfirmedEmail'
 export * from './ExpiredEmailLink'
+export * from './appAlert'
 export * from './forgotPassword'
 export * from './newPassword'
 export * from './signUp'
