@@ -4,7 +4,6 @@ import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { useForm } from 'react-hook-form'
 
 import { formWithEmailSchema } from '@/entities'
-import { RegistrationErrorResponse } from '@/features'
 import { handleNetworkError, handleServerError, useAppDispatch } from '@/shared'
 import { ControlledInput, SentEmailModal } from '@/shared/ui'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -13,7 +12,7 @@ import Link from 'next/link'
 
 import s from './FormForgotPassword.module.scss'
 
-import { RecaptchaError, useValidEmailMutation } from '../../api'
+import { PasswordRecoveryErrorResponse, RecaptchaError, useValidEmailMutation } from '../../api'
 
 export function FormForgotPassword() {
   const dispatch = useAppDispatch()
@@ -55,8 +54,8 @@ export function FormForgotPassword() {
         }
       }
       if ('data' in response.error) {
-        const errorMessage = (response.error.data as RegistrationErrorResponse).errorsMessages[0]
-          .message
+        const errorMessage = (response.error.data as PasswordRecoveryErrorResponse)
+          .errorsMessages[0].message
 
         if (errorMessage === 'user not found') {
           setError('email', { message: "User with this email doesn't exist", type: 'manual' })

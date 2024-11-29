@@ -8,3 +8,10 @@ export type ValidEmailArgs = {
 export type RecaptchaError = {
   message: string
 }
+export type PasswordRecoveryErrorResponse = {
+  errorsMessages: ErrorsMessages[]
+}
+type ErrorsMessages = {
+  field: string
+  message: string
+}
