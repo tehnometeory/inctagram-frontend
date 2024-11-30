@@ -1,11 +1,25 @@
 import { useEffect, useState } from 'react'
 
-import { checkTokenValidity } from '@/shared'
-import { useRouter, useSearchParams } from 'next/navigation'
+import { checkTokenValidity, useNRouter } from '@/shared'
+import { useSearchParams } from 'next/navigation'
 
-export const useCheckTokenValidity = (redirectTo: string, searchParameter: string): boolean => {
+type NRouter = {
+  back: (nProgressOptions?: any) => void
+  push: (href: string, options?: any, nProgressOptions?: any) => void
+  replace: (href: string, options?: any, nProgressOptions?: any) => void
+}
+type ReturnParameters = {
+  isRedirecting: boolean
+  router: NRouter
+  token: null | string
+}
+
+export const useCheckTokenValidity = (
+  redirectTo: string,
+  searchParameter: string
+): ReturnParameters => {
   const [isRedirecting, setIsRedirecting] = useState(true)
-  const router = useRouter()
+  const router = useNRouter()
   const searchParams = useSearchParams()
 
   const token = searchParams.get(searchParameter)
@@ -18,5 +32,5 @@ export const useCheckTokenValidity = (redirectTo: string, searchParameter: strin
     }
   }, [token, redirectTo, router])
 
-  return isRedirecting
+  return { isRedirecting, router, token }
 }
