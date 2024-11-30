@@ -4,7 +4,13 @@ import { useGoogleReCaptcha } from 'react-google-recaptcha-v3'
 import { useForm } from 'react-hook-form'
 
 import { formWithEmailSchema } from '@/entities'
-import { handleNetworkError, handleServerError, useAppDispatch } from '@/shared'
+import {
+  ErrorsMessage,
+  ErrorsMessagesResponse,
+  handleNetworkError,
+  handleServerError,
+  useAppDispatch,
+} from '@/shared'
 import { ControlledInput, SentEmailModal } from '@/shared/ui'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Card, Recaptcha } from '@rambo-react/ui-meteors'
@@ -12,7 +18,7 @@ import Link from 'next/link'
 
 import s from './FormForgotPassword.module.scss'
 
-import { PasswordRecoveryErrorResponse, RecaptchaError, useValidEmailMutation } from '../../api'
+import { useValidEmailMutation } from '../../api'
 
 export function FormForgotPassword() {
   const dispatch = useAppDispatch()
@@ -46,7 +52,7 @@ export function FormForgotPassword() {
         handleNetworkError(dispatch)
       }
       if ('data' in response.error) {
-        const errorReCaptcha = (response.error.data as RecaptchaError).message
+        const errorReCaptcha = (response.error.data as ErrorsMessage).message
 
         if (errorReCaptcha === 'Invalid reCAPTCHA') {
           setSendLinkStatus('error')
@@ -54,8 +60,8 @@ export function FormForgotPassword() {
         }
       }
       if ('data' in response.error) {
-        const errorMessage = (response.error.data as PasswordRecoveryErrorResponse)
-          .errorsMessages[0].message
+        const errorMessage = (response.error.data as ErrorsMessagesResponse).errorsMessages[0]
+          .message
 
         if (errorMessage === 'user not found') {
           setError('email', { message: "User with this email doesn't exist", type: 'manual' })
