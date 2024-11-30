@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { useForm } from 'react-hook-form'
+import { UseFormSetError, useForm } from 'react-hook-form'
 
 import { formWithEmailSchema } from '@/entities'
 import { ControlledInput, SentEmailModal } from '@/shared'
@@ -11,7 +11,7 @@ import styles from './ExpiredEmailLinkForm.module.scss'
 
 type Props = {
   isDisabled: boolean
-  onSubmit(data: FormValues): Promise<boolean>
+  onSubmit(data: FormValues, setError: UseFormSetError<FormValues>): Promise<boolean>
 }
 type FormValues = {
   email: string
@@ -20,25 +20,25 @@ type FormValues = {
 export const ExpiredEmailLinkForm = ({ isDisabled, onSubmit }: Props) => {
   const [showModal, setShowModal] = useState(false)
 
-  const { control, handleSubmit, reset, watch } = useForm<FormValues>({
+  const { control, handleSubmit, reset, setError, watch } = useForm<FormValues>({
     defaultValues: { email: '' },
     resolver: zodResolver(formWithEmailSchema),
   })
 
-  const email = watch('email')
-
   const handleCloseShowModal = () => {
+    reset()
     setShowModal(false)
   }
 
   const onSubmitHandler = handleSubmit(async data => {
-    const isResponseSuccessful = await onSubmit(data)
+    const isResponseSuccessful = await onSubmit(data, setError)
 
     if (isResponseSuccessful) {
       setShowModal(true)
-      reset()
     }
   })
+
+  const email = watch('email')
 
   return (
     <>
@@ -47,12 +47,16 @@ export const ExpiredEmailLinkForm = ({ isDisabled, onSubmit }: Props) => {
         <p className={styles.description}>
           Looks like the verification link has expired. Not to worry, we can send the link again
         </p>
-        <ControlledInput
-          control={control}
-          label={'Email'}
-          name={'email'}
-          placeholder={'Epam@epam.com'}
-        />
+        <div className={styles.input}>
+          <ControlledInput
+            control={control}
+            label={'Email'}
+            name={'email'}
+            placeholder={'Epam@epam.com'}
+            type={'email'}
+          />
+        </div>
+
         <Button
           className={styles.btnResendLink}
           disabled={isDisabled}
