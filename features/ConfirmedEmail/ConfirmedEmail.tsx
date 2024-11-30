@@ -8,7 +8,7 @@ import Link from 'next/link'
 import styles from './ConfirmedEmail.module.scss'
 
 export const ConfirmedEmail = () => {
-  const isRedirecting = useCheckTokenValidity('/auth/expired-email-link')
+  const { isRedirecting } = useCheckTokenValidity('/auth/expired-email-link', 'code')
 
   if (isRedirecting) {
     return null

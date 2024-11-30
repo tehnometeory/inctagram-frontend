@@ -3,5 +3,5 @@ export type ValidEmailResponse = {
 }
 export type ValidEmailArgs = {
   email: string
-  recaptchaValue: string
+  recaptchaValue?: string
 }
