@@ -1,3 +1,7 @@
-export default function PasswordRecovery() {
-  return <div>Password Recovery</div>
+'use client'
+
+import { PasswordRecovery } from '@/features/ExpiredEmailLink/ui/PasswordRecovery'
+
+export default function PasswordRecoveryPage() {
+  return <PasswordRecovery />
 }
