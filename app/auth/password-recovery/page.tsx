@@ -1,6 +1,6 @@
 'use client'
 
-import { PasswordRecovery } from '@/features/ExpiredEmailLink/ui/PasswordRecovery'
+import { PasswordRecovery } from '@/features'
 
 export default function PasswordRecoveryPage() {
   return <PasswordRecovery />
