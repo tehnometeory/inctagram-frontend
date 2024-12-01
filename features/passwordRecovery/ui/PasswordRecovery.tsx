@@ -2,8 +2,8 @@
 
 import { UseFormSetError } from 'react-hook-form'
 
-import { ResendConfirmationCodeArgs, ValidEmailArgs } from '@/features/ExpiredEmailLink/api/types'
 import { useValidEmailMutation } from '@/features/ForgotPassword'
+import { ResendConfirmationCodeArgs, ValidEmailArgs } from '@/features/expiredEmailLink/api/types'
 import { ExpiredEmailLinkForm, handleRecoveryAndEmailLinkErrors, useAppDispatch } from '@/shared'
 
 export const PasswordRecovery = () => {

@@ -1,3 +1,5 @@
+@use '@rambo-react/ui-meteors/dist/typography' as typography;
+
 .container {
   display: flex;
   flex-direction: column;
@@ -35,10 +37,7 @@
 .title {
   margin-bottom: 20px;
 
-  font-size: 20px;
-  font-weight: 700;
-  line-height: 36px;
-  letter-spacing: 0;
+  @include typography.H1;
 
   @media (width <= 425px) {
     margin-bottom: 13px;
@@ -48,8 +47,8 @@
 .description {
   max-width: 294px;
   margin-bottom: 54px;
-  font-size: 16px;
-  line-height: 24px;
+
+  @include typography.Regular_text_16;
 
   @media (width <= 425px) {
     margin-bottom: 0;
