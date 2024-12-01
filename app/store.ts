@@ -1,6 +1,7 @@
-import { signInApi } from '@/features/SignIn/api'
-import { signUpApi } from '@/features/SignUp/api/signUpApi'
-import { setPasswordApi } from '@/features/new-password/model/api'
+import { appReducer } from '@/entities'
+import { expiredEmailLinkApi, signUpApi } from '@/features'
+import { passwordRecoveryApi } from '@/features/forgotPassword/api'
+import { setPasswordApi } from '@/features/newPassword/model/api'
 import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({
@@ -8,14 +9,14 @@ export const store = configureStore({
     getDefaultMiddleware()
       .concat(signUpApi.middleware)
       .concat(setPasswordApi.middleware)
-      .concat(signInApi.middleware),
+      .concat(passwordRecoveryApi.middleware)
+      .concat(expiredEmailLinkApi.middleware),
   reducer: {
+    app: appReducer,
+    [expiredEmailLinkApi.reducerPath]: expiredEmailLinkApi.reducer,
+    [passwordRecoveryApi.reducerPath]: passwordRecoveryApi.reducer,
     [setPasswordApi.reducerPath]: setPasswordApi.reducer,
     [signInApi.reducerPath]: signInApi.reducer,
     [signUpApi.reducerPath]: signUpApi.reducer,
   },
 })
-
-// types
-export type RootState = ReturnType<typeof store.getState>
-export type AppDispatch = typeof store.dispatch

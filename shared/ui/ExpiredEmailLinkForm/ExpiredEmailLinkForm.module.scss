@@ -1,0 +1,40 @@
+@use '@rambo-react/ui-meteors/dist/typography' as typography;
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+
+  margin: 0 auto 45px;
+
+  color: var(--color-light-100);
+}
+
+.input {
+  max-width: 229px;
+}
+
+.title {
+  @include typography.H1;
+
+  margin-bottom: 20px;
+}
+
+.description {
+  @include typography.Regular_text_16;
+
+  max-width: 294px;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.btnResendLink {
+  @include typography.H3;
+
+  margin: 24px auto 36px;
+}
+
+.img {
+  width: 100%;
+}
