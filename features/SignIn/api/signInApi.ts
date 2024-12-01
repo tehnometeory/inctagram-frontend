@@ -1,12 +1,12 @@
 import { BASE_URL_API, ErrorsMessagesResponse } from '@/shared'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import { LoginBody, LoginSuccessResponse } from './types'
+import { AuthResponse, LoginBody } from './types'
 
 export const signInApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL_API }),
   endpoints: builder => ({
-    login: builder.mutation<ErrorsMessagesResponse | LoginSuccessResponse, LoginBody>({
+    login: builder.mutation<AuthResponse, LoginBody>({
       query: body => ({
         body,
         method: 'POST',
