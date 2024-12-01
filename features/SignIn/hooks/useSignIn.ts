@@ -1,5 +1,8 @@
 import { useForm } from 'react-hook-form'
 
+import { store } from '@/app/store'
+import { setAccessToken } from '@/entities'
+import { useAppDispatch } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
@@ -18,6 +21,8 @@ export const useSignIn = () => {
 
   type FormValues = z.infer<typeof signInSchema>
 
+  const dispatch = useAppDispatch()
+
   const [login, { isLoading }] = useLoginMutation()
   const [triggerLoginViaGoogle] = useLazyLoginViaGoogleQuery()
   const [triggerLoginViaGitHub] = useLazyLoginViaGitHubQuery()
@@ -31,11 +36,14 @@ export const useSignIn = () => {
           methods.setError('password', {
             message: 'The email or password are incorrect. Try again please',
           })
-        } else {
+        } else if ('status' in response.error && response.error.status === 'FETCH_ERROR') {
           methods.setError('password', {
             message: 'Check your internet connection',
           })
         }
+      } else if ('accessToken' in response.data) {
+        dispatch(setAccessToken(response.data.accessToken))
+        methods.reset()
       }
     } catch (e: any) {
       methods.setError('password', {
