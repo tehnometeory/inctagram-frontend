@@ -10,6 +10,7 @@ import {
   handleNetworkError,
   handleServerError,
   useAppDispatch,
+  useValidEmailMutation,
 } from '@/shared'
 import { ControlledInput, SentEmailModal } from '@/shared/ui'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -17,8 +18,6 @@ import { Button, Card, Recaptcha } from '@rambo-react/ui-meteors'
 import Link from 'next/link'
 
 import s from './FormForgotPassword.module.scss'
-
-import { useValidEmailMutation } from '../../api'
 
 export function FormForgotPassword() {
   const dispatch = useAppDispatch()

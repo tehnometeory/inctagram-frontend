@@ -1,2 +1,2 @@
-export * from './api'
+export * from '../../shared/api/passwordRecoveryApi'
 export * from './ui'
