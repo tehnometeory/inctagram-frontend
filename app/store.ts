@@ -10,7 +10,8 @@ export const store = configureStore({
       .concat(signUpApi.middleware)
       .concat(setPasswordApi.middleware)
       .concat(passwordRecoveryApi.middleware)
-      .concat(expiredEmailLinkApi.middleware),
+      .concat(expiredEmailLinkApi.middleware)
+      .concat(signInApi.middleware),
   reducer: {
     app: appReducer,
     auth: authReducer,
