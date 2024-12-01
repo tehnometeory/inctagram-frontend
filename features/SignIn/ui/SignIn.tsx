@@ -8,11 +8,7 @@ import { Button, Card, Github, Google } from '@rambo-react/ui-meteors'
 
 import styles from './SignIn.module.scss'
 
-type Props = {
-  onSumbit: () => void
-}
-
-export const SignIn = ({ onSumbit }: Props) => {
+export const SignIn = () => {
   const { isLoading, methods, onSubmit, triggerLoginViaGitHub, triggerLoginViaGoogle } = useSignIn()
 
   return (
