@@ -5,7 +5,6 @@ import { z } from 'zod'
 
 import { useLazyLoginViaGitHubQuery, useLazyLoginViaGoogleQuery, useLoginMutation } from '../api'
 import { signInSchema } from '../model/validation'
-import { LoginErrorResponse } from './../api/types'
 
 export const useSignIn = () => {
   const methods = useForm<FormValues>({
