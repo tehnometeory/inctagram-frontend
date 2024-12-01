@@ -1,7 +1,7 @@
 'use client'
 import { GoogleReCaptchaProvider } from 'react-google-recaptcha-v3'
 
-import { FormForgotPassword } from './FormForgotPassword'
+import { FormForgotPassword } from './formForgotPassword'
 
 export function ForgotPassword() {
   return (
