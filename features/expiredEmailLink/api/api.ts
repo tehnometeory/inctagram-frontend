@@ -1,4 +1,4 @@
-import { ResendConfirmationCodeArgs } from '@/features/ExpiredEmailLink/api/types'
+import { ResendConfirmationCodeArgs } from '@/features/expiredEmailLink/api/types'
 import { BASE_URL_API, ErrorsMessagesResponse } from '@/shared'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 

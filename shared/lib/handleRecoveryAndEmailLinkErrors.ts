@@ -1,6 +1,6 @@
 import { UseFormSetError } from 'react-hook-form'
 
-import { ResendConfirmationCodeArgs } from '@/features/ExpiredEmailLink/api/types'
+import { ResendConfirmationCodeArgs } from '@/features/expiredEmailLink/api/types'
 import {
   AppDispatch,
   ErrorsMessagesResponse,

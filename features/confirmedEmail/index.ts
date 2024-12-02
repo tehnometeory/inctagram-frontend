@@ -1,1 +1,1 @@
-export * from './ConfirmedEmail'
+export * from './ui'
