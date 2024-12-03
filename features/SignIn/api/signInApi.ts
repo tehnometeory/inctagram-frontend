@@ -1,9 +1,7 @@
-import { BASE_URL_API, ErrorsMessagesResponse } from '@/shared'
+import { BASE_URL_API } from '@/shared'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 import { AuthResponse, LoginBody } from './types'
-
-//Заняться эндпоинтами оаутх
 
 export const signInApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL_API }),
