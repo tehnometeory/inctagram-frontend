@@ -15,7 +15,7 @@ export const signUpApi = createApi({
     }),
     registrationViaGitHub: builder.query<void, void>({
       query: () => ({
-        url: 'oauth/google/login',
+        url: 'oauth/github/login',
       }),
     }),
     registrationViaGoogle: builder.query<void, void>({
