@@ -1,45 +1,61 @@
 'use client'
 
+import { useEffect } from 'react'
 import { FormProvider } from 'react-hook-form'
 
-import { useSignIn } from '@/features/SignIn/hooks/useSignIn'
-import { ControlledInput } from '@/shared/ui'
+import { ControlledInput } from '@/shared'
 import { Button, Card, Github, Google } from '@rambo-react/ui-meteors'
+import Link from 'next/link'
 
 import styles from './SignIn.module.scss'
 
+import { useSignIn } from '../hooks'
+
 export const SignIn = () => {
-  const { isLoading, methods, onSubmit, triggerLoginViaGitHub, triggerLoginViaGoogle } = useSignIn()
+  const {
+    isLoading,
+    methods,
+    onSubmit,
+    router,
+    token,
+    triggerLoginViaGitHub,
+    triggerLoginViaGoogle,
+  } = useSignIn()
+
+  useEffect(() => {
+    if (token) {
+      router.push('/home')
+    }
+  })
 
   return (
-    <section className={styles.signInContainer}>
-      <Card>
-        <h1 className={styles.title} style={{ textAlign: 'center' }}>
-          Sign In
-        </h1>
-        <div className={styles.socialContainer}>
-          <Button
-            as={'a'}
-            onClick={() => {
-              triggerLoginViaGoogle(undefined)
-            }}
-            variant={'text'}
-          >
-            <Google height={36} width={36} />
-          </Button>
-          <Button
-            as={'a'}
-            onClick={() => {
-              triggerLoginViaGitHub(undefined)
-            }}
-            variant={'text'}
-          >
-            <Github fill={'white'} height={36} width={36} />
-          </Button>
-        </div>
-        <FormProvider {...methods}>
+    <>
+      <FormProvider {...methods}>
+        <Card>
           <form onSubmit={methods.handleSubmit(onSubmit)}>
-            <div className={styles.InputContainer}>
+            <h1 className={styles.title}>Sign In</h1>
+            <div className={styles.socialContainer}>
+              <Google
+                className={styles.form__icon}
+                height={36}
+                onClick={() => {
+                  triggerLoginViaGoogle(undefined)
+                }}
+                width={36}
+              />
+
+              <Github
+                className={styles.form__icon}
+                fill={'white'}
+                height={36}
+                onClick={() => {
+                  triggerLoginViaGitHub(undefined)
+                }}
+                width={36}
+              />
+            </div>
+
+            <div className={styles.inputContainer}>
               <ControlledInput
                 containerClassName={styles.emailInput}
                 control={methods.control}
@@ -48,7 +64,7 @@ export const SignIn = () => {
                 placeholder={'Epam@epam.com'}
               />
             </div>
-            <div className={styles.InputContainer}>
+            <div className={styles.inputContainer}>
               <ControlledInput
                 containerClassName={styles.passwordInput}
                 control={methods.control}
@@ -58,27 +74,21 @@ export const SignIn = () => {
                 type={'password'}
               />
             </div>
-            <a className={styles.forgotPass} href={'/auth/forgot-password'}>
+            <Link className={styles.forgotPass} href={'/auth/forgot-password'}>
               Forgot Password
-            </a>
+            </Link>
             <Button disabled={!methods.formState.isValid || isLoading} fullWidth type={'submit'}>
               Sign In
             </Button>
+            <div className={styles.signIn__footer}>
+              <p className={styles.footer}>{`Don't have an account?`}</p>
+              <Button className={styles.signUp_button} fullWidth variant={'text'}>
+                <Link href={'/auth/sign-up'}>Sign Up</Link>
+              </Button>
+            </div>
           </form>
-        </FormProvider>
-        <div className={styles.signIn__footer}>
-          <p className={styles.footer}>{`Don't have an account?`}</p>
-          <Button
-            as={'a'}
-            className={styles.signUp_button}
-            fullWidth
-            href={'/auth/sign-up'}
-            variant={'text'}
-          >
-            Sign Up
-          </Button>
-        </div>
-      </Card>
-    </section>
+        </Card>
+      </FormProvider>
+    </>
   )
 }
