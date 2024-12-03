@@ -1,7 +1,7 @@
-export type ValidEmailResponse = {
+export type ResetPasswordResponse = {
   email: string
 }
-export type ValidEmailArgs = {
+export type ResetPasswordArgs = {
   email: string
   recaptchaValue?: string
 }

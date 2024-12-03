@@ -10,7 +10,7 @@ import {
   handleNetworkError,
   handleServerError,
   useAppDispatch,
-  useValidEmailMutation,
+  useResetPasswordMutation,
 } from '@/shared'
 import { ControlledInput, SentEmailModal } from '@/shared/ui'
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -32,7 +32,7 @@ export function FormForgotPassword() {
     defaultValues: { email: '' },
     resolver: zodResolver(formWithEmailSchema),
   })
-  const [validEmail, { isLoading: isLoadingValidEmail }] = useValidEmailMutation()
+  const [validEmail, { isLoading: isLoadingValidEmail }] = useResetPasswordMutation()
   const { executeRecaptcha } = useGoogleReCaptcha()
 
   const handleCloseShowModal = () => {
