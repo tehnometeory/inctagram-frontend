@@ -10,9 +10,8 @@ import { useRouter, useSearchParams } from 'next/navigation'
 
 import s from './NewPasswordForm.module.scss'
 
-import { useSetPasswordMutation } from '../model/api'
-import { NewPasswordFields } from '../model/types'
-import { newPasswordSchema } from '../model/validation'
+import { useSetPasswordMutation } from '..'
+import { NewPasswordFields, newPasswordSchema } from '../model'
 
 export const NewPasswordForm = () => {
   const router = useRouter()
