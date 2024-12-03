@@ -1,0 +1,15 @@
+.headerButtons {
+  display: flex;
+  align-items: center;
+
+  *:first-child {
+    margin-right: 24px;
+    margin-left: 36px;
+  }
+}
+
+@media (width<=425px) {
+  .headerButtons {
+    display: none;
+  }
+}

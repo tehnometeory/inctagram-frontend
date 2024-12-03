@@ -1,7 +1,7 @@
 export type SetPasswordResponse = any
 
 export type SetPasswordArg = {
-  code: string
+  code: null | string
   password: string
 }
 
