@@ -2,8 +2,13 @@
 
 import { useForm } from 'react-hook-form'
 
-import { handleNetworkError, handleServerError, useAppDispatch } from '@/shared'
-import { ControlledCheckbox, ControlledInput } from '@/shared/ui'
+import {
+  ControlledCheckbox,
+  ControlledInput,
+  handleNetworkError,
+  handleServerError,
+  useAppDispatch,
+} from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Card, Github, Google } from '@rambo-react/ui-meteors/dist'
 import clsx from 'clsx'

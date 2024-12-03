@@ -1,6 +1,5 @@
 import { appReducer } from '@/entities'
-import { expiredEmailLinkApi, signUpApi } from '@/features'
-import { setPasswordApi } from '@/features/newPassword/model/api'
+import { expiredEmailLinkApi, setPasswordApi, signUpApi } from '@/features'
 import { passwordRecoveryApi } from '@/shared'
 import { configureStore } from '@reduxjs/toolkit'
 

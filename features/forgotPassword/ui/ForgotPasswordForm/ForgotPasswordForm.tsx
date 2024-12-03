@@ -5,14 +5,15 @@ import { useForm } from 'react-hook-form'
 
 import { formWithEmailSchema } from '@/entities'
 import {
+  ControlledInput,
   ErrorsMessage,
   ErrorsMessagesResponse,
+  SentEmailModal,
   handleNetworkError,
   handleServerError,
   useAppDispatch,
   useResetPasswordMutation,
 } from '@/shared'
-import { ControlledInput, SentEmailModal } from '@/shared/ui'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Card, Recaptcha } from '@rambo-react/ui-meteors'
 import Link from 'next/link'
