@@ -17,9 +17,9 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Card, Recaptcha } from '@rambo-react/ui-meteors'
 import Link from 'next/link'
 
-import s from './FormForgotPassword.module.scss'
+import s from './ForgotPasswordForm.module.scss'
 
-export function FormForgotPassword() {
+export function ForgotPasswordForm() {
   const dispatch = useAppDispatch()
   const [showModal, setShowModal] = useState(false)
   const [recaptchaValue, setRecaptchaValue] = useState('')
