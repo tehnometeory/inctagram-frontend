@@ -1,6 +1,6 @@
-import { BASE_URL_API } from '@/shared'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
+import { BASE_URL_API } from '../config'
 import { ValidEmailArgs, ValidEmailResponse } from './types'
 
 export const passwordRecoveryApi = createApi({
