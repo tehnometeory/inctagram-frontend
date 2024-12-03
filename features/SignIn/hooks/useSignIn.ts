@@ -1,13 +1,15 @@
 import { useForm } from 'react-hook-form'
 
-import { store } from '@/app/store'
 import { setAccessToken } from '@/entities'
-import { useAppDispatch } from '@/shared'
+import { handleNetworkError, handleServerError, useAppDispatch, useAppSelector } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useRouter } from 'next/navigation'
 import { z } from 'zod'
 
 import { useLazyLoginViaGitHubQuery, useLazyLoginViaGoogleQuery, useLoginMutation } from '../api'
-import { signInSchema } from '../model/validation'
+import { signInSchema } from '../model'
+
+type FormValues = z.infer<typeof signInSchema>
 
 export const useSignIn = () => {
   const methods = useForm<FormValues>({
@@ -19,8 +21,8 @@ export const useSignIn = () => {
     resolver: zodResolver(signInSchema),
   })
 
-  type FormValues = z.infer<typeof signInSchema>
-
+  const token = useAppSelector(state => state.auth.accessToken)
+  const router = useRouter()
   const dispatch = useAppDispatch()
 
   const [login, { isLoading }] = useLoginMutation()
@@ -28,27 +30,22 @@ export const useSignIn = () => {
   const [triggerLoginViaGitHub] = useLazyLoginViaGitHubQuery()
 
   const onSubmit = async (data: FormValues) => {
-    try {
-      const response = await login(data)
+    const response = await login(data)
 
-      if (response.error) {
-        if ('data' in response.error) {
-          methods.setError('password', {
-            message: 'The email or password are incorrect. Try again please',
-          })
-        } else if ('status' in response.error && response.error.status === 'FETCH_ERROR') {
-          methods.setError('password', {
-            message: 'Check your internet connection',
-          })
-        }
-      } else if ('accessToken' in response.data) {
-        dispatch(setAccessToken(response.data.accessToken))
-        methods.reset()
+    if (response.error) {
+      if ('status' in response.error && response.error.status === 500) {
+        handleServerError(dispatch)
+      } else if ('data' in response.error) {
+        methods.setError('password', {
+          message: 'The email or password are incorrect. Try again please',
+        })
+      } else if ('status' in response.error && response.error.status === 'FETCH_ERROR') {
+        handleNetworkError(dispatch)
       }
-    } catch (e: any) {
-      methods.setError('password', {
-        message: 'Unknown error',
-      })
+    } else if ('accessToken' in response.data) {
+      dispatch(setAccessToken(response.data.accessToken))
+
+      methods.reset()
     }
   }
 
@@ -56,6 +53,8 @@ export const useSignIn = () => {
     isLoading,
     methods,
     onSubmit,
+    router,
+    token,
     triggerLoginViaGitHub,
     triggerLoginViaGoogle,
   }
