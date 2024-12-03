@@ -2,9 +2,10 @@
 
 import { UseFormSetError } from 'react-hook-form'
 
-import { useResendConfirmationCodeMutation } from '@/features/ExpiredEmailLink/api'
-import { ResendConfirmationCodeArgs } from '@/features/ExpiredEmailLink/api/types'
+import { ResendConfirmationCodeArgs } from '@/features/expiredEmailLink/api/types'
 import { ExpiredEmailLinkForm, handleRecoveryAndEmailLinkErrors, useAppDispatch } from '@/shared'
+
+import { useResendConfirmationCodeMutation } from '../api'
 
 export const ExpiredEmailLink = () => {
   const [resendConfirmationCode, { isLoading }] = useResendConfirmationCodeMutation()
