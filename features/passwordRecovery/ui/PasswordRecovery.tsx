@@ -2,18 +2,22 @@
 
 import { UseFormSetError } from 'react-hook-form'
 
-import { useValidEmailMutation } from '@/features/ForgotPassword'
-import { ResendConfirmationCodeArgs, ValidEmailArgs } from '@/features/expiredEmailLink/api/types'
-import { ExpiredEmailLinkForm, handleRecoveryAndEmailLinkErrors, useAppDispatch } from '@/shared'
+import {
+  ExpiredEmailLinkForm,
+  ResetPasswordResponse,
+  handleRecoveryAndEmailLinkErrors,
+  useAppDispatch,
+  useResetPasswordMutation,
+} from '@/shared'
 
 export const PasswordRecovery = () => {
-  const [validEmail, { isLoading }] = useValidEmailMutation()
+  const [validEmail, { isLoading }] = useResetPasswordMutation()
 
   const dispatch = useAppDispatch()
 
   const onSubmit = async (
-    data: ValidEmailArgs,
-    setError: UseFormSetError<ResendConfirmationCodeArgs>
+    data: ResetPasswordResponse,
+    setError: UseFormSetError<ResetPasswordResponse>
   ) => {
     const response = await validEmail(data)
 
