@@ -3,6 +3,8 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 import { AuthResponse, LoginBody } from './types'
 
+//Заняться эндпоинтами оаутх
+
 export const signInApi = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: BASE_URL_API }),
   endpoints: builder => ({
@@ -20,7 +22,7 @@ export const signInApi = createApi({
     }),
     loginViaGoogle: builder.query<any, any>({
       query: () => ({
-        url: 'oauth/google/login',
+        url: 'oauth/github/login',
       }),
     }),
   }),
