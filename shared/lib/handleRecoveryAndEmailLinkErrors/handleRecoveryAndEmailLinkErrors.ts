@@ -1,6 +1,5 @@
 import { UseFormSetError } from 'react-hook-form'
 
-import { ResendConfirmationCodeArgs } from '@/features/expiredEmailLink/api/types'
 import {
   AppDispatch,
   ErrorsMessagesResponse,
@@ -9,6 +8,8 @@ import {
 } from '@/shared'
 import { SerializedError } from '@reduxjs/toolkit'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
+
+import { ResendConfirmationCodeArgs } from './types'
 
 export function handleRecoveryAndEmailLinkErrors(
   response: {
