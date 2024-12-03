@@ -13,12 +13,12 @@ export const signUpApi = createApi({
         url: 'auth/registration',
       }),
     }),
-    registrationViaGitHub: builder.query<any, any>({
+    registrationViaGitHub: builder.query<void, void>({
       query: () => ({
-        url: 'oauth/google/login',
+        url: 'oauth/github/login',
       }),
     }),
-    registrationViaGoogle: builder.query<any, any>({
+    registrationViaGoogle: builder.query<void, void>({
       query: () => ({
         url: 'oauth/google/login',
       }),
