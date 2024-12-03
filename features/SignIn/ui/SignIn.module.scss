@@ -18,11 +18,12 @@
 
 .title {
   margin: 0;
+  text-align: center;
 
   @include typography.H1;
 }
 
-.InputContainer {
+.inputContainer {
   margin-top: 24px;
 
   label {
@@ -65,6 +66,10 @@
   }
 }
 
-.signIn__footer a {
-  color: #397df6;
+.form__icon {
+  cursor: pointer;
+}
+
+.signUp_button > a {
+  text-decoration: none;
 }
