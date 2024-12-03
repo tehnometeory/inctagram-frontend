@@ -1,9 +1,16 @@
 @import '@rambo-react/ui-meteors/dist/typography';
 
-.comeBackLink {
+.container {
   display: flex;
+  flex-direction: column;
+}
 
-  margin: 24px auto;
+.comeBackLink {
+  position: absolute;
+  top: 84px;
+  left: 64px;
+
+  display: flex;
 
   color: var(--color-light-100);
   text-decoration: none;
@@ -25,6 +32,32 @@
       fill: var(--color-accent-100);
     }
   }
+
+  @media (width <= 425px) {
+    span {
+      display: none;
+    }
+  }
+
+  @media (width <= 375px) {
+    left: 15px;
+  }
+
+  @media (width <= 320px) {
+    top: 90px;
+    left: 30px;
+  }
+}
+
+.title {
+  @include H1;
+
+  margin: 71px auto 20px;
+  text-align: center;
+
+  @media (width <= 425px) {
+    margin: 17px auto 20px;
+  }
 }
 
 .text {
@@ -33,11 +66,4 @@
   text-align: center;
 
   @include Regular_text_14;
-}
-
-.title {
-  @include H1;
-
-  margin-bottom: 20px;
-  text-align: center;
 }

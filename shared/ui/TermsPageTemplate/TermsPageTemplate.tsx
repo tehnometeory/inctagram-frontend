@@ -9,10 +9,10 @@ type Props = {
 
 export function TermsPageTemplate({ title }: Props) {
   return (
-    <>
+    <div className={styles.container}>
       <Link className={styles.comeBackLink} href={'/auth/sign-up'}>
         <ArrowBackOutline height={'24'} viewBox={'0 0 24 24'} width={'24'} />
-        Back to Sign Up
+        <span>Back to Sign Up</span>
       </Link>
       <h1 className={styles.title}>{title}</h1>
       <p className={styles.text}>
@@ -82,6 +82,6 @@ export function TermsPageTemplate({ title }: Props) {
         aliquam vestibulum morbi blandit cursus. Vel facilisis volutpat est velit egestas dui id
         ornare. Feugiat nibh sed pulvinar proin.
       </p>
-    </>
+    </div>
   )
 }

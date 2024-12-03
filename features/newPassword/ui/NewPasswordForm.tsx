@@ -2,48 +2,35 @@
 
 import { FormProvider, useForm } from 'react-hook-form'
 
-import { setAlert } from '@/entities'
-import { ControlledInput, useAppDispatch, useCheckTokenValidity } from '@/shared'
+import { ControlledInput } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Card } from '@rambo-react/ui-meteors'
+import { Alert, Button, Card } from '@rambo-react/ui-meteors'
 import { clsx } from 'clsx'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import s from './NewPasswordForm.module.scss'
 
-import { useSetPasswordMutation } from '../api/api'
-import { NewPasswordFields } from '../model/types'
-import { newPasswordSchema } from '../model/validation'
+import { useSetPasswordMutation } from '..'
+import { NewPasswordFields, newPasswordSchema } from '../model'
 
 export const NewPasswordForm = () => {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const recoveryCode = searchParams.get('recoveryCode')
   const [setPassword, { error, isError, isLoading, isSuccess }] = useSetPasswordMutation()
-  const dispatch = useAppDispatch()
-  const { isRedirecting, router, token } = useCheckTokenValidity(
-    '/auth/expired-email-link',
-    'recoveryCode'
-  )
 
   const methods = useForm<NewPasswordFields>({
     mode: 'onBlur',
     resolver: zodResolver(newPasswordSchema),
   })
 
-  if (isRedirecting) {
-    return null
-  }
-
   const onSubmitHandler = methods.handleSubmit(async (data: NewPasswordFields) => {
-    await setPassword({ code: token, password: data?.newPassword })
-      .unwrap()
-      .then(() => router.push('/auth/sign-in'))
+    if (recoveryCode) {
+      await setPassword({ code: recoveryCode, password: data?.newPassword })
+        .unwrap()
+        .then(() => router.push('/auth/sign-in'))
+    }
   })
-
-  if (isError) {
-    dispatch(setAlert({ message: (error as any).message, type: 'error' }))
-  }
-
-  if (isSuccess) {
-    dispatch(setAlert({ message: 'Password changed successfully', type: 'accepted' }))
-  }
 
   return (
     <Card className={s.card}>
@@ -64,11 +51,13 @@ export const NewPasswordForm = () => {
             type={'password'}
           />
           <p className={s.helper}>Your password must be between 6 and 20 characters</p>
-          <Button className={s.button} disabled={isLoading} fullWidth type={'submit'}>
+          <Button className={s.button} fullWidth type={'submit'}>
             Create new password
           </Button>
         </form>
       </FormProvider>
+      {!!error && <Alert message={(error as any).message} variant={'error'} />}
+      {!!isSuccess && <Alert message={'Password changed successfully'} variant={'accepted'} />}
     </Card>
   )
 }

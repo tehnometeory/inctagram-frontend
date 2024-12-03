@@ -1,7 +1,7 @@
-import { BASE_URL_API } from '@/shared'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import { ResendEmailArgs, ResendEmailResponse, ValidEmailArgs, ValidEmailResponse } from './types'
+import { BASE_URL_API } from '../config'
+import { ResetPasswordArgs, ResetPasswordResponse } from './types'
 
 export const passwordRecoveryApi = createApi({
   baseQuery: fetchBaseQuery({
@@ -11,14 +11,7 @@ export const passwordRecoveryApi = createApi({
     },
   }),
   endpoints: builder => ({
-    resendEmail: builder.mutation<ResendEmailResponse, ResendEmailArgs>({
-      query: ({ email }) => ({
-        body: { email },
-        method: 'POST',
-        url: 'auth/confirmation-code-resend',
-      }),
-    }),
-    validEmail: builder.mutation<ValidEmailResponse, ValidEmailArgs>({
+    resetPassword: builder.mutation<ResetPasswordResponse, ResetPasswordArgs>({
       query: ({ email, recaptchaValue }) => ({
         body: { email, recaptchaValue },
         method: 'POST',
@@ -29,4 +22,4 @@ export const passwordRecoveryApi = createApi({
   reducerPath: 'passwordRecoveryApi',
 })
 
-export const { useResendEmailMutation, useValidEmailMutation } = passwordRecoveryApi
+export const { useResetPasswordMutation } = passwordRecoveryApi
