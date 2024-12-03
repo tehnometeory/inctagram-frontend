@@ -13,7 +13,7 @@ export const AppHeader = () => {
   const pathname = usePathname()
   const { logInHandler, signUpHandler, ...actions } = useHeaderActions()
 
-  const isAuthPage = pathname.startsWith('/home')
+  const isAuthPage = pathname.startsWith('/auth/')
 
   return (
     <Header {...actions}>
