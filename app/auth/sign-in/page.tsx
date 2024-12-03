@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 
 import { SignIn } from '@/features/SignIn'
@@ -17,9 +17,5 @@ export default function SignInPage() {
     }
   }, [token, router])
 
-  return (
-    <>
-      <SignIn />
-    </>
-  )
+  return <SignIn />
 }

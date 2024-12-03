@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form'
 
-import { store } from '@/app/store'
 import { setAccessToken } from '@/entities'
 import { useAppDispatch } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
