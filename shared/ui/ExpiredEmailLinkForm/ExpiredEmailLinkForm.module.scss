@@ -13,6 +13,7 @@
 
 .input {
   max-width: 229px;
+  margin-bottom: 24px;
 }
 
 .title {
@@ -31,10 +32,9 @@
 
 .btnResendLink {
   @include typography.H3;
-
-  margin: 24px auto 36px;
 }
 
 .img {
   width: 100%;
+  margin-top: 36px;
 }
