@@ -1,10 +1,12 @@
 'use client'
 
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import {
   ControlledCheckbox,
   ControlledInput,
+  SentEmailModal,
   handleNetworkError,
   handleServerError,
   useAppDispatch,
@@ -27,11 +29,10 @@ import { signUpSchema } from '../model'
 
 type FormValues = z.infer<typeof signUpSchema>
 
-type Props = {
-  onSuccessfulSubmit: (email: string) => void
-}
+export const SignUp = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [email, setEmail] = useState('')
 
-export const SignUp = ({ onSuccessfulSubmit }: Props) => {
   const dispatch = useAppDispatch()
 
   const {
@@ -76,87 +77,98 @@ export const SignUp = ({ onSuccessfulSubmit }: Props) => {
         }
       }
     } else {
-      onSuccessfulSubmit(userData.email)
+      setEmail(userData.email)
+      setIsModalOpen(true)
       reset()
     }
   }
 
+  const onModalCloseHandler = () => {
+    setIsModalOpen(false)
+  }
+
   return (
-    <Card className={s.card}>
-      <form className={s.form} onSubmit={handleSubmit(onFormSubmit)}>
-        <h1 className={s.header}>Sign Up</h1>
+    <>
+      <Card className={s.card}>
+        <form className={s.form} onSubmit={handleSubmit(onFormSubmit)}>
+          <h1 className={s.header}>Sign Up</h1>
 
-        <div>
-          <div className={s.icons}>
-            <Google
-              height={36}
-              onClick={() => triggerRegistrationViaGoogle(undefined)}
-              width={36}
+          <div>
+            <div className={s.icons}>
+              <Google
+                height={36}
+                onClick={() => triggerRegistrationViaGoogle(undefined)}
+                width={36}
+              />
+
+              <Github
+                fill={'#fff'}
+                height={36}
+                onClick={() => triggerRegistrationViaGitHub(undefined)}
+                width={36}
+              />
+            </div>
+
+            <ControlledInput
+              containerClassName={clsx(!usernameError && s.inputContainer)}
+              control={control}
+              label={'Username'}
+              name={'username'}
             />
 
-            <Github
-              fill={'#fff'}
-              height={36}
-              onClick={() => triggerRegistrationViaGitHub(undefined)}
-              width={36}
+            <ControlledInput
+              containerClassName={clsx(!emailError && s.inputContainer)}
+              control={control}
+              label={'Email'}
+              name={'email'}
+            />
+
+            <ControlledInput
+              containerClassName={clsx(!passwordError && s.inputContainer)}
+              control={control}
+              label={'Password'}
+              name={'password'}
+              type={'password'}
+            />
+
+            <ControlledInput
+              control={control}
+              label={'Password confirmation'}
+              name={'passwordConfirmation'}
+              type={'password'}
             />
           </div>
 
-          <ControlledInput
-            containerClassName={clsx(!usernameError && s.inputContainer)}
-            control={control}
-            label={'Username'}
-            name={'username'}
-          />
+          <div className={s.agreement}>
+            <ControlledCheckbox control={control} name={'agreement'} />
 
-          <ControlledInput
-            containerClassName={clsx(!emailError && s.inputContainer)}
-            control={control}
-            label={'Email'}
-            name={'email'}
-          />
+            <div className={s.agreementText}>
+              <span>I agree to the</span>
+              <Link href={'terms-of-service'}>Terms of Service</Link>
+              <span>and</span>
+              <Link href={'privacy-policy'}>Privacy Policy</Link>
+            </div>
 
-          <ControlledInput
-            containerClassName={clsx(!passwordError && s.inputContainer)}
-            control={control}
-            label={'Password'}
-            name={'password'}
-            type={'password'}
-          />
-
-          <ControlledInput
-            control={control}
-            label={'Password confirmation'}
-            name={'passwordConfirmation'}
-            type={'password'}
-          />
-        </div>
-
-        <div className={s.agreement}>
-          <ControlledCheckbox control={control} name={'agreement'} />
-
-          <div className={s.agreementText}>
-            <span>I agree to the</span>
-            <Link href={'terms-of-service'}>Terms of Service</Link>
-            <span>and</span>
-            <Link href={'privacy-policy'}>Privacy Policy</Link>
+            {checkboxErrorMessage && (
+              <p className={s.checkboxErrorMessage}>{checkboxErrorMessage}</p>
+            )}
           </div>
 
-          {checkboxErrorMessage && <p className={s.checkboxErrorMessage}>{checkboxErrorMessage}</p>}
-        </div>
+          <Button className={s.submitButton} disabled={isSubmitting} fullWidth>
+            Sign Up
+          </Button>
 
-        <Button className={s.submitButton} disabled={isSubmitting} fullWidth>
-          Sign Up
-        </Button>
+          <span className={s.question}>Do you have an account?</span>
 
-        <span className={s.question}>Do you have an account?</span>
+          <Button type={'button'} variant={'text'}>
+            <Link className={s.signIn} href={'sign-in'}>
+              Sign In
+            </Link>
+          </Button>
+        </form>
+      </Card>
 
-        <Button type={'button'} variant={'text'}>
-          <Link className={s.signIn} href={'sign-in'}>
-            Sign In
-          </Link>
-        </Button>
-      </form>
-    </Card>
+      <SentEmailModal email={email} isOpen={isModalOpen} onCloseHandler={onModalCloseHandler} />
+    </>
   )
 }
