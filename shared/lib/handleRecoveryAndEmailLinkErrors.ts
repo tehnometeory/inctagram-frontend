@@ -9,7 +9,9 @@ import {
 import { SerializedError } from '@reduxjs/toolkit'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
-import { ResendConfirmationCodeArgs } from './types'
+export type ResendConfirmationCodeArgs = {
+  email: string
+}
 
 export function handleRecoveryAndEmailLinkErrors(
   response: {

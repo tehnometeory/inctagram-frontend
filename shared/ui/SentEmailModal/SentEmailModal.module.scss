@@ -1,4 +1,4 @@
-@import '@rambo-react/ui-meteors/dist/typography';
+@use '@rambo-react/ui-meteors/dist/typography' as typography;
 
 .sentModalContainer {
   display: flex;
@@ -9,13 +9,13 @@
   max-width: 330px;
 
   p {
-    @include Regular_text_16;
+    @include typography.Regular_text_16;
 
     color: var(--color-light-100);
   }
 
   button {
-    @include H3;
+    @include typography.H3;
 
     align-self: flex-end;
     width: 100%;

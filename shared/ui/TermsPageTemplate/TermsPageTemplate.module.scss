@@ -1,4 +1,4 @@
-@import '@rambo-react/ui-meteors/dist/typography';
+@use '@rambo-react/ui-meteors/dist/typography' as typography;
 
 .container {
   display: flex;
@@ -17,7 +17,7 @@
 
   transition: 0.2s ease-out;
 
-  @include Regular_text_14;
+  @include typography.Regular_text_14;
 
   svg {
     margin-right: 12px;
@@ -50,7 +50,7 @@
 }
 
 .title {
-  @include H1;
+  @include typography.H1;
 
   margin: 71px auto 20px;
   text-align: center;
@@ -65,5 +65,5 @@
   margin: 0 auto 227px;
   text-align: center;
 
-  @include Regular_text_14;
+  @include typography.Regular_text_14;
 }
