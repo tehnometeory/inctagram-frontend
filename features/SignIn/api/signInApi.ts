@@ -15,12 +15,12 @@ export const signInApi = createApi({
     }),
     loginViaGitHub: builder.query<void, void>({
       query: () => ({
-        url: 'oauth/google/login',
+        url: 'oauth/github/login',
       }),
     }),
     loginViaGoogle: builder.query<void, void>({
       query: () => ({
-        url: 'oauth/github/login',
+        url: 'oauth/google/login',
       }),
     }),
   }),
