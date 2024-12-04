@@ -1,4 +1,4 @@
-import { SignIn } from '@/features/SignIn'
+import { SignIn } from '@/features'
 
 export default function SignInPage() {
   return <SignIn />
