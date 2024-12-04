@@ -1,7 +1,13 @@
 'use client'
 
+import { Suspense } from 'react'
+
 import { ConfirmedEmail } from '@/features'
 
 export default function ConfirmedEmailPage() {
-  return <ConfirmedEmail />
+  return (
+    <Suspense>
+      <ConfirmedEmail />
+    </Suspense>
+  )
 }
