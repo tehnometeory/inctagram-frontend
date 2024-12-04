@@ -98,11 +98,11 @@ export const SignUp = () => {
 
           <span className={s.question}>Do you have an account?</span>
 
-          <Button type={'button'} variant={'text'}>
-            <Link className={s.signIn} href={'sign-in'}>
+          <Link className={s.signIn} href={'sign-in'}>
+            <Button type={'button'} variant={'text'}>
               Sign In
-            </Link>
-          </Button>
+            </Button>
+          </Link>
         </form>
       </Card>
 
