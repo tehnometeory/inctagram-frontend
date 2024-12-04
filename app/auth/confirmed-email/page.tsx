@@ -6,7 +6,7 @@ import { ConfirmedEmail } from '@/features'
 
 export default function ConfirmedEmailPage() {
   return (
-    <Suspense>
+    <Suspense fallback={<div>Loading...</div>}>
       <ConfirmedEmail />
     </Suspense>
   )
