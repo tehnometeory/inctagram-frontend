@@ -1,7 +1,8 @@
 'use client'
 
-import { NewPasswordForm } from '@/features'
 import { Suspense } from 'react'
+
+import { NewPasswordForm } from '@/features'
 
 export default function NewPassword() {
   return (
