@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form'
 import {
   ControlledCheckbox,
   ControlledInput,
+  ErrorsMessagesResponse,
   SentEmailModal,
   handleNetworkError,
   handleServerError,
@@ -20,7 +21,6 @@ import { z } from 'zod'
 import s from './SignUp.module.scss'
 
 import {
-  RegistrationErrorResponse,
   useLazyRegistrationViaGitHubQuery,
   useLazyRegistrationViaGoogleQuery,
   useRegistrationMutation,
@@ -69,7 +69,7 @@ export const SignUp = () => {
       } else if ('status' in response.error && response.error.status === 'FETCH_ERROR') {
         handleNetworkError(dispatch)
       } else if ('data' in response.error) {
-        const errorMessage = (response.error.data as RegistrationErrorResponse).errorsMessages[0]
+        const errorMessage = (response.error.data as ErrorsMessagesResponse).errorsMessages[0]
           .message
 
         if (errorMessage === 'Username is already used') {
