@@ -1,4 +1,6 @@
-import { ComponentProps, ComponentPropsWithoutRef } from 'react'
+'use client'
+
+import { ComponentProps } from 'react'
 import { Controller, FieldValues, UseControllerProps } from 'react-hook-form'
 
 import { Input } from '@rambo-react/ui-meteors'

@@ -1,7 +1,5 @@
 'use client'
 
-import { Suspense } from 'react'
-
 import { useCheckTokenValidity } from '@/shared'
 import { Button } from '@rambo-react/ui-meteors'
 import Image from 'next/image'
@@ -13,7 +11,7 @@ export const ConfirmedEmail = () => {
   const { isRedirecting } = useCheckTokenValidity('/auth/expired-email-link', 'code')
 
   if (isRedirecting) {
-    return <Suspense fallback={<div>Redirecting...</div>} />
+    return null
   }
 
   return (
