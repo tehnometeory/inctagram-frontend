@@ -9,4 +9,4 @@ type LoginSuccessResponse = {
   accessToken: string
 }
 
-export type AuthResponse = ErrorsMessagesResponse | LoginSuccessResponse
+export type SignInResponse = ErrorsMessagesResponse | LoginSuccessResponse
