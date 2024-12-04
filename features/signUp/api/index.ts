@@ -1,1 +1,1 @@
-export * from './signUpApi'
+export * from './api'
