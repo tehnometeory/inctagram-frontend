@@ -4,6 +4,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const authApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL_API,
+    credentials: 'include',
     prepareHeaders: headers => {
       headers.set('User-Agent', navigator.userAgent)
 
@@ -12,7 +13,10 @@ export const authApi = createApi({
   }),
   endpoints: builder => ({
     refreshTokens: builder.mutation<ResponseWithAccessToken, void>({
-      query: () => `auth/refresh-tokens`,
+      query: () => ({
+        method: 'POST',
+        url: 'auth/refresh-tokens',
+      }),
     }),
   }),
   reducerPath: 'authApi',
