@@ -34,18 +34,12 @@
   }
 
   @media (width <= 425px) {
+    top: 90px;
+    left: 30px;
+
     span {
       display: none;
     }
-  }
-
-  @media (width <= 375px) {
-    left: 15px;
-  }
-
-  @media (width <= 320px) {
-    top: 90px;
-    left: 30px;
   }
 }
 
