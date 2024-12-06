@@ -27,8 +27,7 @@ export const useCheckTokenValidity = (
 
   useEffect(() => {
     if (!token || !checkTokenValidity(token)) {
-      // router.replace(redirectTo)
-      setIsRedirecting(false)
+      router.replace(redirectTo)
     } else {
       setIsRedirecting(false)
     }
