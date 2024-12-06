@@ -63,6 +63,7 @@
 .text {
   max-width: 958px;
   margin: 0 auto 227px;
+  padding: 0 15px;
   text-align: center;
 
   @include typography.Regular_text_14;
