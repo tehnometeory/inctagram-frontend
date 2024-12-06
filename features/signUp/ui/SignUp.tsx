@@ -52,6 +52,7 @@ export const SignUp = () => {
               control={control}
               label={'Username'}
               name={'username'}
+              placeholder={'Epam11'}
             />
 
             <ControlledInput
@@ -59,6 +60,7 @@ export const SignUp = () => {
               control={control}
               label={'Email'}
               name={'email'}
+              placeholder={'Epam@epam.com'}
             />
 
             <ControlledInput
@@ -66,6 +68,7 @@ export const SignUp = () => {
               control={control}
               label={'Password'}
               name={'password'}
+              placeholder={'******************'}
               type={'password'}
             />
 
@@ -73,6 +76,7 @@ export const SignUp = () => {
               control={control}
               label={'Password confirmation'}
               name={'passwordConfirmation'}
+              placeholder={'******************'}
               type={'password'}
             />
           </div>
