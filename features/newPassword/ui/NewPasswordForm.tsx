@@ -27,12 +27,14 @@ export const NewPasswordForm = () => {
             defaultValue={''}
             label={'New password'}
             name={'newPassword'}
+            placeholder={'******************'}
             type={'password'}
           />
           <ControlledInput
             defaultValue={''}
             label={'Password confirmation'}
             name={'passwordConfirmation'}
+            placeholder={'******************'}
             type={'password'}
           />
           <p className={s.helper}>Your password must be between 6 and 20 characters</p>
