@@ -1,14 +1,15 @@
 'use client'
 
-import { useHeaderActions } from '@/shared/hooks/useHeaderActions'
+import { useAppSelector } from '@/shared'
 import { Button, Header } from '@rambo-react/ui-meteors'
 import { usePathname } from 'next/navigation'
 
 import s from './AppHeader.module.scss'
 
+import { useHeaderActions } from '../hooks/useHeaderActions'
+
 export const AppHeader = () => {
-  //заглушка
-  const isAuthorized = false
+  const isAuthorized = useAppSelector(state => state.auth.isAuthorized)
 
   const pathname = usePathname()
   const { logInHandler, signUpHandler, ...actions } = useHeaderActions()
