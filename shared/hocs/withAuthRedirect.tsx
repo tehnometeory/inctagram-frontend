@@ -2,9 +2,7 @@
 
 import React, { ComponentType, ReactNode, useEffect } from 'react'
 
-import { useRouter } from 'next/navigation'
-
-import { useAppSelector } from '../hooks'
+import { useAppSelector, useNRouter } from '../hooks'
 
 type Props = {
   children: ReactNode
@@ -13,7 +11,7 @@ type Props = {
 export function withAuthRedirect<T extends Props>(Component: ComponentType<T>) {
   const AuthWrapper = (props: T) => {
     const isAuthorized = useAppSelector(state => state.auth.isAuthorized)
-    const router = useRouter()
+    const router = useNRouter()
 
     useEffect(() => {
       if (isAuthorized) {

@@ -7,10 +7,10 @@ import {
   handleServerError,
   useAppDispatch,
   useAppSelector,
+  useNRouter,
   useOAuthRedirect,
 } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/navigation'
 import { z } from 'zod'
 
 import { useLoginMutation } from '../api'
@@ -29,7 +29,7 @@ export const useSignIn = () => {
   })
 
   const token = useAppSelector(state => state.auth.accessToken)
-  const router = useRouter()
+  const router = useNRouter()
   const dispatch = useAppDispatch()
 
   const [login, { isLoading }] = useLoginMutation()
