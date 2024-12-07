@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { setAccessToken, setIsAuthorized } from '@/entities'
@@ -35,6 +36,12 @@ export const useSignIn = () => {
   const redirectOnGoogle = useOAuthRedirect('google')
   const redirectOnGitHub = useOAuthRedirect('github')
 
+  useEffect(() => {
+    if (token) {
+      router.push('/home')
+    }
+  }, [token, router])
+
   const onSubmit = async (data: FormValues) => {
     const response = await login(data)
 
@@ -61,7 +68,5 @@ export const useSignIn = () => {
     onSubmit,
     redirectOnGitHub,
     redirectOnGoogle,
-    router,
-    token,
   }
 }

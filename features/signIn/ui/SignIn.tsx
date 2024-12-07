@@ -1,6 +1,5 @@
 'use client'
 
-import { useEffect } from 'react'
 import { FormProvider } from 'react-hook-form'
 
 import { ControlledInput, withAuthRedirect } from '@/shared'
@@ -12,14 +11,7 @@ import styles from './SignIn.module.scss'
 import { useSignIn } from '../hooks'
 
 export const SignIn = withAuthRedirect(() => {
-  const { isLoading, methods, onSubmit, redirectOnGitHub, redirectOnGoogle, router, token } =
-    useSignIn()
-
-  useEffect(() => {
-    if (token) {
-      router.push('/home')
-    }
-  }, [token, router])
+  const { isLoading, methods, onSubmit, redirectOnGitHub, redirectOnGoogle } = useSignIn()
 
   return (
     <FormProvider {...methods}>
