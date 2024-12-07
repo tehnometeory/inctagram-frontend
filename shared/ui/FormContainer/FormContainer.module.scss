@@ -1,6 +1,15 @@
+@use '@rambo-react/ui-meteors/dist/typography' as typography;
+
 .formContainer {
   width: 100%;
   max-width: 378px;
+}
+
+.title {
+  margin: 0;
+  text-align: center;
+
+  @include typography.H1;
 }
 
 @media (width <= 360px) {
@@ -8,5 +17,9 @@
     padding: 17px 15px 0;
     background-color: transparent;
     border: none;
+  }
+
+  .title {
+    @include typography.H2;
   }
 }
