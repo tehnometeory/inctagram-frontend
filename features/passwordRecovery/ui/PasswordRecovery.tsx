@@ -8,9 +8,10 @@ import {
   handleRecoveryAndEmailLinkErrors,
   useAppDispatch,
   useResetPasswordMutation,
+  withAuthRedirect,
 } from '@/shared'
 
-export const PasswordRecovery = () => {
+export const PasswordRecovery = withAuthRedirect(() => {
   const [validEmail, { isLoading }] = useResetPasswordMutation()
 
   const dispatch = useAppDispatch()
@@ -25,4 +26,4 @@ export const PasswordRecovery = () => {
   }
 
   return <ExpiredEmailLinkForm isDisabled={isLoading} onSubmit={onSubmit} />
-}
+})

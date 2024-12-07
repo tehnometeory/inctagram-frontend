@@ -7,11 +7,12 @@ import {
   ResendConfirmationCodeArgs,
   handleRecoveryAndEmailLinkErrors,
   useAppDispatch,
+  withAuthRedirect,
 } from '@/shared'
 
 import { useResendConfirmationCodeMutation } from '..'
 
-export const ExpiredEmailLink = () => {
+export const ExpiredEmailLink = withAuthRedirect(() => {
   const [resendConfirmationCode, { isLoading }] = useResendConfirmationCodeMutation()
 
   const dispatch = useAppDispatch()
@@ -26,4 +27,4 @@ export const ExpiredEmailLink = () => {
   }
 
   return <ExpiredEmailLinkForm isDisabled={isLoading} onSubmit={onSubmit} />
-}
+})

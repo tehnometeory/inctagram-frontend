@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 import { FormProvider } from 'react-hook-form'
 
-import { ControlledInput } from '@/shared'
+import { ControlledInput, withAuthRedirect } from '@/shared'
 import { Button, Card, Github, Google } from '@rambo-react/ui-meteors'
 import Link from 'next/link'
 
@@ -11,7 +11,7 @@ import styles from './SignIn.module.scss'
 
 import { useSignIn } from '../hooks'
 
-export const SignIn = () => {
+export const SignIn = withAuthRedirect(() => {
   const { isLoading, methods, onSubmit, redirectOnGitHub, redirectOnGoogle, router, token } =
     useSignIn()
 
@@ -73,4 +73,4 @@ export const SignIn = () => {
       </Card>
     </FormProvider>
   )
-}
+})
