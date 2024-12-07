@@ -20,8 +20,8 @@ export const SignUp = () => {
     onFormSubmit,
     onModalCloseHandler,
     passwordError,
-    triggerRegistrationViaGitHub,
-    triggerRegistrationViaGoogle,
+    redirectOnGitHub,
+    redirectOnGoogle,
     usernameError,
   } = useSignUp()
 
@@ -33,18 +33,9 @@ export const SignUp = () => {
 
           <div>
             <div className={s.icons}>
-              <Google
-                height={36}
-                onClick={() => triggerRegistrationViaGoogle(undefined)}
-                width={36}
-              />
+              <Google height={36} onClick={redirectOnGoogle} width={36} />
 
-              <Github
-                fill={'#fff'}
-                height={36}
-                onClick={() => triggerRegistrationViaGitHub(undefined)}
-                width={36}
-              />
+              <Github fill={'#fff'} height={36} onClick={redirectOnGitHub} width={36} />
             </div>
 
             <ControlledInput

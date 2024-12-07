@@ -1,12 +1,18 @@
 import { useForm } from 'react-hook-form'
 
 import { setAccessToken, setIsAuthorized } from '@/entities'
-import { handleNetworkError, handleServerError, useAppDispatch, useAppSelector } from '@/shared'
+import {
+  handleNetworkError,
+  handleServerError,
+  useAppDispatch,
+  useAppSelector,
+  useOAuthRedirect,
+} from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
 import { z } from 'zod'
 
-import { useLazyLoginViaGitHubQuery, useLazyLoginViaGoogleQuery, useLoginMutation } from '../api'
+import { useLoginMutation } from '../api'
 import { signInSchema } from '../model'
 
 type FormValues = z.infer<typeof signInSchema>
@@ -26,8 +32,8 @@ export const useSignIn = () => {
   const dispatch = useAppDispatch()
 
   const [login, { isLoading }] = useLoginMutation()
-  const [triggerLoginViaGoogle] = useLazyLoginViaGoogleQuery()
-  const [triggerLoginViaGitHub] = useLazyLoginViaGitHubQuery()
+  const redirectOnGoogle = useOAuthRedirect('google')
+  const redirectOnGitHub = useOAuthRedirect('github')
 
   const onSubmit = async (data: FormValues) => {
     const response = await login(data)
@@ -53,9 +59,9 @@ export const useSignIn = () => {
     isLoading,
     methods,
     onSubmit,
+    redirectOnGitHub,
+    redirectOnGoogle,
     router,
     token,
-    triggerLoginViaGitHub,
-    triggerLoginViaGoogle,
   }
 }

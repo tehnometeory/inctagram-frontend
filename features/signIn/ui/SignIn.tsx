@@ -12,15 +12,8 @@ import styles from './SignIn.module.scss'
 import { useSignIn } from '../hooks'
 
 export const SignIn = () => {
-  const {
-    isLoading,
-    methods,
-    onSubmit,
-    router,
-    token,
-    triggerLoginViaGitHub,
-    triggerLoginViaGoogle,
-  } = useSignIn()
+  const { isLoading, methods, onSubmit, redirectOnGitHub, redirectOnGoogle, router, token } =
+    useSignIn()
 
   useEffect(() => {
     if (token) {
@@ -34,22 +27,13 @@ export const SignIn = () => {
         <form onSubmit={methods.handleSubmit(onSubmit)}>
           <h1 className={styles.title}>Sign In</h1>
           <div className={styles.socialContainer}>
-            <Google
-              className={styles.formIcon}
-              height={36}
-              onClick={() => {
-                triggerLoginViaGoogle(undefined)
-              }}
-              width={36}
-            />
+            <Google className={styles.formIcon} height={36} onClick={redirectOnGoogle} width={36} />
 
             <Github
               className={styles.formIcon}
               fill={'white'}
               height={36}
-              onClick={() => {
-                triggerLoginViaGitHub(undefined)
-              }}
+              onClick={redirectOnGitHub}
               width={36}
             />
           </div>
