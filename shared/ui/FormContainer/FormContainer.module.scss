@@ -1,0 +1,12 @@
+.formContainer {
+  width: 100%;
+  max-width: 378px;
+}
+
+@media (width <= 360px) {
+  .formContainer .card {
+    padding: 17px 15px 0;
+    background-color: transparent;
+    border: none;
+  }
+}
