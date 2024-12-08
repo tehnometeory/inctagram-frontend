@@ -1,7 +1,7 @@
 'use client'
 
-import { ControlledCheckbox, ControlledInput, SentEmailModal } from '@/shared'
-import { Button, Card, Github, Google } from '@rambo-react/ui-meteors/dist'
+import { ControlledCheckbox, ControlledInput, FormContainer, SentEmailModal } from '@/shared'
+import { Button, Github, Google } from '@rambo-react/ui-meteors/dist'
 import clsx from 'clsx'
 import Link from 'next/link'
 
@@ -26,91 +26,85 @@ export const SignUp = () => {
   } = useSignUp()
 
   return (
-    <>
-      <Card className={s.card}>
-        <form className={s.form} onSubmit={onFormSubmit}>
-          <h1 className={s.header}>Sign Up</h1>
-
-          <div>
-            <div className={s.icons}>
-              <Google
-                height={36}
-                onClick={() => triggerRegistrationViaGoogle(undefined)}
-                width={36}
-              />
-
-              <Github
-                fill={'#fff'}
-                height={36}
-                onClick={() => triggerRegistrationViaGitHub(undefined)}
-                width={36}
-              />
-            </div>
-
-            <ControlledInput
-              containerClassName={clsx(!usernameError && s.inputContainer)}
-              control={control}
-              label={'Username'}
-              name={'username'}
-              placeholder={'Epam11'}
+    <FormContainer title={'Sign Up'}>
+      <form className={s.form} onSubmit={onFormSubmit}>
+        <div>
+          <div className={s.icons}>
+            <Google
+              height={36}
+              onClick={() => triggerRegistrationViaGoogle(undefined)}
+              width={36}
             />
 
-            <ControlledInput
-              containerClassName={clsx(!emailError && s.inputContainer)}
-              control={control}
-              label={'Email'}
-              name={'email'}
-              placeholder={'Epam@epam.com'}
-            />
-
-            <ControlledInput
-              containerClassName={clsx(!passwordError && s.inputContainer)}
-              control={control}
-              label={'Password'}
-              name={'password'}
-              placeholder={'******************'}
-              type={'password'}
-            />
-
-            <ControlledInput
-              control={control}
-              label={'Password confirmation'}
-              name={'passwordConfirmation'}
-              placeholder={'******************'}
-              type={'password'}
+            <Github
+              fill={'#fff'}
+              height={36}
+              onClick={() => triggerRegistrationViaGitHub(undefined)}
+              width={36}
             />
           </div>
 
-          <div className={s.agreement}>
-            <ControlledCheckbox control={control} name={'agreement'} />
+          <ControlledInput
+            containerClassName={clsx(!usernameError && s.inputContainer)}
+            control={control}
+            label={'Username'}
+            name={'username'}
+            placeholder={'Epam11'}
+          />
 
-            <div className={s.agreementText}>
-              <span>I agree to the</span>
-              <Link href={'terms-of-service'}>Terms of Service</Link>
-              <span>and</span>
-              <Link href={'privacy-policy'}>Privacy Policy</Link>
-            </div>
+          <ControlledInput
+            containerClassName={clsx(!emailError && s.inputContainer)}
+            control={control}
+            label={'Email'}
+            name={'email'}
+            placeholder={'Epam@epam.com'}
+          />
 
-            {checkboxErrorMessage && (
-              <p className={s.checkboxErrorMessage}>{checkboxErrorMessage}</p>
-            )}
+          <ControlledInput
+            containerClassName={clsx(!passwordError && s.inputContainer)}
+            control={control}
+            label={'Password'}
+            name={'password'}
+            placeholder={'******************'}
+            type={'password'}
+          />
+
+          <ControlledInput
+            control={control}
+            label={'Password confirmation'}
+            name={'passwordConfirmation'}
+            placeholder={'******************'}
+            type={'password'}
+          />
+        </div>
+
+        <div className={s.agreement}>
+          <ControlledCheckbox control={control} name={'agreement'} />
+
+          <div className={s.agreementText}>
+            <span>I agree to the</span>
+            <Link href={'terms-of-service'}>Terms of Service</Link>
+            <span>and</span>
+            <Link href={'privacy-policy'}>Privacy Policy</Link>
           </div>
 
-          <Button className={s.submitButton} disabled={isSubmitting} fullWidth>
-            Sign Up
+          {checkboxErrorMessage && <p className={s.checkboxErrorMessage}>{checkboxErrorMessage}</p>}
+        </div>
+
+        <Button className={s.button} disabled={isSubmitting} fullWidth>
+          Sign Up
+        </Button>
+
+        <span className={s.question}>Do you have an account?</span>
+
+        <Link className={s.signIn} href={'sign-in'}>
+          <Button className={s.button} fullWidth type={'button'} variant={'text'}>
+            Sign In
           </Button>
-
-          <span className={s.question}>Do you have an account?</span>
-
-          <Link className={s.signIn} href={'sign-in'}>
-            <Button type={'button'} variant={'text'}>
-              Sign In
-            </Button>
-          </Link>
-        </form>
-      </Card>
+        </Link>
+      </form>
 
       <SentEmailModal email={email} isOpen={isModalOpen} onCloseHandler={onModalCloseHandler} />
-    </>
+    </FormContainer>
   )
 }
