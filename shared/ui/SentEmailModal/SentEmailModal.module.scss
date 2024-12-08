@@ -1,41 +1,47 @@
 @use '@rambo-react/ui-meteors/dist/typography' as typography;
 
-.sentModalContainer {
+.modal {
+  width: 380px;
+}
+
+.content {
   display: flex;
   flex-direction: column;
   gap: 18px;
 
   width: 100%;
-  max-width: 330px;
+  padding: 30px 24px 36px;
 
   p {
+    margin: 0;
+
     @include typography.Regular_text_16;
 
     color: var(--color-light-100);
   }
 
-  button {
-    @include typography.H3;
-
-    align-self: flex-end;
-    width: 100%;
-    max-width: 96px;
+  .button {
+    width: 96px;
+    margin-left: auto;
   }
 }
 
-@media screen and (width <= 576px) {
-  .sentModalContainer {
-    width: 100%;
-    max-width: 306px;
-    margin: 0 auto;
+@media (width <= 425px) {
+  .modal {
+    width: 330px;
+  }
+
+  .content {
+    padding: 30px 12px 36px;
 
     p {
       text-align: center;
     }
 
-    button {
-      max-width: 306px;
+    .button {
+      width: 100%;
       height: 48px;
+      margin-left: 0;
     }
   }
 }
