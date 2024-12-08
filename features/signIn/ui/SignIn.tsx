@@ -3,11 +3,12 @@
 import { useEffect } from 'react'
 import { FormProvider } from 'react-hook-form'
 
-import { ControlledInput } from '@/shared'
-import { Button, Card, Github, Google } from '@rambo-react/ui-meteors'
+import { ControlledInput, FormContainer } from '@/shared'
+import { Button, Github, Google } from '@rambo-react/ui-meteors'
+import clsx from 'clsx'
 import Link from 'next/link'
 
-import styles from './SignIn.module.scss'
+import s from './SignIn.module.scss'
 
 import { useSignIn } from '../hooks'
 
@@ -29,13 +30,12 @@ export const SignIn = () => {
   }, [token, router])
 
   return (
-    <FormProvider {...methods}>
-      <Card>
+    <FormContainer title={'Sign In'}>
+      <FormProvider {...methods}>
         <form onSubmit={methods.handleSubmit(onSubmit)}>
-          <h1 className={styles.title}>Sign In</h1>
-          <div className={styles.socialContainer}>
+          <div className={s.socialContainer}>
             <Google
-              className={styles.formIcon}
+              className={s.formIcon}
               height={36}
               onClick={() => {
                 triggerLoginViaGoogle(undefined)
@@ -44,7 +44,7 @@ export const SignIn = () => {
             />
 
             <Github
-              className={styles.formIcon}
+              className={s.formIcon}
               fill={'white'}
               height={36}
               onClick={() => {
@@ -54,39 +54,42 @@ export const SignIn = () => {
             />
           </div>
 
-          <div className={styles.inputContainer}>
+          <div className={s.inputContainer}>
             <ControlledInput
-              containerClassName={styles.emailInput}
-              control={methods.control}
+              containerClassName={s.emailInput}
               label={'Email'}
               name={'email'}
               placeholder={'Epam@epam.com'}
             />
           </div>
-          <div className={styles.inputContainer}>
+          <div className={s.inputContainer}>
             <ControlledInput
-              containerClassName={styles.passwordInput}
-              control={methods.control}
+              containerClassName={s.passwordInput}
               label={'Password'}
               name={'password'}
               placeholder={'*********'}
               type={'password'}
             />
           </div>
-          <Link className={styles.forgotPass} href={'/auth/forgot-password'}>
+          <Link className={clsx(s.forgotPass, s.link)} href={'/auth/forgot-password'}>
             Forgot Password
           </Link>
-          <Button disabled={!methods.formState.isValid || isLoading} fullWidth type={'submit'}>
+          <Button
+            className={s.button}
+            disabled={!methods.formState.isValid || isLoading}
+            fullWidth
+            type={'submit'}
+          >
             Sign In
           </Button>
-          <div className={styles.signIn__footer}>
-            <p className={styles.footer}>{`Don't have an account?`}</p>
-            <Button className={styles.signUpButton} fullWidth variant={'text'}>
-              <Link href={'/auth/sign-up'}>Sign Up</Link>
+          <p className={s.footerText}>{`Don't have an account?`}</p>
+          <Link className={s.link} href={'/auth/sign-up'}>
+            <Button className={s.button} fullWidth variant={'text'}>
+              Sign Up
             </Button>
-          </div>
+          </Link>
         </form>
-      </Card>
-    </FormProvider>
+      </FormProvider>
+    </FormContainer>
   )
 }
