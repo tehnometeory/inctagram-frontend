@@ -1,9 +1,9 @@
+import { BASE_URL_API } from '@/shared'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import { BASE_URL_API } from '../config'
 import { ResetPasswordArgs, ResetPasswordResponse } from './types'
 
-export const passwordRecoveryApi = createApi({
+export const forgotPasswordApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL_API,
     prepareHeaders: headers => {
@@ -19,7 +19,7 @@ export const passwordRecoveryApi = createApi({
       }),
     }),
   }),
-  reducerPath: 'passwordRecoveryApi',
+  reducerPath: 'forgotPasswordApi',
 })
 
-export const { useResetPasswordMutation } = passwordRecoveryApi
+export const { useResetPasswordMutation } = forgotPasswordApi
