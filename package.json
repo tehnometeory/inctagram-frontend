@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
-    "@rambo-react/ui-meteors": "^0.3.2",
+    "@rambo-react/ui-meteors": "^0.3.3",
     "@reduxjs/toolkit": "^2.4.0",
     "clsx": "^2.1.1",
     "jwt-decode": "^4.0.0",

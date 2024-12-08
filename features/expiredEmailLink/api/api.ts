@@ -1,5 +1,9 @@
-import { BASE_URL_API, ErrorsMessagesResponse, ResendConfirmationCodeArgs } from '@/shared'
+import { BASE_URL_API, ErrorsMessagesResponse } from '@/shared'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+
+export type ResendConfirmationCodeArgs = {
+  email: string
+}
 
 export const expiredEmailLinkApi = createApi({
   baseQuery: fetchBaseQuery({
