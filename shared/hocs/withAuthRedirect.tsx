@@ -5,7 +5,7 @@ import React, { ComponentType, ReactNode, useEffect } from 'react'
 import { useAppSelector, useNRouter } from '../hooks'
 
 type Props = {
-  children: ReactNode
+  children?: ReactNode
 }
 
 export function withAuthRedirect<T extends Props>(Component: ComponentType<T>) {
