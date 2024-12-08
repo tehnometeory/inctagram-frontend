@@ -12,7 +12,7 @@ export const FormContainer = ({ children, className, title, ...props }: Props) =
     <div className={clsx(s.formContainer, className)} {...props}>
       <Card className={s.card}>
         <h1 className={s.title}>{title}</h1>
-        <div>{children}</div>
+        {children}
       </Card>
     </div>
   )

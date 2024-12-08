@@ -2,7 +2,7 @@
 
 .formContainer {
   width: 100%;
-  max-width: 378px;
+  max-width: 380px;
 }
 
 .title {
@@ -12,7 +12,7 @@
   @include typography.H1;
 }
 
-@media (width <= 360px) {
+@media (width <= 425px) {
   .formContainer .card {
     padding: 17px 15px 0;
     background-color: transparent;
