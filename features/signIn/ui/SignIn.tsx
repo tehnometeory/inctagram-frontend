@@ -1,9 +1,8 @@
 'use client'
 
-import { useEffect } from 'react'
 import { FormProvider } from 'react-hook-form'
 
-import { ControlledInput, FormContainer } from '@/shared'
+import { ControlledInput, FormContainer, withAuthRedirect } from '@/shared'
 import { Button, Github, Google } from '@rambo-react/ui-meteors'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -12,44 +11,21 @@ import s from './SignIn.module.scss'
 
 import { useSignIn } from '../hooks'
 
-export const SignIn = () => {
-  const {
-    isLoading,
-    methods,
-    onSubmit,
-    router,
-    token,
-    triggerLoginViaGitHub,
-    triggerLoginViaGoogle,
-  } = useSignIn()
-
-  useEffect(() => {
-    if (token) {
-      router.push('/home')
-    }
-  }, [token, router])
+export const SignIn = withAuthRedirect(() => {
+  const { isLoading, methods, onSubmit, redirectOnGitHub, redirectOnGoogle } = useSignIn()
 
   return (
     <FormContainer title={'Sign In'}>
       <FormProvider {...methods}>
         <form className={s.form} onSubmit={methods.handleSubmit(onSubmit)}>
           <div className={s.socialContainer}>
-            <Google
-              className={s.formIcon}
-              height={36}
-              onClick={() => {
-                triggerLoginViaGoogle(undefined)
-              }}
-              width={36}
-            />
+            <Google className={s.formIcon} height={36} onClick={redirectOnGoogle} width={36} />
 
             <Github
               className={s.formIcon}
               fill={'white'}
               height={36}
-              onClick={() => {
-                triggerLoginViaGitHub(undefined)
-              }}
+              onClick={redirectOnGitHub}
               width={36}
             />
           </div>
@@ -89,4 +65,4 @@ export const SignIn = () => {
       </FormProvider>
     </FormContainer>
   )
-}
+})

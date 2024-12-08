@@ -1,28 +1,13 @@
 'use client'
 
-import { UseFormSetError } from 'react-hook-form'
-
-import {
-  ExpiredEmailLinkForm,
-  ResetPasswordResponse,
-  handleRecoveryAndEmailLinkErrors,
-  useAppDispatch,
-  useResetPasswordMutation,
-} from '@/shared'
+import { ExpiredEmailLinkForm, useNRouter } from '@/shared'
 
 export const PasswordRecovery = () => {
-  const [validEmail, { isLoading }] = useResetPasswordMutation()
+  const router = useNRouter()
 
-  const dispatch = useAppDispatch()
-
-  const onSubmit = async (
-    data: ResetPasswordResponse,
-    setError: UseFormSetError<ResetPasswordResponse>
-  ) => {
-    const response = await validEmail(data)
-
-    return handleRecoveryAndEmailLinkErrors(response, setError, dispatch)
+  const onSubmit = () => {
+    router.push('/auth/forgot-password')
   }
 
-  return <ExpiredEmailLinkForm isDisabled={isLoading} onSubmit={onSubmit} />
+  return <ExpiredEmailLinkForm isDisabled={false} onSubmitHandler={onSubmit} showInput={false} />
 }

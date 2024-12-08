@@ -1,12 +1,19 @@
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { setAccessToken, setIsAuthorized } from '@/entities'
-import { handleNetworkError, handleServerError, useAppDispatch, useAppSelector } from '@/shared'
+import {
+  handleNetworkError,
+  handleServerError,
+  useAppDispatch,
+  useAppSelector,
+  useNRouter,
+  useOAuthRedirect,
+} from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useRouter } from 'next/navigation'
 import { z } from 'zod'
 
-import { useLazyLoginViaGitHubQuery, useLazyLoginViaGoogleQuery, useLoginMutation } from '../api'
+import { useLoginMutation } from '../api'
 import { signInSchema } from '../model'
 
 type FormValues = z.infer<typeof signInSchema>
@@ -22,12 +29,18 @@ export const useSignIn = () => {
   })
 
   const token = useAppSelector(state => state.auth.accessToken)
-  const router = useRouter()
+  const router = useNRouter()
   const dispatch = useAppDispatch()
 
   const [login, { isLoading }] = useLoginMutation()
-  const [triggerLoginViaGoogle] = useLazyLoginViaGoogleQuery()
-  const [triggerLoginViaGitHub] = useLazyLoginViaGitHubQuery()
+  const redirectOnGoogle = useOAuthRedirect('google')
+  const redirectOnGitHub = useOAuthRedirect('github')
+
+  useEffect(() => {
+    if (token) {
+      router.push('/home')
+    }
+  }, [token, router])
 
   const onSubmit = async (data: FormValues) => {
     const response = await login(data)
@@ -53,9 +66,7 @@ export const useSignIn = () => {
     isLoading,
     methods,
     onSubmit,
-    router,
-    token,
-    triggerLoginViaGitHub,
-    triggerLoginViaGoogle,
+    redirectOnGitHub,
+    redirectOnGoogle,
   }
 }

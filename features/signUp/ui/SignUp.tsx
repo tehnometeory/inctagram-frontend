@@ -1,6 +1,12 @@
 'use client'
 
-import { ControlledCheckbox, ControlledInput, FormContainer, SentEmailModal } from '@/shared'
+import {
+  ControlledCheckbox,
+  ControlledInput,
+  FormContainer,
+  SentEmailModal,
+  withAuthRedirect,
+} from '@/shared'
 import { Button, Github, Google } from '@rambo-react/ui-meteors/dist'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -9,7 +15,7 @@ import s from './SignUp.module.scss'
 
 import { useSignUp } from '../hooks'
 
-export const SignUp = () => {
+export const SignUp = withAuthRedirect(() => {
   const {
     checkboxErrorMessage,
     control,
@@ -20,8 +26,8 @@ export const SignUp = () => {
     onFormSubmit,
     onModalCloseHandler,
     passwordError,
-    triggerRegistrationViaGitHub,
-    triggerRegistrationViaGoogle,
+    redirectOnGitHub,
+    redirectOnGoogle,
     usernameError,
   } = useSignUp()
 
@@ -30,18 +36,9 @@ export const SignUp = () => {
       <form className={s.form} onSubmit={onFormSubmit}>
         <div>
           <div className={s.icons}>
-            <Google
-              height={36}
-              onClick={() => triggerRegistrationViaGoogle(undefined)}
-              width={36}
-            />
+            <Google height={36} onClick={redirectOnGoogle} width={36} />
 
-            <Github
-              fill={'#fff'}
-              height={36}
-              onClick={() => triggerRegistrationViaGitHub(undefined)}
-              width={36}
-            />
+            <Github fill={'#fff'} height={36} onClick={redirectOnGitHub} width={36} />
           </div>
 
           <ControlledInput
@@ -107,4 +104,4 @@ export const SignUp = () => {
       <SentEmailModal email={email} isOpen={isModalOpen} onCloseHandler={onModalCloseHandler} />
     </FormContainer>
   )
-}
+})
