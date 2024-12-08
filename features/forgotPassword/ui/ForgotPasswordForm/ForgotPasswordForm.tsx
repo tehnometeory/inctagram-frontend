@@ -12,13 +12,14 @@ import {
   handleNetworkError,
   handleServerError,
   useAppDispatch,
-  useResetPasswordMutation,
 } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button, Card, Recaptcha } from '@rambo-react/ui-meteors'
 import Link from 'next/link'
 
 import s from './ForgotPasswordForm.module.scss'
+
+import { useResetPasswordMutation } from '../../api'
 
 export function ForgotPasswordForm() {
   const dispatch = useAppDispatch()
