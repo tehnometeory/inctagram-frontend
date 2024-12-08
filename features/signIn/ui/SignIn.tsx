@@ -2,7 +2,7 @@
 
 import { FormProvider } from 'react-hook-form'
 
-import { ControlledInput, FormContainer, withAuthRedirect } from '@/shared'
+import { ControlledInput, FormContainer, RoutesApp, withAuthRedirect } from '@/shared'
 import { Button, Github, Google } from '@rambo-react/ui-meteors'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -44,7 +44,7 @@ export const SignIn = withAuthRedirect(() => {
             type={'password'}
           />
 
-          <Link className={clsx(s.forgotPass, s.link)} href={'/auth/forgot-password'}>
+          <Link className={clsx(s.forgotPass, s.link)} href={RoutesApp.forgotPassword}>
             Forgot Password
           </Link>
           <Button
@@ -56,7 +56,7 @@ export const SignIn = withAuthRedirect(() => {
             Sign In
           </Button>
           <p className={s.footerText}>{`Don't have an account?`}</p>
-          <Link className={s.link} href={'/auth/sign-up'}>
+          <Link className={s.link} href={RoutesApp.signUp}>
             <Button className={s.button} fullWidth variant={'text'}>
               Sign Up
             </Button>

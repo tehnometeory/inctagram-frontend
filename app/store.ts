@@ -1,5 +1,6 @@
 import { appReducer, authReducer } from '@/entities'
 import {
+  authApi,
   expiredEmailLinkApi,
   forgotPasswordApi,
   setPasswordApi,
@@ -11,6 +12,7 @@ import { configureStore } from '@reduxjs/toolkit'
 export const store = configureStore({
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware()
+      .concat(authApi.middleware)
       .concat(signUpApi.middleware)
       .concat(setPasswordApi.middleware)
       .concat(forgotPasswordApi.middleware)
@@ -19,6 +21,7 @@ export const store = configureStore({
   reducer: {
     app: appReducer,
     auth: authReducer,
+    [authApi.reducerPath]: authApi.reducer,
     [expiredEmailLinkApi.reducerPath]: expiredEmailLinkApi.reducer,
     [forgotPasswordApi.reducerPath]: forgotPasswordApi.reducer,
     [setPasswordApi.reducerPath]: setPasswordApi.reducer,

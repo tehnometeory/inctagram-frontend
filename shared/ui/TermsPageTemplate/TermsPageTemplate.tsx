@@ -1,3 +1,4 @@
+import { RoutesApp } from '@/shared/constants'
 import { ArrowBackOutline } from '@rambo-react/ui-meteors'
 import Link from 'next/link'
 
@@ -10,7 +11,7 @@ type Props = {
 export function TermsPageTemplate({ title }: Props) {
   return (
     <div className={styles.container}>
-      <Link className={styles.comeBackLink} href={'/auth/sign-up'}>
+      <Link className={styles.comeBackLink} href={RoutesApp.signUp}>
         <ArrowBackOutline height={'24'} viewBox={'0 0 24 24'} width={'24'} />
         <span>Back to Sign Up</span>
       </Link>

@@ -1,12 +1,12 @@
-import { useNRouter } from '@/shared'
+import { RoutesApp, useNRouter } from '@/shared'
 
 export const useHeaderActions = () => {
   const router = useNRouter()
 
   return {
-    logInHandler: () => router.push('/auth/sign-in'),
+    logInHandler: () => router.push(RoutesApp.signIn),
     onSelectValueChange: () => {},
-    signUpHandler: () => router.push('/auth/sign-up'),
+    signUpHandler: () => router.push(RoutesApp.signUp),
     titleHandler: () => router.push('/'),
   }
 }
