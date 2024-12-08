@@ -13,22 +13,8 @@ export const signUpApi = createApi({
         url: 'auth/registration',
       }),
     }),
-    registrationViaGitHub: builder.query<void, void>({
-      query: () => ({
-        url: 'oauth/github/login',
-      }),
-    }),
-    registrationViaGoogle: builder.query<void, void>({
-      query: () => ({
-        url: 'oauth/google/login',
-      }),
-    }),
   }),
   reducerPath: 'signUpApi',
 })
 
-export const {
-  useLazyRegistrationViaGitHubQuery,
-  useLazyRegistrationViaGoogleQuery,
-  useRegistrationMutation,
-} = signUpApi
+export const { useRegistrationMutation } = signUpApi

@@ -7,14 +7,11 @@ import {
   handleServerError,
   useAppDispatch,
 } from '@/shared'
+import { useOAuthRedirect } from '@/shared/hooks/useOAuthRedirect'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 
-import {
-  useLazyRegistrationViaGitHubQuery,
-  useLazyRegistrationViaGoogleQuery,
-  useRegistrationMutation,
-} from '../api'
+import { useRegistrationMutation } from '../api'
 import { signUpSchema } from '../model'
 
 type FormValues = z.infer<typeof signUpSchema>
@@ -44,8 +41,8 @@ export const useSignUp = () => {
   })
 
   const [registerUser] = useRegistrationMutation()
-  const [triggerRegistrationViaGoogle] = useLazyRegistrationViaGoogleQuery()
-  const [triggerRegistrationViaGitHub] = useLazyRegistrationViaGitHubQuery()
+  const redirectOnGoogle = useOAuthRedirect('google')
+  const redirectOnGitHub = useOAuthRedirect('github')
 
   const checkboxErrorMessage = errors.agreement?.message
   const { email: emailError, password: passwordError, username: usernameError } = errors
@@ -89,8 +86,8 @@ export const useSignUp = () => {
     onFormSubmit,
     onModalCloseHandler,
     passwordError,
-    triggerRegistrationViaGitHub,
-    triggerRegistrationViaGoogle,
+    redirectOnGitHub,
+    redirectOnGoogle,
     usernameError,
   }
 }

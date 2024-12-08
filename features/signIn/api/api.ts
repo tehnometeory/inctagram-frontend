@@ -13,19 +13,8 @@ export const signInApi = createApi({
         url: 'auth/login',
       }),
     }),
-    loginViaGitHub: builder.query<void, void>({
-      query: () => ({
-        url: 'oauth/github/login',
-      }),
-    }),
-    loginViaGoogle: builder.query<void, void>({
-      query: () => ({
-        url: 'oauth/google/login',
-      }),
-    }),
   }),
   reducerPath: 'signInApi',
 })
 
-export const { useLazyLoginViaGitHubQuery, useLazyLoginViaGoogleQuery, useLoginMutation } =
-  signInApi
+export const { useLoginMutation } = signInApi
