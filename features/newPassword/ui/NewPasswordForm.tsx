@@ -2,7 +2,7 @@
 
 import { FormProvider } from 'react-hook-form'
 
-import { ControlledInput, withAuthRedirect, FormContainer } from '@/shared'
+import { ControlledInput, FormContainer, withAuthRedirect } from '@/shared'
 import { Button } from '@rambo-react/ui-meteors'
 import { clsx } from 'clsx'
 
