@@ -2,8 +2,8 @@
 
 import { FormProvider } from 'react-hook-form'
 
-import { ControlledInput, withAuthRedirect } from '@/shared'
-import { Button, Card } from '@rambo-react/ui-meteors'
+import { ControlledInput, withAuthRedirect, FormContainer } from '@/shared'
+import { Button } from '@rambo-react/ui-meteors'
 import { clsx } from 'clsx'
 
 import s from './NewPasswordForm.module.scss'
@@ -18,8 +18,7 @@ export const NewPasswordForm = withAuthRedirect(() => {
   }
 
   return (
-    <Card className={s.card}>
-      <h1 className={s.title}>Create New Password</h1>
+    <FormContainer title={'Create New Password'}>
       <FormProvider {...methods}>
         <form className={s.form} onSubmit={onSubmitHandler}>
           <ControlledInput
@@ -43,6 +42,6 @@ export const NewPasswordForm = withAuthRedirect(() => {
           </Button>
         </form>
       </FormProvider>
-    </Card>
+    </FormContainer>
   )
 })

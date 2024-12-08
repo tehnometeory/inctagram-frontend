@@ -11,7 +11,7 @@ export const useNewPassword = () => {
   const [setPassword, { error, isError, isLoading, isSuccess }] = useSetPasswordMutation()
   const dispatch = useAppDispatch()
   const { isRedirecting, router, token } = useCheckTokenValidity(
-    '/auth/expired-email-link',
+    '/auth/password-recovery',
     'recoveryCode'
   )
 

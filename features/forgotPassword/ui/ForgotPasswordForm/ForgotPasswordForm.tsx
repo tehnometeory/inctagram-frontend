@@ -8,13 +8,14 @@ import {
   ControlledInput,
   ErrorsMessage,
   ErrorsMessagesResponse,
+  FormContainer,
   SentEmailModal,
   handleNetworkError,
   handleServerError,
   useAppDispatch,
 } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, Card, Recaptcha } from '@rambo-react/ui-meteors'
+import { Button, Recaptcha } from '@rambo-react/ui-meteors'
 import Link from 'next/link'
 
 import s from './ForgotPasswordForm.module.scss'
@@ -93,9 +94,8 @@ export function ForgotPasswordForm() {
   const isDisabled = !email || reCaptchaStatus !== 'checked' || isLoadingValidEmail
 
   return (
-    <Card className={s.card}>
-      <form className={s.formContainer} onSubmit={handleSubmitDataForm}>
-        <h1 className={s.title}>Forgot Password</h1>
+    <FormContainer title={'Forgot Password'}>
+      <form className={s.form} onSubmit={handleSubmitDataForm}>
         <ControlledInput
           containerClassName={s.inputContainer}
           control={control}
@@ -112,8 +112,10 @@ export function ForgotPasswordForm() {
         <Button className={s.btnForm} disabled={isDisabled} fullWidth variant={'primary'}>
           {sendLinkStatus !== 'initial' ? 'Send Link Again' : 'Send Link'}
         </Button>
-        <Link className={s.signIn} href={'sign-in'}>
-          Back to Sign In
+        <Link className={s.linkSignIn} href={'sign-in'}>
+          <Button className={s.btnSignIn} fullWidth variant={'text'}>
+            Back to Sign In
+          </Button>
         </Link>
         {sendLinkStatus !== 'success' && (
           <div className={s.reCaptcha}>
@@ -126,6 +128,6 @@ export function ForgotPasswordForm() {
         )}
       </form>
       <SentEmailModal email={email} isOpen={showModal} onCloseHandler={handleCloseShowModal} />
-    </Card>
+    </FormContainer>
   )
 }
