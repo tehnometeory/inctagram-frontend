@@ -32,7 +32,7 @@ export const SignIn = () => {
   return (
     <FormContainer title={'Sign In'}>
       <FormProvider {...methods}>
-        <form onSubmit={methods.handleSubmit(onSubmit)}>
+        <form className={s.form} onSubmit={methods.handleSubmit(onSubmit)}>
           <div className={s.socialContainer}>
             <Google
               className={s.formIcon}
@@ -54,23 +54,20 @@ export const SignIn = () => {
             />
           </div>
 
-          <div className={s.inputContainer}>
-            <ControlledInput
-              containerClassName={s.emailInput}
-              label={'Email'}
-              name={'email'}
-              placeholder={'Epam@epam.com'}
-            />
-          </div>
-          <div className={s.inputContainer}>
-            <ControlledInput
-              containerClassName={s.passwordInput}
-              label={'Password'}
-              name={'password'}
-              placeholder={'*********'}
-              type={'password'}
-            />
-          </div>
+          <ControlledInput
+            containerClassName={clsx(methods.formState.errors?.email || s.margin)}
+            label={'Email'}
+            name={'email'}
+            placeholder={'Epam@epam.com'}
+          />
+
+          <ControlledInput
+            label={'Password'}
+            name={'password'}
+            placeholder={'*********'}
+            type={'password'}
+          />
+
           <Link className={clsx(s.forgotPass, s.link)} href={'/auth/forgot-password'}>
             Forgot Password
           </Link>
