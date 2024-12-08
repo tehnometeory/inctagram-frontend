@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 
-import { setAccessToken } from '@/entities'
+import { setAccessToken, setIsAuthorized } from '@/entities'
 import { handleNetworkError, handleServerError, useAppDispatch, useAppSelector } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useRouter } from 'next/navigation'
@@ -44,7 +44,7 @@ export const useSignIn = () => {
       }
     } else if ('accessToken' in response.data) {
       dispatch(setAccessToken(response.data.accessToken))
-
+      dispatch(setIsAuthorized(true))
       methods.reset()
     }
   }

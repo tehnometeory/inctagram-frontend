@@ -1,12 +1,8 @@
-import { ErrorsMessagesResponse } from '@/shared'
+import { ErrorsMessagesResponse, ResponseWithAccessToken } from '@/shared'
 
 export type LoginBody = {
   email: string
   password: string
 }
 
-type LoginSuccessResponse = {
-  accessToken: string
-}
-
-export type SignInResponse = ErrorsMessagesResponse | LoginSuccessResponse
+export type SignInResponse = ErrorsMessagesResponse | ResponseWithAccessToken
