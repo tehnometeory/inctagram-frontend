@@ -47,12 +47,7 @@ export const SignIn = () => {
           <Link className={clsx(s.forgotPass, s.link)} href={RoutesApp.forgotPassword}>
             Forgot Password
           </Link>
-          <Button
-            className={s.button}
-            disabled={!methods.formState.isValid || isLoading}
-            fullWidth
-            type={'submit'}
-          >
+          <Button className={s.button} disabled={isLoading} fullWidth type={'submit'}>
             Sign In
           </Button>
           <p className={s.footerText}>{`Don't have an account?`}</p>
