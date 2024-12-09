@@ -1,8 +1,8 @@
 'use client'
 
-import { ExpiredEmailLinkForm, RoutesApp, useNRouter } from '@/shared'
+import { ExpiredEmailLinkForm, RoutesApp, useNRouter, withAuthRedirect } from '@/shared'
 
-export const PasswordRecovery = () => {
+export const PasswordRecovery = withAuthRedirect(() => {
   const router = useNRouter()
 
   const onSubmit = () => {
@@ -10,4 +10,4 @@ export const PasswordRecovery = () => {
   }
 
   return <ExpiredEmailLinkForm isDisabled={false} onSubmitHandler={onSubmit} showInput={false} />
-}
+})
