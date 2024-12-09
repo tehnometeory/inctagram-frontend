@@ -4,7 +4,16 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import { LoginBody, SignInResponse } from './types'
 
 export const signInApi = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: BASE_URL_API }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: BASE_URL_API,
+    credentials: 'include',
+    prepareHeaders: headers => {
+      headers.set('User-Agent', navigator.userAgent)
+
+      return headers
+    },
+  }),
+
   endpoints: builder => ({
     login: builder.mutation<SignInResponse, LoginBody>({
       query: body => ({

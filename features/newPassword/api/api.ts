@@ -6,9 +6,6 @@ import { ErrorResponse, SetPasswordArg, SetPasswordResponse } from './types'
 export const setPasswordApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: BASE_URL_API,
-    prepareHeaders: headers => {
-      headers.set('Content-type', 'application/json; charset=utf-8')
-    },
   }),
   endpoints: builder => ({
     setPassword: builder.mutation<SetPasswordResponse, SetPasswordArg>({
