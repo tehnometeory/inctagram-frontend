@@ -1,0 +1,58 @@
+@use '@rambo-react/ui-meteors/dist/typography' as typography;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  padding: 17px 15px 0;
+
+  color: var(--color-light-100);
+}
+
+.title {
+  margin-top: 0;
+  margin-bottom: 19px;
+
+  @include typography.H1;
+}
+
+.description {
+  margin-top: 0;
+  margin-bottom: 54px;
+
+  @include typography.Regular_text_16;
+}
+
+.btnLink {
+  margin-bottom: 72px;
+  text-decoration: none;
+
+  button {
+    width: 182px;
+  }
+}
+
+@media (width <= 425px) {
+  .title {
+    @include typography.H2;
+
+    margin-bottom: 13px;
+  }
+
+  .description {
+    margin-bottom: 66px;
+  }
+
+  .btnLink {
+    order: 1;
+    width: 100%;
+    margin-top: 46px;
+    margin-bottom: 0;
+
+    button {
+      width: 100%;
+      height: 48px;
+    }
+  }
+}

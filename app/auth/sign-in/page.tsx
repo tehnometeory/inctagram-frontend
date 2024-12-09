@@ -1,3 +1,6 @@
-export default function SignIn() {
-  return <div>Sign in page</div>
-}
+'use client'
+
+import { SignIn } from '@/features'
+import { withAuthRedirect } from '@/shared'
+
+export default withAuthRedirect(() => <SignIn />)
