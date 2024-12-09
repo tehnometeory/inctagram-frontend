@@ -1,6 +1,5 @@
 'use client'
-import { TermsPageTemplate } from '@/shared'
 
-export default function PrivacyPolicy() {
-  return <TermsPageTemplate title={'Privacy Policy'} />
-}
+import { TermsPageTemplate, withAuthRedirect } from '@/shared'
+
+export default withAuthRedirect(() => <TermsPageTemplate title={'Privacy Policy'} />)

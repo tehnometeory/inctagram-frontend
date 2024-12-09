@@ -1,7 +1,6 @@
 'use client'
 
 import { ExpiredEmailLink } from '@/features'
+import { withAuthRedirect } from '@/shared'
 
-export default function ExpiredEmailLinkPage() {
-  return <ExpiredEmailLink />
-}
+export default withAuthRedirect(() => <ExpiredEmailLink />)

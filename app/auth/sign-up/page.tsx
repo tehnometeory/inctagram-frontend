@@ -1,7 +1,6 @@
 'use client'
 
 import { SignUp } from '@/features'
+import { withAuthRedirect } from '@/shared'
 
-export default function SignUpPage() {
-  return <SignUp />
-}
+export default withAuthRedirect(() => <SignUp />)

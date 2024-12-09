@@ -3,11 +3,10 @@
 import { Suspense } from 'react'
 
 import { NewPasswordForm } from '@/features'
+import { withAuthRedirect } from '@/shared'
 
-export default function NewPassword() {
-  return (
-    <Suspense>
-      <NewPasswordForm />
-    </Suspense>
-  )
-}
+export default withAuthRedirect(() => (
+  <Suspense>
+    <NewPasswordForm />
+  </Suspense>
+))
