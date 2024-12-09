@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit'
 
-import { Alert, AppState } from './types'
+import { AlertData, AppState } from './types'
 
 const initialState: AppState = { alert: { message: '', type: null } }
 
@@ -12,7 +12,7 @@ const appSlice = createSlice({
       state.alert.message = ''
       state.alert.type = null
     },
-    setAlert(state, action: PayloadAction<Alert>) {
+    setAlert(state, action: PayloadAction<AlertData>) {
       state.alert = action.payload
     },
   },

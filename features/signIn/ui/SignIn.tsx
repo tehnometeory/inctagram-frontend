@@ -2,7 +2,7 @@
 
 import { FormProvider } from 'react-hook-form'
 
-import { ControlledInput, FormContainer, RoutesApp, withAuthRedirect } from '@/shared'
+import { ControlledInput, FormContainer, RoutesApp } from '@/shared'
 import { Button, Github, Google } from '@rambo-react/ui-meteors'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -11,7 +11,7 @@ import s from './SignIn.module.scss'
 
 import { useSignIn } from '../hooks'
 
-export const SignIn = withAuthRedirect(() => {
+export const SignIn = () => {
   const { isLoading, methods, onSubmit, redirectOnGitHub, redirectOnGoogle } = useSignIn()
 
   return (
@@ -65,4 +65,4 @@ export const SignIn = withAuthRedirect(() => {
       </FormProvider>
     </FormContainer>
   )
-})
+}

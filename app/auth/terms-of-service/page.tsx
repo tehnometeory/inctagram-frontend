@@ -1,7 +1,5 @@
 'use client'
 
-import { TermsPageTemplate } from '@/shared'
+import { TermsPageTemplate, withAuthRedirect } from '@/shared'
 
-export default function TermsOfService() {
-  return <TermsPageTemplate title={'Terms of Service'} />
-}
+export default withAuthRedirect(() => <TermsPageTemplate title={'Terms of Service'} />)

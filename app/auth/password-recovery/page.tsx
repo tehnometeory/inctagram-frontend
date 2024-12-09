@@ -1,7 +1,6 @@
 'use client'
 
 import { PasswordRecovery } from '@/features'
+import { withAuthRedirect } from '@/shared'
 
-export default function PasswordRecoveryPage() {
-  return <PasswordRecovery />
-}
+export default withAuthRedirect(() => <PasswordRecovery />)

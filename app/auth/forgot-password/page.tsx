@@ -1,5 +1,6 @@
-import { ForgotPassword } from '@/features'
+'use client'
 
-export default function ForgotPasswordPage() {
-  return <ForgotPassword />
-}
+import { ForgotPassword } from '@/features'
+import { withAuthRedirect } from '@/shared'
+
+export default withAuthRedirect(() => <ForgotPassword />)
