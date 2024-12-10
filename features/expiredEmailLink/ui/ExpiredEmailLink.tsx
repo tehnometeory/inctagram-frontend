@@ -10,6 +10,7 @@ import {
   handleNetworkError,
   handleServerError,
   useAppDispatch,
+  withAuthRedirect,
 } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 
@@ -19,7 +20,7 @@ type FormValues = {
   email: string
 }
 
-export const ExpiredEmailLink = () => {
+export const ExpiredEmailLink = withAuthRedirect(() => {
   const [showModal, setShowModal] = useState(false)
   const { control, handleSubmit, reset, setError, watch } = useForm<FormValues>({
     defaultValues: { email: '' },
@@ -70,4 +71,4 @@ export const ExpiredEmailLink = () => {
       showModal={showModal}
     />
   )
-}
+})

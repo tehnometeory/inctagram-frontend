@@ -3,10 +3,11 @@
 import { Suspense } from 'react'
 
 import { ConfirmedEmail } from '@/features'
-import { withAuthRedirect } from '@/shared'
 
-export default withAuthRedirect(() => (
-  <Suspense>
-    <ConfirmedEmail />
-  </Suspense>
-))
+export default function ConfirmedEmailpage() {
+  return (
+    <Suspense>
+      <ConfirmedEmail />
+    </Suspense>
+  )
+}
