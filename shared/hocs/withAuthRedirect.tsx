@@ -20,10 +20,10 @@ export function withAuthRedirect<T extends Props>(Component: ComponentType<T>) {
     }, [isAuthorized, router])
 
     if (!isAuthorized) {
-      return null
+      return <Component {...props} />
     }
 
-    return <Component {...props} />
+    return null
   }
 
   return AuthWrapper
