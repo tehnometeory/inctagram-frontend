@@ -1,1 +1,1 @@
-export * from './appHeader'
+export * from './HeaderAdapters'
