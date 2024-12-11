@@ -1,13 +1,13 @@
 'use client'
 
-import { RoutesApp, useCheckTokenValidity, withAuthRedirect } from '@/shared'
+import { RoutesApp, useCheckTokenValidity } from '@/shared'
 import { Button } from '@rambo-react/ui-meteors'
 import Image from 'next/image'
 import Link from 'next/link'
 
 import s from './ConfirmedEmail.module.scss'
 
-export const ConfirmedEmail = withAuthRedirect(() => {
+export const ConfirmedEmail = () => {
   const { isRedirecting } = useCheckTokenValidity(RoutesApp.expiredEmailLink, 'code')
 
   if (isRedirecting) {
@@ -36,4 +36,4 @@ export const ConfirmedEmail = withAuthRedirect(() => {
       />
     </div>
   )
-})
+}
