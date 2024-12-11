@@ -1,7 +1,8 @@
 'use client'
+
 import { ReactNode, useEffect } from 'react'
 
-import { NextNprogress, useAppSelector, useNRouter } from '@/shared'
+import { RoutesApp, useAppSelector, useNRouter } from '@/shared'
 import { HeaderApp } from '@/widgets'
 
 import s from './layout.module.scss'
@@ -12,7 +13,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     if (isAuth) {
-      router.replace('/home')
+      router.replace(RoutesApp.home)
     }
   }, [isAuth, router])
 

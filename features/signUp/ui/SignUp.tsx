@@ -1,12 +1,6 @@
 'use client'
 
-import {
-  ControlledCheckbox,
-  ControlledInput,
-  FormContainer,
-  SentEmailModal,
-  withAuthRedirect,
-} from '@/shared'
+import { ControlledCheckbox, ControlledInput, FormContainer, SentEmailModal } from '@/shared'
 import { Button, Github, Google } from '@rambo-react/ui-meteors/dist'
 import clsx from 'clsx'
 import Link from 'next/link'
@@ -15,7 +9,7 @@ import s from './SignUp.module.scss'
 
 import { useSignUp } from '../hooks'
 
-export const SignUp = withAuthRedirect(() => {
+export const SignUp = () => {
   const {
     checkboxErrorMessage,
     control,
@@ -104,4 +98,4 @@ export const SignUp = withAuthRedirect(() => {
       <SentEmailModal email={email} isOpen={isModalOpen} onCloseHandler={onModalCloseHandler} />
     </FormContainer>
   )
-})
+}

@@ -1,16 +1,17 @@
 'use client'
+
 import { ReactNode, useEffect } from 'react'
 
-import { useAppSelector, useNRouter } from '@/shared'
+import { RoutesApp, useAppSelector, useNRouter } from '@/shared'
 import { HeaderPublic } from '@/widgets'
 
-export default function AuthLayout({ children }: { children: ReactNode }) {
+export default function PublicLayout({ children }: { children: ReactNode }) {
   const router = useNRouter()
   const isAuth = useAppSelector(state => state.auth.isAuthorized)
 
   useEffect(() => {
     if (isAuth) {
-      router.replace('/home')
+      router.replace(RoutesApp.home)
     }
   }, [isAuth, router])
 
