@@ -1,3 +1,7 @@
-export default function TermsOfService() {
-  return <div>Terms of Service</div>
+'use client'
+
+import { TermsPageTemplate } from '@/shared'
+
+export default function TermsOfServicePage() {
+  return <TermsPageTemplate title={'Terms of Service'} />
 }
