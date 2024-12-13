@@ -1,5 +1,6 @@
 export * from './useAppDispatch'
 export * from './useAppSelector'
 export * from './useCheckTokenValidity'
+export * from './useFormErrorsHandler'
 export * from './useNRouter'
 export * from './useOAuthRedirect'
