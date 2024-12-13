@@ -3,10 +3,10 @@ import { useForm } from 'react-hook-form'
 
 import { setAccessToken, setIsAuthorized } from '@/entities'
 import {
-  handleNetworkError,
-  handleServerError,
+  ErrorMessage,
   useAppDispatch,
   useAppSelector,
+  useFormErrorsHandler,
   useNRouter,
   useOAuthRedirect,
 } from '@/shared'
@@ -32,9 +32,11 @@ export const useSignIn = () => {
   const router = useNRouter()
   const dispatch = useAppDispatch()
 
-  const [login, { isLoading }] = useLoginMutation()
+  const [login, { error, isLoading }] = useLoginMutation()
   const redirectOnGoogle = useOAuthRedirect('google')
   const redirectOnGitHub = useOAuthRedirect('github')
+
+  useFormErrorsHandler(error as ErrorMessage[], methods.setError)
 
   useEffect(() => {
     if (token) {
@@ -45,17 +47,7 @@ export const useSignIn = () => {
   const onSubmit = async (data: FormValues) => {
     const response = await login(data)
 
-    if (response.error) {
-      if ('status' in response.error && response.error.status === 500) {
-        handleServerError(dispatch)
-      } else if ('data' in response.error) {
-        methods.setError('password', {
-          message: 'The email or password are incorrect. Try again please',
-        })
-      } else if ('status' in response.error && response.error.status === 'FETCH_ERROR') {
-        handleNetworkError(dispatch)
-      }
-    } else if ('accessToken' in response.data) {
+    if (response.data && 'accessToken' in response.data) {
       dispatch(setAccessToken(response.data.accessToken))
       dispatch(setIsAuthorized(true))
       methods.reset()
