@@ -1,0 +1,29 @@
+.swiperButtonNextBlack,
+.swiperButtonPrevBlack {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(23, 23, 23, 0.8);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 10;
+}
+.swiperNextIconBlack,
+.swiperPrevIconBlack {
+  width: 7px;
+  height: 14px;
+}
+
+.swiperButtonNextBlack {
+  right: 10px;
+}
+
+.swiperButtonPrevBlack {
+  left: 10px;
+}
