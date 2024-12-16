@@ -1,29 +1,92 @@
+.container {
+  height: 503px;
+  width: 490px;
+}
+
 .swiperButtonNextBlack,
-.swiperButtonPrevBlack {
+.swiperButtonPrevBlack,
+.swiperButtonNextGray,
+.swiperButtonPrevGray {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background-color: rgba(23, 23, 23, 0.8);
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
+  border-radius: 2px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 24px;
   cursor: pointer;
   z-index: 10;
 }
-.swiperNextIconBlack,
-.swiperPrevIconBlack {
-  width: 7px;
-  height: 14px;
+
+.swiperButtonNextBlack,
+.swiperButtonPrevBlack {
+  background-color: rgba(23, 23, 23, 0.8);
+  width: 36px;
+  height: 36px;
 }
 
-.swiperButtonNextBlack {
+.swiperButtonNextGray,
+.swiperButtonPrevGray {
+  background-color: rgba(51, 51, 51, 0.6);
+  width: 48px;
+  height: 48px;
+}
+
+.swiperButtonNextBlack,
+.swiperButtonNextGray {
   right: 10px;
 }
 
-.swiperButtonPrevBlack {
+.swiperButtonPrevBlack,
+.swiperButtonPrevGray {
   left: 10px;
+}
+
+.hiddenButton {
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.swiperPaginationBlack {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 6px;
+  z-index: 2;
+}
+.swiperPaginationGray {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  z-index: 2;
+  height: 24px;
+  left: 50% !important;
+  width: auto !important;
+  min-width: 20px !important;
+  background-color: rgba(51, 51, 51, 0.6);
+  border-radius: 2px;
+  padding: 8px;
+}
+.swiperPaginationGray :global(.swiper-pagination-button),
+.swiperPaginationBlack :global(.swiper-pagination-button) {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.swiperPaginationGray :global(.swiper-pagination-button) {
+  background-color: var(--color-light-100);
+}
+
+.swiperPaginationBlack :global(.swiper-pagination-button) {
+  background-color: var(--color-light-900);
+}
+
+.swiperPaginationGray :global(.swiper-pagination-button-active),
+.swiperPaginationBlack :global(.swiper-pagination-button-active) {
+  background-color: var(--color-accent-500);
 }

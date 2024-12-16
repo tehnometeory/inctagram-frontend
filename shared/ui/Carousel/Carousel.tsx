@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import { ArrowIosBack, ArrowIosBackOutline, ArrowIosForward } from '@rambo-react/ui-meteors'
+import clsx from 'clsx'
 import Image from 'next/image'
 import { Navigation, Pagination } from 'swiper/modules'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -16,44 +17,82 @@ type Props = {
   type: 'Black' | 'Gray'
 }
 export const Carousel = ({ images, type }: Props) => {
+  const [isBeginning, setIsBeginning] = useState(true)
+  const [isEnd, setIsEnd] = useState(false)
+
   return (
-    <Swiper
-      loop={false} // Отключаем зацикливание
-      modules={[Navigation, Pagination]} // Подключаем модули
-      navigation={{
-        nextEl: `.${styles[`swiperButtonNext${type}`]}`,
-        prevEl: `.${styles[`swiperButtonPrev${type}`]}`,
-      }} // Включаем стрелки
-      pagination={{
-        clickable: true,
-        el: styles[`swiperPagination${type}`],
-      }} // Кликабельные точки
-      slidesPerView={1}
-      spaceBetween={50}
-    >
-      {images.map((src, index) => (
-        <SwiperSlide key={index}>
-          <div style={{ height: '300px', width: '100%' }}>
-            <Image
-              alt={`Image ${index + 1}`}
-              layout={'fill'}
-              loading={index === 0 ? 'eager' : 'lazy'}
-              priority={index === 0}
-              src={src}
+    <div className={styles.container}>
+      <Swiper
+        loop={false} // Отключаем зацикливание
+        modules={[Navigation, Pagination]} // Подключаем модули
+        navigation={{
+          nextEl: `.${styles[`swiperButtonNext${type}`]}`,
+          prevEl: `.${styles[`swiperButtonPrev${type}`]}`,
+        }} // Включаем стрелки
+        onSlideChange={swiper => {
+          setIsBeginning(swiper.isBeginning)
+          setIsEnd(swiper.isEnd)
+        }}
+        pagination={{
+          bulletActiveClass: 'swiper-pagination-button-active',
+          bulletClass: 'swiper-pagination-button',
+          clickable: true,
+          el: `.${styles[`swiperPagination${type}`]}`,
+          type: 'bullets',
+        }} // Кликабельные точки
+        slidesPerView={1}
+        spaceBetween={50}
+      >
+        {images.map((src, index) => (
+          <SwiperSlide key={index}>
+            <div style={{ height: '503px', position: 'relative', width: '490px' }}>
+              <Image
+                alt={`Image ${index + 1}`}
+                fill
+                loading={index === 0 ? 'eager' : 'lazy'}
+                priority={index === 0}
+                sizes={'(max-width: 490px) 100vw, 490px'}
+                src={src}
+                style={{ objectFit: 'cover' }}
+              />
+            </div>
+          </SwiperSlide>
+        ))}
+
+        <div className={clsx(styles[`swiperButtonNext${type}`], { [styles.hiddenButton]: isEnd })}>
+          <ArrowIosForward
+            className={styles[`swiperNextIcon${type}`]}
+            fill={'white'}
+            height={type === 'Black' ? 24 : 48}
+            width={type === 'Black' ? 24 : 48}
+          />
+        </div>
+
+        <div
+          className={clsx(styles[`swiperButtonPrev${type}`], {
+            [styles.hiddenButton]: isBeginning,
+          })}
+        >
+          {type === 'Black' && (
+            <ArrowIosBack
+              className={styles[`swiperPrevIcon${type}`]}
+              fill={'white'}
+              height={24}
+              width={24}
             />
-          </div>
-        </SwiperSlide>
-      ))}
-      <div className={styles[`swiperButtonNext${type}`]}>
-        <ArrowIosForward className={styles[`swiperNextIcon${type}`]} fill={'white'} />
-      </div>
-      <div className={styles[`swiperButtonPrev${type}`]}>
-        {type === 'Black' && (
-          <ArrowIosBack className={styles[`swiperPrevIcon${type}`]} fill={'white'} />
-        )}
-        {type === 'Gray' && <ArrowIosBackOutline className={styles[`swiperPrevIcon${type}`]} />}
-      </div>
-      <div className={styles[`swiperPagination${type}`]} />
-    </Swiper>
+          )}
+          {type === 'Gray' && (
+            <ArrowIosBackOutline
+              className={styles[`swiperPrevIcon${type}`]}
+              fill={'white'}
+              height={48}
+              width={48}
+            />
+          )}
+        </div>
+
+        <div className={styles[`swiperPagination${type}`]} />
+      </Swiper>
+    </div>
   )
 }
