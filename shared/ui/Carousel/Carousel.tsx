@@ -23,12 +23,12 @@ export const Carousel = ({ images, type }: Props) => {
   return (
     <div className={styles.container}>
       <Swiper
-        loop={false} // Отключаем зацикливание
-        modules={[Navigation, Pagination]} // Подключаем модули
+        loop={false}
+        modules={[Navigation, Pagination]}
         navigation={{
           nextEl: `.${styles[`swiperButtonNext${type}`]}`,
           prevEl: `.${styles[`swiperButtonPrev${type}`]}`,
-        }} // Включаем стрелки
+        }}
         onSlideChange={swiper => {
           setIsBeginning(swiper.isBeginning)
           setIsEnd(swiper.isEnd)
