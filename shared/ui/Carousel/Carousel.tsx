@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useMemo, useState } from 'react'
 
 import { ArrowIosBack, ArrowIosBackOutline, ArrowIosForward } from '@rambo-react/ui-meteors'
 import clsx from 'clsx'
@@ -13,16 +13,35 @@ import 'swiper/css/pagination'
 import styles from './Carousel.module.scss'
 
 type Props = {
+  activeSlide?: number
+  filters?: string[]
   images: string[]
+  setActiveSlide?: (index: number) => void
   type: 'Black' | 'Gray'
 }
-export const Carousel = ({ images, type }: Props) => {
+
+export const Carousel = ({ activeSlide = 0, filters, images, setActiveSlide, type }: Props) => {
   const [isBeginning, setIsBeginning] = useState(true)
   const [isEnd, setIsEnd] = useState(false)
+
+  const filtersToUse = useMemo(
+    () => filters ?? new Array(images.length).fill('Normal'),
+    [filters, images.length]
+  )
+
+  const handleSlideChange = useCallback(
+    (swiper: any) => {
+      if (setActiveSlide) {
+        setActiveSlide(swiper.activeIndex)
+      }
+    },
+    [setActiveSlide]
+  )
 
   return (
     <div className={styles.container}>
       <Swiper
+        initialSlide={activeSlide}
         loop={false}
         modules={[Navigation, Pagination]}
         navigation={{
@@ -32,6 +51,7 @@ export const Carousel = ({ images, type }: Props) => {
         onSlideChange={swiper => {
           setIsBeginning(swiper.isBeginning)
           setIsEnd(swiper.isEnd)
+          handleSlideChange(swiper)
         }}
         pagination={{
           bulletActiveClass: 'swiper-pagination-button-active',
@@ -39,7 +59,7 @@ export const Carousel = ({ images, type }: Props) => {
           clickable: true,
           el: `.${styles[`swiperPagination${type}`]}`,
           type: 'bullets',
-        }} // Кликабельные точки
+        }}
         slidesPerView={1}
         spaceBetween={50}
       >
@@ -53,7 +73,7 @@ export const Carousel = ({ images, type }: Props) => {
                 priority={index === 0}
                 sizes={'(max-width: 490px) 100vw, 490px'}
                 src={src}
-                style={{ objectFit: 'cover' }}
+                style={{ filter: filtersToUse[index], objectFit: 'cover' }}
               />
             </div>
           </SwiperSlide>
