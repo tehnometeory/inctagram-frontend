@@ -3,6 +3,7 @@ import {
   authApi,
   expiredEmailLinkApi,
   forgotPasswordApi,
+  logoutApi,
   setPasswordApi,
   signInApi,
   signUpApi,
@@ -17,13 +18,15 @@ export const store = configureStore({
       .concat(setPasswordApi.middleware)
       .concat(forgotPasswordApi.middleware)
       .concat(expiredEmailLinkApi.middleware)
-      .concat(signInApi.middleware),
+      .concat(signInApi.middleware)
+      .concat(logoutApi.middleware),
   reducer: {
     app: appReducer,
     auth: authReducer,
     [authApi.reducerPath]: authApi.reducer,
     [expiredEmailLinkApi.reducerPath]: expiredEmailLinkApi.reducer,
     [forgotPasswordApi.reducerPath]: forgotPasswordApi.reducer,
+    [logoutApi.reducerPath]: logoutApi.reducer,
     [setPasswordApi.reducerPath]: setPasswordApi.reducer,
     [signInApi.reducerPath]: signInApi.reducer,
     [signUpApi.reducerPath]: signUpApi.reducer,
