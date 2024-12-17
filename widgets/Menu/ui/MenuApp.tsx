@@ -6,11 +6,10 @@ import s from './MenuApp.module.scss'
 
 export const MenuApp = () => {
   const menuCallbacks = useMenuHandlers()
-  const { isLoading, logoutItem } = useLogout()
 
   return (
     <div className={s.menu}>
-      <Menu callbacks={[...menuCallbacks, logoutItem]} />
+      <Menu callbacks={menuCallbacks} />
     </div>
   )
 }
