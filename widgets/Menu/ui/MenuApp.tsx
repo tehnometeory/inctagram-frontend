@@ -1,4 +1,4 @@
-import { useMenuHandlers } from '@/shared/hooks/useMenuHandlers'
+import { useMenuHandlers } from '@/shared'
 import { Menu } from '@rambo-react/ui-meteors'
 
 import s from './MenuApp.module.scss'

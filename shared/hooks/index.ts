@@ -1,4 +1,5 @@
 export * from './reduxHooks'
 export * from './useCheckTokenValidity'
+export * from './useMenuHandlers'
 export * from './useNRouter'
 export * from './useOAuthRedirect'
