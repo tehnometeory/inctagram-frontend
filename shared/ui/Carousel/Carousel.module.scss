@@ -1,0 +1,101 @@
+.container {
+  width: 490px;
+  height: 503px;
+}
+
+.swiperButtonNextBlack,
+.swiperButtonPrevBlack,
+.swiperButtonNextGray,
+.swiperButtonPrevGray {
+  cursor: pointer;
+
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 2px;
+}
+
+.swiperButtonNextBlack,
+.swiperButtonPrevBlack {
+  width: 36px;
+  height: 36px;
+  background-color: rgb(23 23 23 / 80%);
+}
+
+.swiperButtonNextGray,
+.swiperButtonPrevGray {
+  width: 48px;
+  height: 48px;
+  background-color: rgb(51 51 51 / 60%);
+}
+
+.swiperButtonNextBlack,
+.swiperButtonNextGray {
+  right: 10px;
+}
+
+.swiperButtonPrevBlack,
+.swiperButtonPrevGray {
+  left: 10px;
+}
+
+.hiddenButton {
+  pointer-events: none;
+  visibility: hidden;
+}
+
+.swiperPaginationBlack {
+  position: absolute;
+  z-index: 2;
+
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  justify-content: center;
+}
+
+.swiperPaginationGray {
+  position: absolute;
+  z-index: 2;
+  left: 50% !important;
+
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+
+  width: auto !important;
+  min-width: 20px !important;
+  height: 24px;
+  padding: 8px;
+
+  background-color: rgb(51 51 51 / 60%);
+  border-radius: 2px;
+}
+
+.swiperPaginationGray :global(.swiper-pagination-button),
+.swiperPaginationBlack :global(.swiper-pagination-button) {
+  cursor: pointer;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.swiperPaginationGray :global(.swiper-pagination-button) {
+  background-color: var(--color-light-100);
+}
+
+.swiperPaginationBlack :global(.swiper-pagination-button) {
+  background-color: var(--color-light-900);
+}
+
+.swiperPaginationGray :global(.swiper-pagination-button-active),
+.swiperPaginationBlack :global(.swiper-pagination-button-active) {
+  background-color: var(--color-accent-500);
+}

@@ -1,3 +1,4 @@
+export * from './Carousel'
 export * from './ContentContainer'
 export * from './ControlledCheckbox'
 export * from './ControlledInput'
