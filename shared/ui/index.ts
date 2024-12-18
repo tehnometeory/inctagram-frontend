@@ -1,4 +1,5 @@
 export * from './BaseLayout'
+export * from './Carousel'
 export * from './ControlledCheckbox'
 export * from './ControlledInput'
 export * from './ExpiredEmailLinkForm'
