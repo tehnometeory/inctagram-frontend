@@ -14,10 +14,19 @@ export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => next => a
       api.dispatch(setAlert({ message: 'Network error', type: 'error' }))
     }
 
-    const errorsMessages = ((action.payload as FetchBaseQueryError).data as ErrorsMessagesResponse)
-      .errorsMessages
+    const filteredErrorsMessages = (
+      (action.payload as FetchBaseQueryError).data as ErrorsMessagesResponse
+    ).errorsMessages.filter(({ field = '', message }) => {
+      if (!field) {
+        api.dispatch(setAlert({ message, type: 'error' }))
 
-    return next({ ...action, payload: errorsMessages })
+        return false
+      }
+
+      return true
+    })
+
+    return next({ ...action, payload: filteredErrorsMessages })
   }
 
   return next(action)
