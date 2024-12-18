@@ -1,7 +1,14 @@
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { setAlert } from '@/entities'
-import { RoutesApp, useAppDispatch, useCheckTokenValidity } from '@/shared'
+import {
+  ErrorMessage,
+  RoutesApp,
+  useAppDispatch,
+  useCheckTokenValidity,
+  useFormErrorsHandler,
+} from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 
 import { useSetPasswordMutation } from '../api'
@@ -9,29 +16,37 @@ import { NewPasswordFields, newPasswordSchema } from '../model'
 
 export const useNewPassword = () => {
   const [setPassword, { error, isError, isLoading, isSuccess }] = useSetPasswordMutation()
-  const dispatch = useAppDispatch()
-  const { isRedirecting, router, token } = useCheckTokenValidity(
-    RoutesApp.passwordRecovery,
-    'recoveryCode'
-  )
 
   const methods = useForm<NewPasswordFields>({
     mode: 'onBlur',
     resolver: zodResolver(newPasswordSchema),
   })
 
-  if (isError) {
-    dispatch(setAlert({ message: (error as any).message, type: 'error' }))
-  }
+  useFormErrorsHandler(error as ErrorMessage[], methods.setError)
 
-  if (isSuccess) {
-    dispatch(setAlert({ message: 'Password changed successfully', type: 'accepted' }))
-  }
+  const dispatch = useAppDispatch()
+
+  const { isRedirecting, router, token } = useCheckTokenValidity(
+    RoutesApp.passwordRecovery,
+    'recoveryCode'
+  )
+
+  useEffect(() => {
+    if (isError) {
+      dispatch(setAlert({ message: (error as any).message, type: 'error' }))
+    }
+
+    if (isSuccess) {
+      dispatch(setAlert({ message: 'Password changed successfully', type: 'accepted' }))
+    }
+  }, [isError, isSuccess, error, dispatch])
 
   const onSubmitHandler = methods.handleSubmit(async (data: NewPasswordFields) => {
-    await setPassword({ code: token, password: data?.newPassword })
-      .unwrap()
-      .then(() => router.push(RoutesApp.signIn))
+    const response = await setPassword({ code: token, password: data?.newPassword })
+
+    if ('data' in response) {
+      router.push(RoutesApp.signIn)
+    }
   })
 
   return {
