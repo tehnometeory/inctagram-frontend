@@ -1,8 +1,8 @@
 import { ReactNode } from 'react'
 
-import { BaseLayout } from '@/shared'
-
 import '@rambo-react/ui-meteors/dist/style.css'
+
+import s from './layout.module.scss'
 
 import { Providers } from './Providers'
 
@@ -15,7 +15,7 @@ export default function RootLayout({
     <html lang={'en'}>
       <body>
         <Providers>
-          <BaseLayout>{children}</BaseLayout>
+          <div className={s.content}>{children}</div>
         </Providers>
       </body>
     </html>

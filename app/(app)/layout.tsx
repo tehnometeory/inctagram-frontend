@@ -22,7 +22,7 @@ export default function AppLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <HeaderApp isAuth={isAuth} />
-      <main>{children}</main>
+      {children}
     </>
   )
 }
