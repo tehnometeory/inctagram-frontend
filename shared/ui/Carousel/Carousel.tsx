@@ -19,7 +19,7 @@ type Props = {
   filters?: string[]
   images: string[]
   setActiveSlide?: (index: number) => void
-  type: 'black' | 'gray'
+  type: 'Black' | 'Gray'
 }
 
 export const Carousel = ({ activeSlide = 0, filters, images, setActiveSlide, type }: Props) => {
@@ -85,8 +85,8 @@ export const Carousel = ({ activeSlide = 0, filters, images, setActiveSlide, typ
           <ArrowIosForward
             className={styles[`swiperNextIcon${type}`]}
             fill={'white'}
-            height={type === 'black' ? 24 : 48}
-            width={type === 'black' ? 24 : 48}
+            height={type === 'Black' ? 24 : 48}
+            width={type === 'Black' ? 24 : 48}
           />
         </div>
 
@@ -95,7 +95,7 @@ export const Carousel = ({ activeSlide = 0, filters, images, setActiveSlide, typ
             [styles.hiddenButton]: isBeginning,
           })}
         >
-          {type === 'black' && (
+          {type === 'Black' && (
             <ArrowIosBack
               className={styles[`swiperPrevIcon${type}`]}
               fill={'white'}
@@ -103,7 +103,7 @@ export const Carousel = ({ activeSlide = 0, filters, images, setActiveSlide, typ
               width={24}
             />
           )}
-          {type === 'gray' && (
+          {type === 'Gray' && (
             <ArrowIosBackOutline
               className={styles[`swiperPrevIcon${type}`]}
               fill={'white'}
