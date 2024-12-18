@@ -7,17 +7,20 @@ import {
   signInApi,
   signUpApi,
 } from '@/features'
+import { rtkQueryErrorLogger } from '@/shared'
 import { configureStore } from '@reduxjs/toolkit'
 
 export const store = configureStore({
   middleware: getDefaultMiddleware =>
-    getDefaultMiddleware()
-      .concat(authApi.middleware)
-      .concat(signUpApi.middleware)
-      .concat(setPasswordApi.middleware)
-      .concat(forgotPasswordApi.middleware)
-      .concat(expiredEmailLinkApi.middleware)
-      .concat(signInApi.middleware),
+    getDefaultMiddleware().concat(
+      authApi.middleware,
+      signUpApi.middleware,
+      setPasswordApi.middleware,
+      forgotPasswordApi.middleware,
+      expiredEmailLinkApi.middleware,
+      signInApi.middleware,
+      rtkQueryErrorLogger
+    ),
   reducer: {
     app: appReducer,
     auth: authReducer,
