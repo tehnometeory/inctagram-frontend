@@ -1,3 +1,7 @@
-export default function ForgotPassword() {
-  return <div>Forgot Password</div>
+'use client'
+
+import { ForgotPassword } from '@/features'
+
+export default function ForgotPasswordPage() {
+  return <ForgotPassword />
 }

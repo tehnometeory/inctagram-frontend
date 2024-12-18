@@ -1,0 +1,10 @@
+.menu {
+  position: sticky;
+  bottom: 0;
+}
+
+@media (width>425px) {
+  .menu {
+    display: none;
+  }
+}

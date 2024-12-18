@@ -1,12 +1,10 @@
-import type { Metadata } from 'next'
-
 import { ReactNode } from 'react'
 
-export const metadata: Metadata = {
-  description:
-    "Create an account or log in to Inctagram - Share what you're into with the people who get you.",
-  title: 'Inctagram',
-}
+import '@rambo-react/ui-meteors/dist/style.css'
+
+import s from './layout.module.scss'
+
+import { Providers } from './Providers'
 
 export default function RootLayout({
   children,
@@ -15,7 +13,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang={'en'}>
-      <body>{children}</body>
+      <body>
+        <Providers>
+          <div className={s.content}>{children}</div>
+        </Providers>
+      </body>
     </html>
   )
 }

@@ -1,0 +1,97 @@
+@use '@rambo-react/ui-meteors/dist/typography' as typography;
+
+@mixin respond-to-mobile {
+  @media (width <= 425px) {
+    @content;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    box-shadow: 0 0 0 1000px var(--color-dark-500) inset;
+
+    -webkit-text-fill-color: var(--color-light-100);
+
+    @include respond-to-mobile {
+      box-shadow: 0 0 0 1000px var(--color-dark-700) inset;
+    }
+  }
+}
+
+.icons {
+  display: flex;
+  gap: 60px;
+  justify-content: center;
+  margin: 13px 0 24px;
+
+  svg {
+    cursor: pointer;
+  }
+
+  @include respond-to-mobile {
+    margin: 19px 0 12px;
+  }
+}
+
+.inputContainer {
+  padding-bottom: 24px;
+}
+
+.agreement {
+  @include typography.Small_text;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  margin: 12px 0;
+
+  &Text {
+    span,
+    a {
+      margin-right: 4px;
+    }
+
+    a {
+      color: var(--color-accent-300);
+    }
+  }
+
+  @include respond-to-mobile {
+    margin: 12px 0 24px;
+  }
+}
+
+.checkboxErrorMessage {
+  @include typography.Small_text;
+
+  position: absolute;
+  bottom: -22px;
+  left: 8px;
+  color: var(--color-danger-500);
+}
+
+.button {
+  @include respond-to-mobile {
+    height: 48px;
+  }
+}
+
+.question {
+  @include typography.Regular_text_16;
+
+  margin: 18px 0 6px;
+  text-align: center;
+
+  @include respond-to-mobile {
+    margin: 19px 0 5px;
+  }
+}
+
+.signIn {
+  text-decoration: none;
+}

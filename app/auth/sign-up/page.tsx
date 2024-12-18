@@ -1,3 +1,7 @@
-export default function SignUp() {
-  return <div>Sign up page</div>
+'use client'
+
+import { SignUp } from '@/features'
+
+export default function SignUpPage() {
+  return <SignUp />
 }
