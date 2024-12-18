@@ -1,4 +1,6 @@
-import React, { useCallback, useMemo, useState } from 'react'
+'use client'
+
+import { useCallback, useMemo, useState } from 'react'
 
 import { ArrowIosBack, ArrowIosBackOutline, ArrowIosForward } from '@rambo-react/ui-meteors'
 import clsx from 'clsx'
