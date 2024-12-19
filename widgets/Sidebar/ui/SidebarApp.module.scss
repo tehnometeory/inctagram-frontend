@@ -1,5 +1,29 @@
+@use '@rambo-react/ui-meteors/dist/typography' as typography;
+
+.childModal {
+  width: 100%;
+  max-width: 390px;
+  margin-bottom: 30px;
+
+  .textModal {
+    margin: 0;
+
+    @include typography.Regular_text_16;
+
+    color: var(--light-100);
+  }
+}
+
 @media (width <= 425px) {
   .container {
     display: none;
+  }
+
+  .childModal {
+    max-width: 300px;
+
+    .textModal {
+      text-align: center;
+    }
   }
 }
