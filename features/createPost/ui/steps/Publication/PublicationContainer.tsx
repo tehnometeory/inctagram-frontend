@@ -25,7 +25,7 @@ export const PublicationContainer = () => {
       <div className={s.container}>
         <Carousel images={filteredImages} />
         <DescriptionPost
-          description={description as string}
+          description={description}
           sendNewPostDescription={handleDescriptionChange}
           showSeparator
           userName={username}

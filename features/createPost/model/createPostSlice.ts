@@ -5,7 +5,7 @@ import { AddImagePayload, CreatePostState } from './types'
 const initialState: CreatePostState = {
   currentPost: {
     currentStep: 1,
-    description: null,
+    description: '',
     images: [],
   },
   draft: null,
@@ -91,7 +91,7 @@ export const createPostSlice = createSlice({
         }
       })
       state.currentPost.currentStep = 1
-      state.currentPost.description = null
+      state.currentPost.description = ''
       state.currentPost.images = []
     },
     saveDraft(state) {
