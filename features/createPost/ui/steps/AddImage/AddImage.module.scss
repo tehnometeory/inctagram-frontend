@@ -5,25 +5,25 @@
   justify-content: center;
 
   padding: 70px 139px 48px;
-}
 
-.card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  .card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-  width: 100%;
-  margin-bottom: 60px;
-  padding: 88px 87px;
+    width: 100%;
+    margin-bottom: 60px;
+    padding: 88px 87px;
 
-  border-radius: 2px;
+    border-radius: 2px;
 
-  &.dragActive {
-    outline: 1px solid var(--color-accent-500);
-    outline-offset: -1px;
+    &.dragActive {
+      outline: 1px solid var(--color-accent-500);
+      outline-offset: -1px;
+    }
   }
-}
 
-.selectButton {
-  margin-bottom: 24px;
+  .selectButton {
+    margin-bottom: 24px;
+  }
 }

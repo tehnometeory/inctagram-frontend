@@ -15,7 +15,7 @@ export type ImageDraft = {
 
 type Draft = {
   currentStep: number
-  description: Nullable<string>
+  description: string
   images: ImageDraft[]
 }
 
