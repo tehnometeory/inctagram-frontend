@@ -66,6 +66,7 @@ export const SelectedPost = () => {
 
   const handleClickEditPost = () => {
     dispatch(showEditModal())
+    dispatch(hidePostModal())
     setOpenedMenu(false)
   }
 

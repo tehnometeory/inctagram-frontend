@@ -36,6 +36,7 @@ export const DescriptionPost = ({
           className={s.description}
           label={'Add publication descriptions'}
           maxLength={500}
+          maxLengthClassName={s.customMaxLength}
           maxLengthVisible
           onChange={onChangeHandler}
           value={description || ''}

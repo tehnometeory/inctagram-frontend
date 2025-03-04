@@ -61,9 +61,9 @@ export const EditPost = () => {
         sendNewPostDescription={setNewDescription}
         userName={userName}
       >
-        <Button className={s.buttonEdit} onClick={handleSendNewDescription}>
-          Save Changes
-        </Button>
+        <div className={s.buttonEdit}>
+          <Button onClick={handleSendNewDescription}>Save Changes</Button>
+        </div>
       </DescriptionPost>
     </div>
   )
