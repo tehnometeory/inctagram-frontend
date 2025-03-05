@@ -150,10 +150,10 @@ export const SelectedPost = () => {
           </div>
           <div className={s.descriptionAndCommentsBlock}>
             <div className={s.descriptionBlock}>
-              <p className={s.description}>
+              <div className={s.descriptionText}>
                 <span className={s.descriptionUserName}>{post.user.username}</span>{' '}
-                {post.description}
-              </p>
+                <span>{post.description}</span>
+              </div>
               <p className={s.time}>{timeAgo}</p>
             </div>
             <div className={s.commentsBlock}></div>
