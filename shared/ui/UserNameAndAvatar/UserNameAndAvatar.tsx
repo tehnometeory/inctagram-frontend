@@ -9,7 +9,7 @@ export const UserNameAndAvatar = ({ userName }: { userName: string }) => {
         alt={'userAvatar'}
         className={s.ava}
         height={36}
-        src={'public/images/test_userAvatar.png'}
+        src={'/images/test_userAvatar.png'}
         width={36}
       />
       <span className={s.urlProfile}>{userName}</span>
