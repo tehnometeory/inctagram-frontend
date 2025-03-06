@@ -43,25 +43,27 @@ export const Post = ({
     )
 
   return (
-    <div className={s.publicPagePost}>
-      <Link href={`/profile/${userId}?postId=${postId}`}>
-        <div className={clsx(s.postImages, isDescriptionExpanded && s.hiden)}>{photo}</div>
-      </Link>
+    <div className={s.container}>
+      <div className={s.publicPagePost}>
+        <Link href={`/profile/${userId}?postId=${postId}`}>
+          <div className={clsx(s.postImages, isDescriptionExpanded && s.hiden)}>{photo}</div>
+        </Link>
 
-      <div className={s.user}>
-        <Image
-          alt={'avatar'}
-          className={s.avatar}
-          height={36}
-          priority
-          src={avatar || '/images/avatar-default.webp'}
-          width={36}
-        />
+        <div className={s.user}>
+          <Image
+            alt={'avatar'}
+            className={s.avatar}
+            height={36}
+            priority
+            src={avatar || '/images/avatar-default.webp'}
+            width={36}
+          />
 
-        {username}
+          {username}
+        </div>
+
+        <span className={s.publicationTime}>{getTimeAgo(publicationTime)}</span>
       </div>
-
-      <span className={s.publicationTime}>{getTimeAgo(publicationTime)}</span>
 
       <p className={s.description}>
         {descriptionText + descriptionEnding}

@@ -4,7 +4,13 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { setAlert } from '@/entities'
 import { clearSelectedPost, hidePostModal, useDeletePostByIdMutation } from '@/features'
-import { Carousel, ProfileConfirmationModal, useAppDispatch, useAppSelector } from '@/shared'
+import {
+  Carousel,
+  ProfileConfirmationModal,
+  UserNameAndAvatar,
+  useAppDispatch,
+  useAppSelector,
+} from '@/shared'
 import {
   Bookmark,
   BookmarkOutline,
@@ -112,9 +118,7 @@ export const SelectedPost = () => {
         <Carousel images={images} />
         <div className={s.contentWrapper}>
           <div className={s.header}>
-            <div>
-              <p className={s.userName}>{post.user.username}</p>
-            </div>
+            <UserNameAndAvatar userName={post.user.username} />
             {isAuthorized && (
               <div className={s.menu}>
                 <Button
@@ -218,7 +222,7 @@ export const SelectedPost = () => {
         onConfirmHandler={handleDeletePost}
         titleModal={'Delete post'}
       >
-        Are you sure you want to delete this post?
+        <p className={s.modalText}>Are you sure you want to delete this post?</p>
       </ProfileConfirmationModal>
     </Modal>
   )
