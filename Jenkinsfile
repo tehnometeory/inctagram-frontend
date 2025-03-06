@@ -12,6 +12,7 @@ pipeline {
         DEPLOYMENT_NAME = "inctagram-frontend-deployment"
         IMAGE_NAME = "${env.BUILD_ID}_${env.ENV_TYPE}_${env.GIT_COMMIT}"
         DOCKER_BUILD_NAME = "${env.REGISTRY_HOSTNAME}/${env.PROJECT}:${env.IMAGE_NAME}"
+        NEXT_PUBLIC_BASE_URL_API = "https://auth.tehnom.org/api/v1/"
     }
 
     stages {
