@@ -1,18 +1,18 @@
+@use '@rambo-react/ui-meteors/dist/typography' as typography;
+
 .ava {
-    height: 36px;
-    width: 36px;
-    border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
 }
 
 .avaWrapper {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 24px;
+  display: flex;
+  align-items: center;
 }
 
 .urlProfile {
-    padding-left:  12px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+  @include typography.H3;
+
+  padding-left: 12px;
 }

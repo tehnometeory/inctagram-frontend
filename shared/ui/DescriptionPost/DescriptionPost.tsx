@@ -17,7 +17,7 @@ export const DescriptionPost = ({
   description,
   sendNewPostDescription,
   showSeparator = false,
-  userName = 'URLProfiele',
+  userName = 'URLProfile',
 }: Props) => {
   const onChangeHandler = useCallback(
     (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -31,7 +31,9 @@ export const DescriptionPost = ({
   return (
     <div className={s.containerWrapper}>
       <div className={s.container}>
-        <UserNameAndAvatar userName={userName} />
+        <div className={s.userName}>
+          <UserNameAndAvatar userName={userName} />
+        </div>
         <TextArea
           className={s.description}
           label={'Add publication descriptions'}
