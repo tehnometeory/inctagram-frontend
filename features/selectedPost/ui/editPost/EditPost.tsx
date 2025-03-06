@@ -19,7 +19,7 @@ export const EditPost = () => {
   const images = post?.photos?.map(photo => photo.url) ?? []
   const userName = post?.user.username
   const [newDescription, setNewDescription] = useState(post?.description || '')
-  const [sendNewDescription] = useSendNewDescriptionMutation()
+  const [sendNewDescription, { isLoading }] = useSendNewDescriptionMutation()
   const dispatch = useAppDispatch()
 
   const handleSendNewDescription = () => {
@@ -37,24 +37,14 @@ export const EditPost = () => {
 
   return (
     <div className={s.container}>
-      <div style={{ height: 503, width: 490 }}>
-        <div
-          style={{
-            height: 503,
-            position: 'relative',
-            width: 490,
-          }}
-        >
-          <Image
-            alt={`Image 1`}
-            fill
-            sizes={'(max-width: 600px) 100vw, 490px'}
-            src={images[0]}
-            style={{
-              objectFit: 'cover',
-            }}
-          />
-        </div>
+      <div className={s.imageWrapper}>
+        <Image
+          alt={`Image 1`}
+          className={s.image}
+          fill
+          sizes={'(max-width: 600px) 100vw, 490px'}
+          src={images[0]}
+        />
       </div>
       <DescriptionPost
         description={newDescription}
@@ -62,7 +52,9 @@ export const EditPost = () => {
         userName={userName}
       >
         <div className={s.buttonEdit}>
-          <Button onClick={handleSendNewDescription}>Save Changes</Button>
+          <Button disabled={isLoading} onClick={handleSendNewDescription}>
+            Save Changes
+          </Button>
         </div>
       </DescriptionPost>
     </div>
