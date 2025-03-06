@@ -1,4 +1,3 @@
-// import ava from '@/public/images/test_userAvatar.png'
 import Image from 'next/image'
 
 import s from './UserNameAndAvatar.module.scss'

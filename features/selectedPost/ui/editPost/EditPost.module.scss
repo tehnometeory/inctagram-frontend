@@ -3,10 +3,9 @@
   }
 
   .buttonEdit {
-    width: 135px;
-    position: fixed;
-    bottom:  30px;
-    right: 24px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 196px;
   }
 
   .modal {
