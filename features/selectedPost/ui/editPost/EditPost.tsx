@@ -2,7 +2,9 @@
 
 import { useState } from 'react'
 
+import { setAlert } from '@/entities'
 import {
+  hideEditModal,
   setSelectedPost,
   showPostModal,
   useSendNewDescriptionMutation,
@@ -22,16 +24,18 @@ export const EditPost = () => {
   const [sendNewDescription, { isLoading }] = useSendNewDescriptionMutation()
   const dispatch = useAppDispatch()
 
-  const handleSendNewDescription = () => {
+  const handleSendNewDescription = async () => {
     if (id && newDescription) {
-      sendNewDescription({ description: newDescription, id })
-        .then(response => {
-          dispatch(setSelectedPost({ ...post, description: newDescription }))
-          dispatch(showPostModal())
-        })
-        .catch(error => {
-          console.error('Error sending new description:', error)
-        })
+      try {
+        await sendNewDescription({ description: newDescription, id }).unwrap()
+        await fetch('/api/revalidate?tag=posts-' + post.userId)
+        await fetch('/api/revalidate?tag=post-' + post.id)
+        dispatch(setSelectedPost({ ...post, description: newDescription }))
+        dispatch(showPostModal())
+        dispatch(hideEditModal())
+      } catch (error) {
+        dispatch(setAlert({ message: 'Error sending new description:', type: 'error' }))
+      }
     }
   }
 

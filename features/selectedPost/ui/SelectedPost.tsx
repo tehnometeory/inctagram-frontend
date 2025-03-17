@@ -6,6 +6,7 @@ import { setAlert } from '@/entities'
 import { clearSelectedPost, hidePostModal, useDeletePostByIdMutation } from '@/features'
 import {
   Carousel,
+  PostType,
   ProfileConfirmationModal,
   UserNameAndAvatar,
   useAppDispatch,
@@ -25,14 +26,19 @@ import {
   TrashOutline,
 } from '@rambo-react/ui-meteors'
 import clsx from 'clsx'
+import { useRouter } from 'next/navigation'
 
 import s from './SelectedPost.module.scss'
 
-import { showEditModal } from '..'
+import { setSelectedPost, showEditModal, showPostModal } from '..'
 import { convertToRelativeTime } from '../utils/convertToRelativeTime'
 import { getDateParts } from '../utils/getDateParts'
 
-export const SelectedPost = () => {
+type Props = {
+  post: PostType
+}
+
+export const SelectedPost = ({ post: initialPost }: Props) => {
   const [deletePost] = useDeletePostByIdMutation()
 
   const [liked, setLiked] = useState(false)
@@ -40,13 +46,20 @@ export const SelectedPost = () => {
   const [openedMenu, setOpenedMenu] = useState(false)
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const isAuthorized = useAppSelector(state => state.auth.isAuthorized)
+  const postFromStore = useAppSelector(state => state.selectedPost.post)
   const dispatch = useAppDispatch()
+  const router = useRouter()
 
-  const post = useAppSelector(state => state.selectedPost.post)
+  useEffect(() => {
+    if (initialPost) {
+      dispatch(setSelectedPost(initialPost))
+      dispatch(showPostModal())
+    }
+  }, [initialPost, dispatch])
 
   const isModalOpen = useAppSelector(state => state.selectedPost.isModalOpen)
 
-  const images = post?.photos?.map(photo => photo.url) ?? []
+  const images = postFromStore?.photos?.map(photo => photo.url) ?? []
 
   const menuRef = useRef<HTMLDivElement | null>(null)
 
@@ -76,27 +89,34 @@ export const SelectedPost = () => {
     setOpenedMenu(false)
   }
 
-  if (!post || !isModalOpen) {
+  if (!postFromStore || !isModalOpen) {
     return null
   }
 
-  const timeAgo = convertToRelativeTime(post.createdAt)
-  const { day, month, year } = getDateParts(post.createdAt)
+  const timeAgo = convertToRelativeTime(postFromStore.createdAt)
+  const { day, month, year } = getDateParts(postFromStore.createdAt)
 
   const handleShowDeletePostModal = () => {
     setOpenDeleteModal(true)
   }
 
   const handleDeletePost = async () => {
-    if (!post) {
+    if (!postFromStore) {
       return
     }
 
     try {
-      await deletePost(post.id).unwrap()
+      await deletePost(postFromStore.id).unwrap()
       dispatch(clearSelectedPost())
       setOpenDeleteModal(false)
       dispatch(hidePostModal())
+      await Promise.all([
+        fetch(`/api/revalidate?tag=posts-${postFromStore.userId}`),
+        fetch(`/api/revalidate?tag=profile-${postFromStore.userId}`),
+        fetch(`/api/revalidate?tag=post-${postFromStore.id}`),
+      ])
+
+      router.replace(`/profile/${postFromStore.userId}`)
       dispatch(setAlert({ message: 'Post deleted', type: 'accepted' }))
     } catch (error) {
       dispatch(setAlert({ message: 'Error deleting post', type: 'error' }))
@@ -118,7 +138,7 @@ export const SelectedPost = () => {
         <Carousel images={images} />
         <div className={s.contentWrapper}>
           <div className={s.header}>
-            <UserNameAndAvatar userName={post.user.username} />
+            <UserNameAndAvatar userName={postFromStore.user.username} />
             {isAuthorized && (
               <div className={s.menu}>
                 <Button
@@ -155,8 +175,8 @@ export const SelectedPost = () => {
           <div className={s.descriptionAndCommentsBlock}>
             <div className={s.descriptionBlock}>
               <div className={s.descriptionText}>
-                <span className={s.descriptionUserName}>{post.user.username}</span>{' '}
-                <span>{post.description}</span>
+                <span className={s.descriptionUserName}>{postFromStore.user.username}</span>{' '}
+                <span>{postFromStore.description}</span>
               </div>
               <p className={s.time}>{timeAgo}</p>
             </div>
