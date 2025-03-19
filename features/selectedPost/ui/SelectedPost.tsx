@@ -130,6 +130,7 @@ export const SelectedPost = ({ post: initialPost }: Props) => {
       onCloseOut={() => {
         if (!openDeleteModal) {
           dispatch(hidePostModal())
+          router.back()
         }
       }}
       withoutHeader

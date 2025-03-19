@@ -26,8 +26,8 @@ export const usePublishPost = () => {
       dispatch(resetCurrentPost())
       dispatch(hideModal())
       await Promise.all([
-        fetch('/api/revalidate?tag=posts-' + myProfile?.id),
-        fetch('/api/revalidate?tag=profile-' + myProfile?.id),
+        fetch('/api/revalidate?tag=posts-' + myProfile?.id, { method: 'POST' }),
+        fetch('/api/revalidate?tag=profile-' + myProfile?.id, { method: 'POST' }),
       ])
       route.refresh()
       dispatch(setAlert({ message: 'The post has been published:', type: 'accepted' }))

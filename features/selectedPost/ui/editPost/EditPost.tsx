@@ -28,11 +28,11 @@ export const EditPost = () => {
     if (id && newDescription) {
       try {
         await sendNewDescription({ description: newDescription, id }).unwrap()
-        await fetch('/api/revalidate?tag=posts-' + post.userId)
-        await fetch('/api/revalidate?tag=post-' + post.id)
         dispatch(setSelectedPost({ ...post, description: newDescription }))
         dispatch(showPostModal())
         dispatch(hideEditModal())
+        await fetch('/api/revalidate?tag=posts-' + post.userId, { method: 'POST' })
+        await fetch('/api/revalidate?tag=post-' + post.id, { method: 'POST' })
       } catch (error) {
         dispatch(setAlert({ message: 'Error sending new description:', type: 'error' }))
       }

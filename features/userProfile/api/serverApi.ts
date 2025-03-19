@@ -6,7 +6,7 @@ export const fetchProfile = async (userId: string) => {
   })
 
   if (!res.ok) {
-    const errorText = await res.text() // Получаем текст ошибки
+    const errorText = await res.text()
 
     console.error(`HTTP error! Status: ${res.status}, Response: ${errorText}`)
     throw new Error(`Profile fetch failed: ${res.status} ${errorText}`)
