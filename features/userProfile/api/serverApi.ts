@@ -1,6 +1,7 @@
 export const fetchProfile = async (userId: string) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_API}profile/${userId}`, {
     next: {
+      revalidate: 3600,
       tags: [`profile-${userId}`],
     },
   })
@@ -20,6 +21,7 @@ export const fetchPosts = async (userId: string, page: number) => {
     `${process.env.NEXT_PUBLIC_BASE_URL_API}posts/profile-posts/${userId}?page=${page}`,
     {
       next: {
+        revalidate: 3600,
         tags: [`posts-${userId}`],
       },
     }
@@ -35,6 +37,7 @@ export const fetchPosts = async (userId: string, page: number) => {
 export const fetchPost = async (postId: string) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_API}posts/${postId}`, {
     next: {
+      revalidate: 3600,
       tags: [`post-${postId}`],
     },
   })

@@ -12,6 +12,7 @@ import {
 import { DescriptionPost, useAppDispatch, useAppSelector } from '@/shared'
 import { Button } from '@rambo-react/ui-meteors'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 import s from './EditPost.module.scss'
 
@@ -23,6 +24,7 @@ export const EditPost = () => {
   const [newDescription, setNewDescription] = useState(post?.description || '')
   const [sendNewDescription, { isLoading }] = useSendNewDescriptionMutation()
   const dispatch = useAppDispatch()
+  const router = useRouter()
 
   const handleSendNewDescription = async () => {
     if (id && newDescription) {
@@ -33,6 +35,7 @@ export const EditPost = () => {
         dispatch(hideEditModal())
         await fetch('/api/revalidate?tag=posts-' + post.userId, { method: 'POST' })
         await fetch('/api/revalidate?tag=post-' + post.id, { method: 'POST' })
+        router.refresh()
       } catch (error) {
         dispatch(setAlert({ message: 'Error sending new description:', type: 'error' }))
       }

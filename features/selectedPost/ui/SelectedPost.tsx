@@ -111,9 +111,9 @@ export const SelectedPost = ({ post: initialPost }: Props) => {
       setOpenDeleteModal(false)
       dispatch(hidePostModal())
       await Promise.all([
-        fetch(`/api/revalidate?tag=posts-${postFromStore.userId}`),
-        fetch(`/api/revalidate?tag=profile-${postFromStore.userId}`),
-        fetch(`/api/revalidate?tag=post-${postFromStore.id}`),
+        fetch(`/api/revalidate?tag=posts-${postFromStore.userId}`, { method: 'POST' }),
+        fetch(`/api/revalidate?tag=profile-${postFromStore.userId}`, { method: 'POST' }),
+        fetch(`/api/revalidate?tag=post-${postFromStore.id}`, { method: 'POST' }),
       ])
 
       router.replace(`/profile/${postFromStore.userId}`)
