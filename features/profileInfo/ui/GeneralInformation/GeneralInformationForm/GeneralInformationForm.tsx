@@ -1,13 +1,24 @@
 import { useForm } from 'react-hook-form'
 
-import { ControlledInput } from '@/shared'
+import { ControlledDatePicker, ControlledInput, ControlledSelectBox } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button, SelectBox } from '@rambo-react/ui-meteors/dist'
+import { Button } from '@rambo-react/ui-meteors/dist'
 import { z } from 'zod'
 import { profileSchema } from '@/features'
 import s from './GeneralInformationForm.module.scss'
 
 type FormValues = z.infer<typeof profileSchema>
+
+const cities = [
+  { value: 'minsk', label: 'Minsk' },
+  { value: 'los-angeles', label: 'Los Angeles' },
+  { value: 'moscow', label: 'Moscow' },
+]
+const countries = [
+  { value: 'belarus', label: 'Belarus' },
+  { value: 'usa', label: 'USA' },
+  { value: 'russia', label: 'Russia' },
+]
 
 export const GeneralInformationForm = () => {
   const {
@@ -43,20 +54,19 @@ export const GeneralInformationForm = () => {
         label={'Last Name'}
         name={'lastName'}
       />
-      <ControlledInput
-        control={control}
-        errorMsg={errors.dateOfBirth?.message}
-        label={'Date of Birth'}
-        name={'dateOfBirth'}
-        placeholder={'ДД.ММ.ГГГГ'}
-      />
+      <ControlledDatePicker control={control} label={'Date of Birth'} name={'dateOfBirth'} />
       <div className={s.cityAndCountry}>
-        <SelectBox />
-        <ControlledInput
+        <ControlledSelectBox
           control={control}
-          errorMsg={errors.country?.message}
-          label={'Country'}
-          name={'country'}
+          name="city"
+          options={cities}
+          placeholder="Select a city"
+        />
+        <ControlledSelectBox
+          control={control}
+          name="country"
+          options={countries}
+          placeholder="Select a country"
         />
       </div>
 
