@@ -1,7 +1,9 @@
+import { GeneralInformationForm } from '@/features/profileInfo/ui/GeneralInformation/GeneralInformationForm/GeneralInformationForm'
+
 export const GeneralInformation = () => {
   return (
     <div>
-      <h1>General Information</h1>
+      <GeneralInformationForm />
     </div>
   )
 }

@@ -2,10 +2,10 @@ import { useForm } from 'react-hook-form'
 
 import { ControlledInput } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Button } from '@rambo-react/ui-meteors/dist'
+import { Button, SelectBox } from '@rambo-react/ui-meteors/dist'
 import { z } from 'zod'
-
-import { profileSchema } from '../..'
+import { profileSchema } from '@/features'
+import s from './GeneralInformationForm.module.scss'
 
 type FormValues = z.infer<typeof profileSchema>
 
@@ -19,8 +19,12 @@ export const GeneralInformationForm = () => {
     resolver: zodResolver(profileSchema),
   })
 
+  function onFormSubmit() {
+    console.log('click')
+  }
+
   return (
-    <form className={'flex flex-col gap-4'} onSubmit={onFormSubmit}>
+    <form className={s.form} onSubmit={handleSubmit(onFormSubmit)}>
       <ControlledInput
         control={control}
         errorMsg={errors.username?.message}
@@ -46,18 +50,16 @@ export const GeneralInformationForm = () => {
         name={'dateOfBirth'}
         placeholder={'ДД.ММ.ГГГГ'}
       />
-      <ControlledInput
-        control={control}
-        errorMsg={errors.city?.message}
-        label={'City'}
-        name={'city'}
-      />
-      <ControlledInput
-        control={control}
-        errorMsg={errors.country?.message}
-        label={'Country'}
-        name={'country'}
-      />
+      <div className={s.cityAndCountry}>
+        <SelectBox />
+        <ControlledInput
+          control={control}
+          errorMsg={errors.country?.message}
+          label={'Country'}
+          name={'country'}
+        />
+      </div>
+
       <ControlledInput
         control={control}
         errorMsg={errors.aboutMe?.message}
