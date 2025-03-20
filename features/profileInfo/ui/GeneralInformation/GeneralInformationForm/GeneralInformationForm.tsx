@@ -58,15 +58,17 @@ export const GeneralInformationForm = () => {
       <div className={s.cityAndCountry}>
         <ControlledSelectBox
           control={control}
+          label="Select a city"
           name="city"
           options={cities}
-          placeholder="Select a city"
+          placeholder="Сity"
         />
         <ControlledSelectBox
           control={control}
+          label="Select a country"
           name="country"
           options={countries}
-          placeholder="Select a country"
+          placeholder="Сountry"
         />
       </div>
 

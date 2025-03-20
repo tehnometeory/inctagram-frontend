@@ -8,7 +8,9 @@ import { SelectBox } from '@rambo-react/ui-meteors'
 type SelectBoxProps = Omit<ComponentProps<typeof SelectBox>, 'onValueChange' | 'value'>
 
 export type ControlledSelectBoxProps<TFieldValues extends FieldValues> = SelectBoxProps &
-  UseControllerProps<TFieldValues>
+  UseControllerProps<TFieldValues> & {
+    label?: string
+  }
 
 export const ControlledSelectBox = <TFieldValues extends FieldValues>({
   control,
@@ -16,17 +18,21 @@ export const ControlledSelectBox = <TFieldValues extends FieldValues>({
   name,
   rules,
   options,
+  label, // Добавляем label
   ...restProps
 }: ControlledSelectBoxProps<TFieldValues>) => {
   return (
-    <Controller
-      control={control}
-      defaultValue={defaultValue}
-      name={name}
-      rules={rules}
-      render={({ field, fieldState: { error } }) => (
-        <SelectBox {...restProps} options={options} {...field} onValueChange={field.onChange} />
-      )}
-    />
+    <div>
+      {label && <label>{label}</label>} {/* Добавляем лейбл перед полем */}
+      <Controller
+        control={control}
+        defaultValue={defaultValue}
+        name={name}
+        rules={rules}
+        render={({ field, fieldState: { error } }) => (
+          <SelectBox {...restProps} options={options} {...field} onValueChange={field.onChange} />
+        )}
+      />
+    </div>
   )
 }
