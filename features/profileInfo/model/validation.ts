@@ -1,0 +1,29 @@
+import { z } from 'zod'
+
+export const profileSchema = z.object({
+  aboutMe: z.string().max(200, 'Maximum 200 characters').optional(),
+
+  city: z.string().min(1, 'City is required'),
+
+  country: z.string().min(1, 'Country is required'),
+
+  dateOfBirth: z.string().regex(/^\d{2}\.\d{2}\.\d{4}$/, 'Invalid date format (dd.mm.yyyy)'),
+
+  firstName: z
+    .string()
+    .min(1, 'First name is required')
+    .max(50, 'Maximum 50 characters')
+    .regex(/^[A-Za-zА-Яа-я]+$/, 'Only letters are allowed'),
+
+  lastName: z
+    .string()
+    .min(1, 'Last name is required')
+    .max(50, 'Maximum 50 characters')
+    .regex(/^[A-Za-zА-Яа-я]+$/, 'Only letters are allowed'),
+
+  username: z
+    .string()
+    .min(6, 'Minimum 6 characters')
+    .max(30, 'Maximum 30 characters')
+    .regex(/^[a-zA-Z0-9_-]+$/, 'Only letters, numbers, _, and - are allowed'),
+})
