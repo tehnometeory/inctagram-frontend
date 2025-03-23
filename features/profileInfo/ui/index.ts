@@ -1,1 +1,5 @@
 export * from './ProfileNavigation'
+export * from './GeneralInformation'
+export * from './Devices'
+export * from './MyPayments'
+export * from './AccountManagement'

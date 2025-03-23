@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 3003",
+    "dev": "next dev -p 3000",
     "build": "next build",
     "build:production": "pnpm build",
     "start": "next start",
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
-    "@rambo-react/ui-meteors": "^0.4.15",
+    "@rambo-react/ui-meteors": "^0.4.16",
     "@reduxjs/toolkit": "^2.4.0",
     "clsx": "^2.1.1",
     "jwt-decode": "^4.0.0",

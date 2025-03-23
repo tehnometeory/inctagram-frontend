@@ -10,7 +10,19 @@
 .cityAndCountry {
   display: flex;
 
-  :first-child {
+  div {
+    width: 100%;
+  }
+
+  div:first-child {
     margin-right: 24px;
   }
+}
+
+.required {
+  color: var(--color-danger-500);
+}
+
+.date {
+  width: 200px;
 }

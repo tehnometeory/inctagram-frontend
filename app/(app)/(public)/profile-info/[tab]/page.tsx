@@ -1,9 +1,13 @@
 'use client'
-import { GeneralInformation } from '@/features/profileInfo/ui/GeneralInformation'
+
+import { AccountManagement, Devices, GeneralInformation, MyPayments } from '@/features'
 import { notFound } from 'next/navigation'
 
 const tabs = {
   'general-information': GeneralInformation,
+  devices: Devices,
+  'my-payments': MyPayments,
+  'account-management': AccountManagement,
 }
 
 export default function ProfileTab({ params }: { params?: { tab?: string } }) {

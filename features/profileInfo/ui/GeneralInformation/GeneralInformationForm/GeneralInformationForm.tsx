@@ -1,6 +1,11 @@
 import { useForm } from 'react-hook-form'
 
-import { ControlledDatePicker, ControlledInput, ControlledSelectBox } from '@/shared'
+import {
+  ControlledDatePicker,
+  ControlledInput,
+  ControlledSelectBox,
+  ControlledTextArea,
+} from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@rambo-react/ui-meteors/dist'
 import { z } from 'zod'
@@ -39,44 +44,59 @@ export const GeneralInformationForm = () => {
       <ControlledInput
         control={control}
         errorMsg={errors.username?.message}
-        label={'Username'}
+        label={
+          <>
+            Username <span className={s.required}>*</span>
+          </>
+        }
         name={'username'}
       />
       <ControlledInput
         control={control}
         errorMsg={errors.firstName?.message}
-        label={'First Name'}
+        label={
+          <>
+            First Name <span className={s.required}>*</span>
+          </>
+        }
         name={'firstName'}
       />
       <ControlledInput
         control={control}
         errorMsg={errors.lastName?.message}
-        label={'Last Name'}
+        label={
+          <>
+            Last Name <span className={s.required}>*</span>
+          </>
+        }
         name={'lastName'}
       />
-      <ControlledDatePicker control={control} label={'Date of Birth'} name={'dateOfBirth'} />
+      <div className={s.date}>
+        <ControlledDatePicker control={control} label={'Date of Birth'} name={'dateOfBirth'} />
+      </div>
+
       <div className={s.cityAndCountry}>
         <ControlledSelectBox
           control={control}
-          label="Select a city"
+          label="Select your city"
           name="city"
           options={cities}
           placeholder="Сity"
         />
         <ControlledSelectBox
           control={control}
-          label="Select a country"
+          label="Select your country"
           name="country"
           options={countries}
           placeholder="Сountry"
         />
       </div>
 
-      <ControlledInput
+      <ControlledTextArea
+        placeholder={'Text-area'}
+        name="aboutMe"
         control={control}
-        errorMsg={errors.aboutMe?.message}
-        label={'About Me'}
-        name={'aboutMe'}
+        label="About me"
       />
 
       <Button disabled={!isValid} type={'submit'}>

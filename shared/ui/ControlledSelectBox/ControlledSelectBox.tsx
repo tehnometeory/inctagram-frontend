@@ -23,14 +23,19 @@ export const ControlledSelectBox = <TFieldValues extends FieldValues>({
 }: ControlledSelectBoxProps<TFieldValues>) => {
   return (
     <div>
-      {label && <label>{label}</label>} {/* Добавляем лейбл перед полем */}
       <Controller
         control={control}
         defaultValue={defaultValue}
         name={name}
         rules={rules}
         render={({ field, fieldState: { error } }) => (
-          <SelectBox {...restProps} options={options} {...field} onValueChange={field.onChange} />
+          <SelectBox
+            {...restProps}
+            label={label}
+            options={options}
+            {...field}
+            onValueChange={field.onChange}
+          />
         )}
       />
     </div>
