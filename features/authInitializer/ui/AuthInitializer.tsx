@@ -2,11 +2,11 @@
 
 import { useEffect } from 'react'
 
-import { setAccessToken, setIsAuthorized } from '@/entities'
+import { setAccessToken, setIsAuthorized, useMeQuery } from '@/entities'
 import { useAppDispatch } from '@/shared'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
-import { useMeQuery, useRefreshTokenMutation } from '../api'
+import { useRefreshTokenMutation } from '../api'
 
 type Props = {
   onLoaded: () => void

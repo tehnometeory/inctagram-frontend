@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 
-import { setAlert } from '@/entities'
+import { setAlert, useMeQuery } from '@/entities'
 import { clearSelectedPost, hidePostModal, useDeletePostByIdMutation } from '@/features'
 import {
   Carousel,
@@ -15,12 +15,14 @@ import {
   Bookmark,
   BookmarkOutline,
   Button,
+  CopyOutline,
   EditOutline,
   Heart,
   HeartOutline,
   Modal,
   MoreHorizontalOutline,
   PaperPlaneOutline,
+  PersonRemoveOutline,
   TextArea,
   TrashOutline,
 } from '@rambo-react/ui-meteors'
@@ -40,6 +42,7 @@ export const SelectedPost = () => {
   const [openedMenu, setOpenedMenu] = useState(false)
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const isAuthorized = useAppSelector(state => state.auth.isAuthorized)
+  const { data } = useMeQuery()
   const dispatch = useAppDispatch()
 
   const post = useAppSelector(state => state.selectedPost.post)
@@ -80,6 +83,8 @@ export const SelectedPost = () => {
     return null
   }
 
+  const isMyPost = data?.id === post?.userId
+
   const timeAgo = convertToRelativeTime(post.createdAt)
   const { day, month, year } = getDateParts(post.createdAt)
 
@@ -119,7 +124,39 @@ export const SelectedPost = () => {
         <div className={s.contentWrapper}>
           <div className={s.header}>
             <UserNameAndAvatar userName={post.user.username} />
-            {isAuthorized && (
+            {isAuthorized && !isMyPost && (
+              <div className={s.menu}>
+                <Button
+                  autoFocus={false}
+                  className={clsx(s.menuBtn, openedMenu && s.openedMenu)}
+                  onClick={() => setOpenedMenu(prev => !prev)}
+                  variant={'text'}
+                >
+                  <MoreHorizontalOutline height={24} width={24} />
+                </Button>
+                {openedMenu && (
+                  <div className={s.editAndDeletePostBlock} ref={menuRef}>
+                    <Button
+                      className={s.editAndDeletePostBtn}
+                      onClick={handleClickEditPost}
+                      variant={'text'}
+                    >
+                      <PersonRemoveOutline height={24} width={24} />
+                      <span>Unfollow</span>
+                    </Button>
+                    <Button
+                      className={s.editAndDeletePostBtn}
+                      onClick={handleShowDeletePostModal}
+                      variant={'text'}
+                    >
+                      <CopyOutline height={24} width={24} />
+                      <span>Copy Link</span>
+                    </Button>
+                  </div>
+                )}
+              </div>
+            )}
+            {isMyPost && (
               <div className={s.menu}>
                 <Button
                   autoFocus={false}

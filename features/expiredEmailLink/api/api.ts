@@ -1,5 +1,4 @@
-import { baseApi } from '@/app'
-import { Endpoints, ErrorsMessagesResponse } from '@/shared'
+import { Endpoints, ErrorsMessagesResponse, baseApi } from '@/shared'
 
 export type ResendConfirmationCodeArgs = {
   email: string

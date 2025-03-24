@@ -1,6 +1,5 @@
-import { baseApi } from '@/app'
 import { ProfileUserPostsResponse, ProfileUserResponse } from '@/features/userProfile/api/types'
-import { Endpoints } from '@/shared'
+import { Endpoints, baseApi } from '@/shared'
 
 export const userProfileApi = baseApi.injectEndpoints({
   endpoints: builder => ({

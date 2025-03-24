@@ -1,12 +1,7 @@
-import { baseApi } from '@/app'
-import { Endpoints, ResponseWithAccessToken } from '@/shared'
-import { MeResponseType } from '@/shared/types/UserType'
+import { Endpoints, ResponseWithAccessToken, baseApi } from '@/shared'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    me: builder.query<MeResponseType, void>({
-      query: () => Endpoints.me,
-    }),
     refreshToken: builder.mutation<ResponseWithAccessToken, void>({
       query: () => ({
         method: 'POST',
@@ -16,4 +11,4 @@ export const authApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { useMeQuery, useRefreshTokenMutation } = authApi
+export const { useRefreshTokenMutation } = authApi

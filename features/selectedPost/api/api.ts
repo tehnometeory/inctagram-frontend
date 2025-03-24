@@ -1,5 +1,4 @@
-import { baseApi } from '@/app'
-import { Endpoints, PostType } from '@/shared'
+import { Endpoints, PostType, baseApi } from '@/shared'
 
 export const getPostApi = baseApi.injectEndpoints({
   endpoints: builder => ({

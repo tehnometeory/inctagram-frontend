@@ -9,9 +9,9 @@ export const rtkQueryErrorLogger: Middleware = (api: MiddlewareAPI) => next => a
     const actionPayload = action.payload as FetchBaseQueryError
     const actionStatus = actionPayload.status
 
-    if (actionStatus === 401) {
-      return next(action)
-    }
+    // if (actionStatus === 401) {
+    //   return next(action)
+    // }
 
     // Обработка сетевых и серверных ошибок
     if (actionStatus === 500) {

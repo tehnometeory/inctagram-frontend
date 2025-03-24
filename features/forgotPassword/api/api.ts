@@ -1,5 +1,4 @@
-import { baseApi } from '@/app'
-import { Endpoints } from '@/shared'
+import { Endpoints, baseApi } from '@/shared'
 
 import { ResetPasswordArgs, ResetPasswordResponse } from './types'
 

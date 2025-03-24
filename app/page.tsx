@@ -8,7 +8,7 @@ export default function Home() {
   const router = useNRouter()
 
   useEffect(() => {
-    router.push(RoutesApp.home)
+    router.push(RoutesApp.publicPage)
   }, [router])
 
   return null
