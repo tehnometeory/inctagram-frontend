@@ -136,54 +136,44 @@ export const SelectedPost = () => {
                 </Button>
                 {openedMenu && (
                   <div className={s.editAndDeletePostBlock} ref={menuRef}>
-                    <Button
-                      className={s.editAndDeletePostBtn}
-                      onClick={handleClickEditPost}
-                      variant={'text'}
-                    >
-                      <PersonRemoveOutline height={24} width={24} />
-                      <span>Unfollow</span>
-                    </Button>
-                    <Button
-                      className={s.editAndDeletePostBtn}
-                      onClick={handleShowDeletePostModal}
-                      variant={'text'}
-                    >
-                      <CopyOutline height={24} width={24} />
-                      <span>Copy Link</span>
-                    </Button>
-                  </div>
-                )}
-              </div>
-            )}
-            {isMyPost && (
-              <div className={s.menu}>
-                <Button
-                  autoFocus={false}
-                  className={clsx(s.menuBtn, openedMenu && s.openedMenu)}
-                  onClick={() => setOpenedMenu(prev => !prev)}
-                  variant={'text'}
-                >
-                  <MoreHorizontalOutline height={24} width={24} />
-                </Button>
-                {openedMenu && (
-                  <div className={s.editAndDeletePostBlock} ref={menuRef}>
-                    <Button
-                      className={s.editAndDeletePostBtn}
-                      onClick={handleClickEditPost}
-                      variant={'text'}
-                    >
-                      <EditOutline height={24} width={24} />
-                      <span>Edit Post</span>
-                    </Button>
-                    <Button
-                      className={s.editAndDeletePostBtn}
-                      onClick={handleShowDeletePostModal}
-                      variant={'text'}
-                    >
-                      <TrashOutline height={24} width={24} />
-                      <span>Delete Post</span>
-                    </Button>
+                    {isMyPost ? (
+                      <Button
+                        className={s.editAndDeletePostBtn}
+                        onClick={handleClickEditPost}
+                        variant={'text'}
+                      >
+                        <EditOutline height={24} width={24} />
+                        <span>Edit Post</span>
+                      </Button>
+                    ) : (
+                      <Button
+                        className={s.editAndDeletePostBtn}
+                        onClick={() => {}}
+                        variant={'text'}
+                      >
+                        <PersonRemoveOutline height={24} width={24} />
+                        <span>Unfollow</span>
+                      </Button>
+                    )}
+                    {isMyPost ? (
+                      <Button
+                        className={s.editAndDeletePostBtn}
+                        onClick={handleShowDeletePostModal}
+                        variant={'text'}
+                      >
+                        <TrashOutline height={24} width={24} />
+                        <span>Delete Post</span>
+                      </Button>
+                    ) : (
+                      <Button
+                        className={s.editAndDeletePostBtn}
+                        onClick={() => {}}
+                        variant={'text'}
+                      >
+                        <CopyOutline height={24} width={24} />
+                        <span>Copy Link</span>
+                      </Button>
+                    )}
                   </div>
                 )}
               </div>
