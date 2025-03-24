@@ -1,5 +1,6 @@
 import { baseApi } from '@/app'
 import { ProfileUserPostsResponse, ProfileUserResponse } from '@/features/userProfile/api/types'
+import { Endpoints } from '@/shared'
 
 export const userProfileApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -7,21 +8,21 @@ export const userProfileApi = baseApi.injectEndpoints({
       providesTags: ['Profile', 'Post', 'Posts'],
       query: () => ({
         method: 'GET',
-        url: 'profile/my-profile',
+        url: Endpoints.myProfile,
       }),
     }),
     profileByIdPosts: builder.query<ProfileUserPostsResponse, { id: string; page: number }>({
       providesTags: ['Posts', 'Post'],
       query: ({ id, page }) => ({
         method: 'GET',
-        url: `posts/profile-posts/${id}?page=${page}`,
+        url: `${Endpoints.profilePosts}/${id}?page=${page}`,
       }),
     }),
     userProfileById: builder.query<ProfileUserResponse, string>({
       providesTags: ['Profile', 'Posts', 'Post'],
       query: id => ({
         method: 'GET',
-        url: `profile/${id}`,
+        url: `${Endpoints.profile}/${id}`,
       }),
     }),
   }),

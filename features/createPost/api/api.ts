@@ -1,11 +1,12 @@
 import { baseApi } from '@/app'
+import { Endpoints } from '@/shared'
 
 import { GetPosts, PostResponse, Publish } from './types'
 
 export const publishPostApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     getNewestPosts: builder.query<PostResponse<Publish>, void>({
-      query: () => 'posts/newest-posts',
+      query: () => Endpoints.newestPosts,
     }),
     publishPost: builder.mutation<PostResponse<GetPosts>, FormData>({
       invalidatesTags: ['Post'],
@@ -13,7 +14,7 @@ export const publishPostApi = baseApi.injectEndpoints({
         return {
           body: post,
           method: 'POST',
-          url: 'posts',
+          url: Endpoints.posts,
         }
       },
     }),

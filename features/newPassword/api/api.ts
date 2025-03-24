@@ -1,4 +1,5 @@
 import { baseApi } from '@/app'
+import { Endpoints } from '@/shared'
 
 import { SetPasswordArg, SetPasswordResponse } from './types'
 
@@ -9,7 +10,7 @@ export const setPasswordApi = baseApi.injectEndpoints({
         return {
           body,
           method: 'POST',
-          url: 'auth/set-password',
+          url: Endpoints.setPassword,
         }
       },
     }),

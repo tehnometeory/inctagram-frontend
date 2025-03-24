@@ -1,5 +1,5 @@
 import { baseApi } from '@/app'
-import { PostType } from '@/shared'
+import { Endpoints, PostType } from '@/shared'
 
 export const getPostApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -7,18 +7,18 @@ export const getPostApi = baseApi.injectEndpoints({
       invalidatesTags: ['Post'],
       query: id => ({
         method: 'DELETE',
-        url: `posts/${id}`,
+        url: `${Endpoints.posts}/${id}`,
       }),
     }),
     getPostById: builder.query<PostType, string>({
-      query: id => `posts/${id}`,
+      query: id => `${Endpoints.posts}/${id}`,
     }),
     sendNewDescription: builder.mutation<any, { description: string; id: string }>({
       query: ({ description, id }) => {
         return {
           body: { description },
           method: 'PUT',
-          url: `posts/${id}`,
+          url: `${Endpoints.posts}/${id}`,
         }
       },
     }),

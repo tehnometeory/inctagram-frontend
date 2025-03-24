@@ -4,7 +4,7 @@ import { ReactNode, useEffect } from 'react'
 
 import { RoutesApp, useAppSelector, useNRouter } from '@/shared'
 
-export default function AuthorizedUsersLayout({ children }: { children: ReactNode }) {
+export default function PrivateLayout({ children }: { children: ReactNode }) {
   const router = useNRouter()
   const isAuth = useAppSelector(state => state.auth.isAuthorized)
 

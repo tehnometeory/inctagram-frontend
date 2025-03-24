@@ -1,4 +1,5 @@
 import { baseApi } from '@/app'
+import { Endpoints } from '@/shared'
 
 import { RegistrationBody, RegistrationResponse } from './types'
 
@@ -8,7 +9,7 @@ export const signUpApi = baseApi.injectEndpoints({
       query: body => ({
         body,
         method: 'POST',
-        url: 'auth/registration',
+        url: Endpoints.registration,
       }),
     }),
   }),

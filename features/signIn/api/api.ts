@@ -1,4 +1,5 @@
 import { baseApi } from '@/app'
+import { Endpoints } from '@/shared'
 
 import { LoginBody, SignInResponse } from './types'
 
@@ -8,7 +9,7 @@ export const signInApi = baseApi.injectEndpoints({
       query: body => ({
         body,
         method: 'POST',
-        url: 'auth/login',
+        url: Endpoints.login,
       }),
     }),
   }),

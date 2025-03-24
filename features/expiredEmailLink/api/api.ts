@@ -1,5 +1,5 @@
 import { baseApi } from '@/app'
-import { ErrorsMessagesResponse } from '@/shared'
+import { Endpoints, ErrorsMessagesResponse } from '@/shared'
 
 export type ResendConfirmationCodeArgs = {
   email: string
@@ -14,7 +14,7 @@ export const expiredEmailLinkApi = baseApi.injectEndpoints({
       query: ({ email }) => ({
         body: { email },
         method: 'POST',
-        url: 'auth/confirmation-code-resend',
+        url: Endpoints.confirmationCodeResend,
       }),
     }),
   }),
