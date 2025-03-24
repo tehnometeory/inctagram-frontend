@@ -124,7 +124,7 @@ export const SelectedPost = () => {
         <div className={s.contentWrapper}>
           <div className={s.header}>
             <UserNameAndAvatar userName={post.user.username} />
-            {isAuthorized && !isMyPost && (
+            {isAuthorized && (
               <div className={s.menu}>
                 <Button
                   autoFocus={false}
