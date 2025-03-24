@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev_port_3099": "next dev -p 3099",
     "build": "next build",
     "build:production": "pnpm build",
     "start": "next start",
