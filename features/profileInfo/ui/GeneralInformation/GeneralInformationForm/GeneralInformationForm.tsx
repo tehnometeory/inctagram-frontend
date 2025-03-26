@@ -9,7 +9,7 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@rambo-react/ui-meteors/dist'
 import { z } from 'zod'
-import { profileSchema } from '@/features'
+import { profileSchema, useUpdateProfileMutation } from '@/features'
 import s from './GeneralInformationForm.module.scss'
 
 type FormValues = z.infer<typeof profileSchema>
@@ -26,17 +26,28 @@ const countries = [
 ]
 
 export const GeneralInformationForm = () => {
+  const [updateProfile, { isLoading, error }] = useUpdateProfileMutation()
   const {
     control,
     formState: { errors, isValid },
     handleSubmit,
   } = useForm<FormValues>({
-    mode: 'onBlur',
+    mode: 'onSubmit',
     resolver: zodResolver(profileSchema),
   })
 
-  function onFormSubmit() {
-    console.log('click')
+  const onFormSubmit = async (data: FormValues) => {
+    try {
+      const formattedData = {
+        ...data,
+        dateOfBirth: data.dateOfBirth ? data.dateOfBirth.toISOString().split('T')[0] : null,
+        // Преобразуем дату в формат "YYYY-MM-DD"
+      }
+      const response = await updateProfile(formattedData).unwrap()
+      console.log('Profile updated:', response)
+    } catch (err) {
+      console.error('Failed to update profile:', err)
+    }
   }
 
   return (

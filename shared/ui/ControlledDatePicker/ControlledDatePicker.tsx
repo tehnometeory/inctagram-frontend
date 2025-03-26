@@ -3,7 +3,7 @@ import { Controller, FieldValues, UseControllerProps } from 'react-hook-form'
 import { DatePicker } from '@rambo-react/ui-meteors'
 
 type DatePickerProps = Omit<ComponentProps<typeof DatePicker>, 'getDate'> & {
-  getDate?: (dates: Date[]) => void
+  getDate?: (dates: Date[] | Date) => void
 }
 
 export type ControlledDatePickerProps<TFieldValues extends FieldValues> = DatePickerProps &
@@ -13,7 +13,7 @@ export const ControlledDatePicker = <TFieldValues extends FieldValues>({
   control,
   name,
   rules,
-  getDate = () => {}, // Передаем пустую функцию по умолчанию
+  getDate = () => {},
   ...restProps
 }: ControlledDatePickerProps<TFieldValues>) => {
   return (
@@ -25,10 +25,11 @@ export const ControlledDatePicker = <TFieldValues extends FieldValues>({
         <DatePicker
           {...restProps}
           error={error?.message}
-          getDate={(dates: Date[]) => {
+          getDate={(dates: Date[] | Date) => {
             field.onChange(dates)
             getDate(dates)
           }}
+          isRangeInput={false}
         />
       )}
     />

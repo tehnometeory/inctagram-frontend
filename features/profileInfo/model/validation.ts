@@ -7,8 +7,12 @@ export const profileSchema = z.object({
 
   country: z.string().min(1, 'Country is required'),
 
-  dateOfBirth: z.string().regex(/^\d{2}\.\d{2}\.\d{4}$/, 'Invalid date format (dd.mm.yyyy)'),
-
+  dateOfBirth: z
+    .date()
+    .optional()
+    .refine(date => !date || calculateAge(date), {
+      message: 'A user under 13 cannot create a profile.',
+    }),
   firstName: z
     .string()
     .min(1, 'First name is required')

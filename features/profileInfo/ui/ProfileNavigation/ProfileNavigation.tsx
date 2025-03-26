@@ -13,16 +13,17 @@ const tabs = [
 export const ProfileNavigation = () => {
   const router = useRouter()
   const pathname = usePathname()
-
-  const currentTab = pathname.split('/').pop() || 'General Information'
+  const formatTabValue = (value: string) => value.replace(/\s+/g, '-').toLowerCase()
+  const currentTab =
+    tabs.find(tab => formatTabValue(tab.value) === pathname.split('/').pop())?.value ||
+    'General information'
 
   return (
     <Tabs
       selected={currentTab}
       tabs={tabs.map(tab => ({
         ...tab,
-        onTabClick: () =>
-          router.replace(`/profile-info/${tab.value.replace(/\s+/g, '-').toLowerCase()}`),
+        onTabClick: () => router.replace(`/profile-info/${formatTabValue(tab.value)}`),
       }))}
     />
   )

@@ -1,3 +1,3 @@
 export const MyPayments = () => {
-  return <div>Devices</div>
+  return <div>My Payments</div>
 }

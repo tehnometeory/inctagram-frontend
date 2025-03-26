@@ -1,3 +1,3 @@
 export const AccountManagement = () => {
-  return <div>Devices</div>
+  return <div>Account Management</div>
 }
