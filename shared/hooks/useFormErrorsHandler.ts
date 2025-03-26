@@ -13,7 +13,7 @@ export const useFormErrorsHandler = <T extends FieldValues>(
   const dispatch = useAppDispatch()
 
   useEffect(() => {
-    if (error) {
+    if (error && Array.isArray(error)) {
       error.forEach(({ field, message }) => {
         setError(field as Path<T>, { message })
       })

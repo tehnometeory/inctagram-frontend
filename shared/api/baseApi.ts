@@ -1,4 +1,5 @@
-import { BASE_URL_API, RootState } from '@/shared'
+import { RootState } from '@/shared'
+import { BASE_URL_API } from '@/shared/api/config'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 export const baseApi = createApi({

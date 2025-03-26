@@ -1,10 +1,10 @@
 'use client'
 
-import { ReactNode } from 'react'
+import { ReactNode, useState } from 'react'
 import { Provider } from 'react-redux'
 
 import { AppAlert, AuthInitializer } from '@/features'
-import { NextNprogress } from '@/shared'
+import { Loader, NextNprogress } from '@/shared'
 
 import { store } from '../store'
 
@@ -13,12 +13,14 @@ type Props = {
 }
 
 export const Providers = ({ children }: Props) => {
+  const [isLoading, setIsLoading] = useState(true)
+
   return (
     <Provider store={store}>
-      {children}
+      {isLoading ? <Loader /> : children}
       <AppAlert />
       <NextNprogress />
-      <AuthInitializer />
+      <AuthInitializer onLoaded={() => setIsLoading(false)} />
     </Provider>
   )
 }

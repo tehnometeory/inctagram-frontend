@@ -1,18 +1,14 @@
-import { baseApi } from '@/app'
-import { ResponseWithAccessToken } from '@/shared'
+import { Endpoints, ResponseWithAccessToken, baseApi } from '@/shared'
 
 export const authApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    refreshTokens: builder.mutation<ResponseWithAccessToken, void>({
+    refreshToken: builder.mutation<ResponseWithAccessToken, void>({
       query: () => ({
-        headers: {
-          'User-Agent': navigator.userAgent,
-        },
         method: 'POST',
-        url: 'auth/refresh-tokens',
+        url: Endpoints.refreshToken,
       }),
     }),
   }),
 })
 
-export const { useRefreshTokensMutation } = authApi
+export const { useRefreshTokenMutation } = authApi

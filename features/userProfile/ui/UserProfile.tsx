@@ -1,5 +1,7 @@
 'use client'
 
+import { useMeQuery } from '@/entities'
+import { Loader, useAppSelector } from '@/shared'
 import { Button } from '@rambo-react/ui-meteors'
 import { clsx } from 'clsx'
 import Image from 'next/image'
@@ -10,13 +12,21 @@ import { useProfileByIdPostsQuery, useUserProfileByIdQuery } from '../api'
 import { Post } from './Post'
 
 export const UserProfile = ({ userId }: { userId?: string }) => {
+  const { data: me, isLoading } = useMeQuery()
+  const isAuth = useAppSelector(state => state.auth.isAuthorized)
+
   const { data } = useUserProfileByIdQuery(userId as string)
 
   const { data: posts } = useProfileByIdPostsQuery({ id: userId as string, page: 1 })
 
+  if (isLoading) {
+    return <Loader />
+  }
+
   if (!data) {
     return null
   }
+  const isOwner = me?.id === userId
 
   const { aboutMe, postsCount, profileFollowers, profileFollowing, username } = data
 
@@ -35,9 +45,22 @@ export const UserProfile = ({ userId }: { userId?: string }) => {
         </div>
         <div className={clsx(s.item, s.itemNameProfile)}>
           <span className={s.titleProfile}>{username}</span>
-          {/* <Button className={s.btn} variant={'secondary'}>
-            Profile Settings
-          </Button> */}
+
+          {isOwner && (
+            <Button className={s.btn} variant={'secondary'}>
+              Profile Settings
+            </Button>
+          )}
+          {isAuth && !isOwner && (
+            <div className={s.itemButtons}>
+              <Button className={s.btn} variant={'secondary'}>
+                Follow
+              </Button>
+              <Button className={s.btn} variant={'secondary'}>
+                Send Message
+              </Button>
+            </div>
+          )}
         </div>
         <div className={clsx(s.item, s.itemStaticProfile)}>
           <span className={s.statistic}>
