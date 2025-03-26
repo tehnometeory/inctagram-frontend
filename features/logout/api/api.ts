@@ -1,4 +1,4 @@
-import { baseApi } from '@/app'
+import { Endpoints, baseApi } from '@/shared'
 
 export const logoutApi = baseApi.injectEndpoints({
   endpoints: builder => ({
@@ -6,7 +6,7 @@ export const logoutApi = baseApi.injectEndpoints({
       query: () => {
         return {
           method: 'POST',
-          url: 'auth/logout',
+          url: Endpoints.logout,
         }
       },
     }),

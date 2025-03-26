@@ -87,6 +87,11 @@
   max-width: 972px;
 }
 
+.itemButtons {
+  display: flex;
+  gap: 12px;
+}
+
 @media (width <= 1235px) {
   .posts {
     grid-template-columns: repeat(3, 1fr);

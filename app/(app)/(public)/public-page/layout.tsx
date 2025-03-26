@@ -4,17 +4,17 @@ import { ReactNode, useEffect } from 'react'
 
 import { RoutesApp, useAppSelector, useNRouter } from '@/shared'
 
-export default function AuthorizedUsersLayout({ children }: { children: ReactNode }) {
+export default function PublicPageLayout({ children }: { children: ReactNode }) {
   const router = useNRouter()
   const isAuth = useAppSelector(state => state.auth.isAuthorized)
 
   useEffect(() => {
-    if (!isAuth) {
-      router.replace(RoutesApp.signIn)
+    if (isAuth) {
+      router.replace(RoutesApp.home)
     }
   }, [isAuth, router])
 
-  if (!isAuth) {
+  if (isAuth) {
     return null
   }
 

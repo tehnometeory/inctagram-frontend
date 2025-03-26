@@ -7,6 +7,7 @@ export enum RoutesApp {
   passwordRecovery = '/auth/password-recovery',
   privacyPolicy = '/auth/privacy-policy',
   profile = '/profile',
+  publicPage = '/public-page',
   signIn = '/auth/sign-in',
   signUp = '/auth/sign-up',
   termsOfService = '/auth/terms-of-service',

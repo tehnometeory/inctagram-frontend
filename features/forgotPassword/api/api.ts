@@ -1,4 +1,4 @@
-import { baseApi } from '@/app'
+import { Endpoints, baseApi } from '@/shared'
 
 import { ResetPasswordArgs, ResetPasswordResponse } from './types'
 
@@ -8,7 +8,7 @@ export const forgotPasswordApi = baseApi.injectEndpoints({
       query: ({ email, recaptchaValue }) => ({
         body: { email, recaptchaValue },
         method: 'POST',
-        url: 'auth/reset-password',
+        url: Endpoints.resetPassword,
       }),
     }),
   }),

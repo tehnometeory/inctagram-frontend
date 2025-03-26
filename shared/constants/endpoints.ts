@@ -1,0 +1,15 @@
+export enum Endpoints {
+  confirmationCodeResend = 'auth/confirmation-code-resend',
+  login = 'auth/login',
+  logout = 'auth/logout',
+  me = 'auth/me',
+  myProfile = 'profile/my-profile',
+  newestPosts = 'posts/newest-posts',
+  posts = 'posts',
+  profile = 'profile',
+  profilePosts = 'posts/profile-posts',
+  refreshToken = 'auth/refresh-tokens',
+  registration = 'auth/registration',
+  resetPassword = 'auth/reset-password',
+  setPassword = 'auth/set-password',
+}
