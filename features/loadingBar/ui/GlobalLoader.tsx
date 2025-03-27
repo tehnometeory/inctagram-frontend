@@ -8,8 +8,6 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 NProgress.configure({
-  // color: '#397DF6',
-  // height: 4,
   showSpinner: false,
 })
 export const GlobalLoader = () => {
