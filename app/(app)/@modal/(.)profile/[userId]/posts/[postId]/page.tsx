@@ -1,4 +1,4 @@
-import { SelectedPost } from '@/features'
+import { SelectedPost, fetchPost } from '@/features'
 import { notFound } from 'next/navigation'
 
 type Props = {
@@ -18,18 +18,4 @@ export default async function PostModal({ params }: Props) {
   } catch (error) {
     notFound()
   }
-}
-
-const fetchPost = async (postId: string) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_API}posts/${postId}`, {
-    next: {
-      tags: [`post-${postId}`],
-    },
-  })
-
-  if (!res.ok) {
-    throw new Error('Posts fetch failed')
-  }
-
-  return res.json()
 }
