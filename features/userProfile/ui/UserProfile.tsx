@@ -13,7 +13,7 @@ import { Post } from './Post'
 
 export const UserProfile = ({ userId }: { userId?: string }) => {
   const { data: me, isLoading } = useMeQuery()
-  const isAuth = useAppSelector(state => state.auth.isAuthorized)
+  const isAuth = useAppSelector(state => !!state.auth.accessToken)
 
   const { data } = useUserProfileByIdQuery(userId as string)
 

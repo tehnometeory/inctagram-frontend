@@ -11,11 +11,8 @@ const authSlice = createSlice({
     setAccessToken(state, action: PayloadAction<string>) {
       state.accessToken = action.payload
     },
-    setIsAuthorized(state, action: PayloadAction<boolean>) {
-      state.isAuthorized = action.payload
-    },
   },
 })
 
-export const { setAccessToken, setIsAuthorized } = authSlice.actions
+export const { setAccessToken } = authSlice.actions
 export const authReducer = authSlice.reducer

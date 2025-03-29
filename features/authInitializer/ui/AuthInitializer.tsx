@@ -2,9 +2,8 @@
 
 import { useEffect } from 'react'
 
-import { setAccessToken, setIsAuthorized, useMeQuery } from '@/entities'
+import { setAccessToken } from '@/entities'
 import { useAppDispatch, useAppSelector } from '@/shared'
-import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
 import { useRefreshTokenMutation } from '../api'
 
@@ -13,46 +12,27 @@ type Props = {
 }
 
 export const AuthInitializer = ({ onLoaded }: Props) => {
-  const { data, error, isLoading, refetch } = useMeQuery()
-  const [refreshToken] = useRefreshTokenMutation()
   const dispatch = useAppDispatch()
   const token = useAppSelector(state => state.auth.accessToken)
+  const [refreshToken] = useRefreshTokenMutation()
 
   useEffect(() => {
-    if (isLoading) {
+    if (token) {
+      onLoaded()
+
       return
     }
-    if (data) {
-      if (!token) {
-        refreshToken()
-          .unwrap()
-          .then(res => {
-            dispatch(setAccessToken(res.accessToken))
-            dispatch(setIsAuthorized(true))
-            refetch()
-          })
-          .catch(() => dispatch(setIsAuthorized(false)))
-          .finally(() => onLoaded())
-      }
-      dispatch(setIsAuthorized(true))
-      onLoaded()
-    } else if (error) {
-      const err = error as FetchBaseQueryError
 
-      if (err?.status === 401) {
-        refreshToken()
-          .unwrap()
-          .then(res => {
-            dispatch(setAccessToken(res.accessToken))
-            refetch()
-          })
-          .catch(() => dispatch(setIsAuthorized(false)))
-          .finally(() => onLoaded())
-      } else {
-        onLoaded()
-      }
-    }
-  }, [dispatch, data, error, refetch, refreshToken, isLoading, onLoaded, token])
+    refreshToken()
+      .unwrap()
+      .then(res => {
+        dispatch(setAccessToken(res.accessToken))
+      })
+      .catch(() => {
+        dispatch(setAccessToken(''))
+      })
+      .finally(() => onLoaded())
+  }, [dispatch, refreshToken, token, onLoaded])
 
   return null
 }

@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { setAccessToken, setIsAuthorized } from '@/entities'
+import { setAccessToken } from '@/entities'
 import {
   ErrorMessage,
   useAppDispatch,
@@ -49,7 +49,6 @@ export const useSignIn = () => {
 
     if (response.data && 'accessToken' in response.data) {
       dispatch(setAccessToken(response.data.accessToken))
-      dispatch(setIsAuthorized(true))
       methods.reset()
     }
   }
