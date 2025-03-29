@@ -6,7 +6,7 @@ import { RoutesApp, useAppSelector, useNRouter } from '@/shared'
 
 export default function PrivateLayout({ children }: { children: ReactNode }) {
   const router = useNRouter()
-  const isAuth = useAppSelector(state => state.auth.isAuthorized)
+  const isAuth = useAppSelector(state => !!state.auth.accessToken)
 
   useEffect(() => {
     if (!isAuth) {

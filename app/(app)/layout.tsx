@@ -7,7 +7,7 @@ import { ContentContainer, SidebarLayout, useAppSelector } from '@/shared'
 import { HeaderApp, HeaderPublic, SidebarApp } from '@/widgets'
 
 export default function AppLayout({ children }: { children: ReactNode }) {
-  const isAuth = useAppSelector(state => state.auth.isAuthorized)
+  const isAuth = useAppSelector(state => !!state.auth.accessToken)
 
   return (
     <>

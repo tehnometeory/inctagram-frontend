@@ -1,1 +1,0 @@
-export { baseApi } from '@/shared'
