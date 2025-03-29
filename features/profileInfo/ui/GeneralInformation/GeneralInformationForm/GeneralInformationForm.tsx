@@ -1,5 +1,7 @@
 import { useForm } from 'react-hook-form'
 
+import { setAlert } from '@/entities'
+import { profileSchema, useUpdateProfileMutation } from '@/features'
 import {
   ControlledDatePicker,
   ControlledInput,
@@ -10,9 +12,8 @@ import {
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@rambo-react/ui-meteors/dist'
 import { z } from 'zod'
-import { profileSchema, useUpdateProfileMutation } from '@/features'
+
 import s from './GeneralInformationForm.module.scss'
-import { setAlert } from '@/entities'
 
 type FormValues = z.infer<typeof profileSchema>
 
@@ -28,7 +29,7 @@ const countries = [
 ]
 
 export const GeneralInformationForm = () => {
-  const [updateProfile, { isLoading, error }] = useUpdateProfileMutation()
+  const [updateProfile] = useUpdateProfileMutation()
   const {
     control,
     formState: { errors, isValid },
@@ -55,6 +56,7 @@ export const GeneralInformationForm = () => {
           data.dateOfBirth instanceof Date ? data.dateOfBirth.toISOString().split('T')[0] : null,
         // Преобразуем дату в формат "YYYY-MM-DD"
       }
+
       await updateProfile(formattedData).unwrap()
       dispatch(setAlert({ message: 'Your settings are saved!', type: 'accepted' }))
     } catch (error) {
@@ -106,25 +108,25 @@ export const GeneralInformationForm = () => {
       <div className={s.cityAndCountry}>
         <ControlledSelectBox
           control={control}
-          label="Select your city"
-          name="city"
+          label={'Select your city'}
+          name={'city'}
           options={cities}
-          placeholder="Сity"
+          placeholder={'City'}
         />
         <ControlledSelectBox
           control={control}
-          label="Select your country"
-          name="country"
+          label={'Select your country'}
+          name={'country'}
           options={countries}
-          placeholder="Сountry"
+          placeholder={'Country'}
         />
       </div>
 
       <ControlledTextArea
         placeholder={'Text-area'}
-        name="aboutMe"
+        name={'aboutMe'}
         control={control}
-        label="About me"
+        label={'About me'}
       />
 
       <Button disabled={!isValid} type={'submit'}>

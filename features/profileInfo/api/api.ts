@@ -1,5 +1,6 @@
-import { ProfileInfoResponse, ProfileUpdateArgs } from './types'
 import { baseApi, Endpoints } from '@/shared'
+
+import { ProfileInfoResponse, ProfileUpdateArgs } from './types'
 
 export const profileInfoApi = baseApi.injectEndpoints({
   endpoints: builder => ({

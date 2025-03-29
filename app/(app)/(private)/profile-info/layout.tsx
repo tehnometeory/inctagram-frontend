@@ -1,3 +1,5 @@
+import React from 'react'
+
 import { ProfileNavigation } from '@/features'
 
 export default function ProfileLayout({ children }: { children: React.ReactNode }) {

@@ -1,4 +1,4 @@
-const MIN_AGE = 2
+const MIN_AGE = 1 //исправить на 13, когда изменим DatePicker
 
 export const calculateAge = (birthDate: Date): boolean => {
   const today = new Date()

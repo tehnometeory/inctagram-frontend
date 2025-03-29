@@ -37,7 +37,7 @@ export const ImageCarousel = ({ images, setActiveSlideIndex, thumbsSwiper }: Pro
     <div className={s.carouselContainer}>
       <Swiper
         allowTouchMove={false}
-        className={'swiperMain'}
+        className={s.swiperMain}
         modules={[Navigation, Pagination, Thumbs]}
         navigation={{
           nextEl: `.${s[`swiperButtonNext`]}`,

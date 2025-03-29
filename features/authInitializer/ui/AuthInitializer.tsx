@@ -27,8 +27,8 @@ export const AuthInitializer = ({ onLoaded }: Props) => {
         refreshToken()
           .unwrap()
           .then(res => {
-            dispatch(setAccessToken(res.accessToken))
             dispatch(setIsAuthorized(true))
+            dispatch(setAccessToken(res.accessToken))
             refetch()
           })
           .catch(() => dispatch(setIsAuthorized(false)))
