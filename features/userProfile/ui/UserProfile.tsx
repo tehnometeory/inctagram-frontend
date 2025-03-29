@@ -5,6 +5,7 @@ import { Loader, useAppSelector } from '@/shared'
 import { Button } from '@rambo-react/ui-meteors'
 import { clsx } from 'clsx'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 import s from './UserProfile.module.scss'
 
@@ -12,6 +13,7 @@ import { useProfileByIdPostsQuery, useUserProfileByIdQuery } from '../api'
 import { Post } from './Post'
 
 export const UserProfile = ({ userId }: { userId?: string }) => {
+  const router = useRouter()
   const { data: me, isLoading } = useMeQuery()
   const isAuth = useAppSelector(state => !!state.auth.accessToken)
 
@@ -47,7 +49,11 @@ export const UserProfile = ({ userId }: { userId?: string }) => {
           <span className={s.titleProfile}>{username}</span>
 
           {isOwner && (
-            <Button className={s.btn} variant={'secondary'}>
+            <Button
+              onClick={() => router.push('/profile-info/general-information')}
+              className={s.btn}
+              variant={'secondary'}
+            >
               Profile Settings
             </Button>
           )}

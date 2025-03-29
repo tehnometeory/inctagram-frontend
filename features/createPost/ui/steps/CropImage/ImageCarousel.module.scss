@@ -5,6 +5,11 @@
   height: 100%;
 }
 
+.swiperMain {
+  width: 100%;
+  height: 100%;
+}
+
 .swiperButtonNext {
   right: 10px;
 }
@@ -28,9 +33,9 @@
 
   width: 36px;
   height: 36px;
+  border-radius: 2px;
 
   background-color: rgb(23 23 23 / 80%);
-  border-radius: 2px;
 
   &:hover {
     background-color: var(--color-dark-100);
@@ -53,8 +58,8 @@
   & :global(.swiper-pagination-button) {
     width: 8px;
     height: 8px;
-    background-color: var(--color-light-900);
     border-radius: 50%;
+    background-color: var(--color-light-900);
   }
 
   & :global(.swiper-pagination-button-active) {
