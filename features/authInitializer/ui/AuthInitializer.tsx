@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 
 import { setAccessToken, setIsAuthorized, useMeQuery } from '@/entities'
-import { useAppDispatch } from '@/shared'
+import { useAppDispatch, useAppSelector } from '@/shared'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 
 import { useRefreshTokenMutation } from '../api'
@@ -16,12 +16,24 @@ export const AuthInitializer = ({ onLoaded }: Props) => {
   const { data, error, isLoading, refetch } = useMeQuery()
   const [refreshToken] = useRefreshTokenMutation()
   const dispatch = useAppDispatch()
+  const token = useAppSelector(state => state.auth.accessToken)
 
   useEffect(() => {
     if (isLoading) {
       return
     }
     if (data) {
+      if (!token) {
+        refreshToken()
+          .unwrap()
+          .then(res => {
+            dispatch(setAccessToken(res.accessToken))
+            dispatch(setIsAuthorized(true))
+            refetch()
+          })
+          .catch(() => dispatch(setIsAuthorized(false)))
+          .finally(() => onLoaded())
+      }
       dispatch(setIsAuthorized(true))
       onLoaded()
     } else if (error) {
@@ -40,7 +52,7 @@ export const AuthInitializer = ({ onLoaded }: Props) => {
         onLoaded()
       }
     }
-  }, [dispatch, data, error, refetch, refreshToken, isLoading, onLoaded])
+  }, [dispatch, data, error, refetch, refreshToken, isLoading, onLoaded, token])
 
   return null
 }
