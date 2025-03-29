@@ -23,7 +23,7 @@ export const ProfileNavigation = () => {
       selected={currentTab}
       tabs={tabs.map(tab => ({
         ...tab,
-        onTabClick: () => router.replace(`/profile-info/${formatTabValue(tab.value)}`),
+        onTabClick: () => router.push(`/profile-info/${formatTabValue(tab.value)}`),
       }))}
     />
   )
