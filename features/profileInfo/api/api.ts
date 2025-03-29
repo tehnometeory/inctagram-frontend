@@ -1,11 +1,11 @@
-import { baseApi } from '@/app'
-import { ProfileUpdateArgs, ProfileUpdateResponse } from './types'
+import { ProfileInfoResponse, ProfileUpdateArgs } from './types'
+import { baseApi, Endpoints } from '@/shared'
 
-export const profileApi = baseApi.injectEndpoints({
+export const profileInfoApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    updateProfile: builder.mutation<ProfileUpdateResponse, ProfileUpdateArgs>({
+    updateProfile: builder.mutation<ProfileInfoResponse, ProfileUpdateArgs>({
       query: profileData => ({
-        url: '/api/v1/profile/my-profile-data-update',
+        url: Endpoints.updateProfileInfo,
         method: 'POST',
         body: profileData,
       }),
@@ -13,4 +13,4 @@ export const profileApi = baseApi.injectEndpoints({
   }),
 })
 
-export const { useUpdateProfileMutation } = profileApi
+export const { useUpdateProfileMutation } = profileInfoApi

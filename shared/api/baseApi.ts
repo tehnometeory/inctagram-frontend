@@ -16,13 +16,11 @@ export const baseApi = createApi({
       }
       const state = getState() as RootState
       const token = state.auth.accessToken
-
       if (token) {
         headers.set('Authorization', `Bearer ${token}`)
       }
 
       headers.set('User-Agent', navigator.userAgent)
-
       return headers
     },
   }),

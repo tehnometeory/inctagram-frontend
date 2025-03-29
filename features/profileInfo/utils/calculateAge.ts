@@ -1,6 +1,6 @@
 const MIN_AGE = 2
 
-const calculateAge = (birthDate: Date): boolean => {
+export const calculateAge = (birthDate: Date): boolean => {
   const today = new Date()
 
   let age = today.getFullYear() - birthDate.getFullYear()

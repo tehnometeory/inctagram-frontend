@@ -5,12 +5,14 @@ import {
   ControlledInput,
   ControlledSelectBox,
   ControlledTextArea,
+  useAppDispatch,
 } from '@/shared'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@rambo-react/ui-meteors/dist'
 import { z } from 'zod'
 import { profileSchema, useUpdateProfileMutation } from '@/features'
 import s from './GeneralInformationForm.module.scss'
+import { setAlert } from '@/entities'
 
 type FormValues = z.infer<typeof profileSchema>
 
@@ -32,21 +34,36 @@ export const GeneralInformationForm = () => {
     formState: { errors, isValid },
     handleSubmit,
   } = useForm<FormValues>({
-    mode: 'onSubmit',
+    mode: 'onChange',
     resolver: zodResolver(profileSchema),
+    defaultValues: {
+      username: '',
+      firstName: '',
+      lastName: '',
+      dateOfBirth: undefined,
+      city: '',
+      country: '',
+      aboutMe: '',
+    },
   })
-
+  const dispatch = useAppDispatch()
   const onFormSubmit = async (data: FormValues) => {
     try {
       const formattedData = {
         ...data,
-        dateOfBirth: data.dateOfBirth ? data.dateOfBirth.toISOString().split('T')[0] : null,
+        dateOfBirth:
+          data.dateOfBirth instanceof Date ? data.dateOfBirth.toISOString().split('T')[0] : null,
         // Преобразуем дату в формат "YYYY-MM-DD"
       }
-      const response = await updateProfile(formattedData).unwrap()
-      console.log('Profile updated:', response)
-    } catch (err) {
-      console.error('Failed to update profile:', err)
+      await updateProfile(formattedData).unwrap()
+      dispatch(setAlert({ message: 'Your settings are saved!', type: 'accepted' }))
+    } catch (error) {
+      dispatch(
+        setAlert({
+          message: `Error! Server is not available!`,
+          type: 'error',
+        })
+      )
     }
   }
 

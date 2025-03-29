@@ -1,4 +1,5 @@
 import { z } from 'zod'
+import { calculateAge } from '../utils/calculateAge'
 
 export const profileSchema = z.object({
   aboutMe: z.string().max(200, 'Maximum 200 characters').optional(),

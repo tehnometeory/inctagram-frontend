@@ -1,3 +1,5 @@
+import { ErrorsMessagesResponse } from '@/shared'
+
 export type ProfileUpdateArgs = {
   username: string
   firstName: string
@@ -7,8 +9,4 @@ export type ProfileUpdateArgs = {
   country: string
   aboutMe?: string
 }
-
-export type ProfileUpdateResponse = {
-  success: boolean
-  message: string
-}
+export type ProfileInfoResponse = ErrorsMessagesResponse | void

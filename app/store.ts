@@ -1,5 +1,5 @@
 import { appReducer, authReducer } from '@/entities'
-import { createPostReducer, selectedPostReducer } from '@/features'
+import { createPostReducer, profileInfoApi, selectedPostReducer } from '@/features'
 import { baseApi, rtkQueryErrorLogger } from '@/shared'
 import { configureStore } from '@reduxjs/toolkit'
 
