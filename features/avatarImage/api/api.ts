@@ -3,10 +3,9 @@ import { baseApi, Endpoints } from '@/shared'
 
 export const userAvatarApi = baseApi.injectEndpoints({
   endpoints: builder => ({
-    deleteAvatar: builder.mutation<ProfileUserPostsResponse, { id: string }>({
+    deleteAvatar: builder.mutation<ProfileUserPostsResponse, void>({
       invalidatesTags: ['Profile'],
-      query: ({ id }) => ({
-        body: { id },
+      query: () => ({
         method: 'DELETE',
         url: `${Endpoints.avatarDelete}`,
       }),
