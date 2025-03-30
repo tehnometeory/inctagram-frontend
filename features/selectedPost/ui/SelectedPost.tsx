@@ -27,6 +27,7 @@ import {
   TrashOutline,
 } from '@rambo-react/ui-meteors'
 import clsx from 'clsx'
+import { useParams } from 'next/navigation'
 
 import s from './SelectedPost.module.scss'
 
@@ -41,7 +42,7 @@ export const SelectedPost = () => {
   const [saved, setSaved] = useState(false)
   const [openedMenu, setOpenedMenu] = useState(false)
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
-  const isAuthorized = useAppSelector(state => state.auth.isAuthorized)
+  const isAuthorized = useAppSelector(state => state.auth.accessToken)
   const { data } = useMeQuery()
   const dispatch = useAppDispatch()
 
@@ -52,6 +53,10 @@ export const SelectedPost = () => {
   const images = post?.photos?.map(photo => photo.url) ?? []
 
   const menuRef = useRef<HTMLDivElement | null>(null)
+
+  const { userId } = useParams()
+  const { data: me } = useMeQuery()
+  const isOwner = me?.id === userId
 
   const handleClickOutside = useCallback((event: MouseEvent) => {
     if (
@@ -124,7 +129,7 @@ export const SelectedPost = () => {
         <div className={s.contentWrapper}>
           <div className={s.header}>
             <UserNameAndAvatar userName={post.user.username} />
-            {isAuthorized && (
+            {isAuthorized && isOwner && (
               <div className={s.menu}>
                 <Button
                   autoFocus={false}
