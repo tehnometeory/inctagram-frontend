@@ -1,5 +1,6 @@
 import { appReducer, authReducer } from '@/entities'
-import { createPostReducer, profileInfoApi, selectedPostReducer } from '@/features'
+import { createPostReducer, selectedPostReducer } from '@/features'
+import { avatarReducer } from '@/features/avatarImage'
 import { baseApi, rtkQueryErrorLogger } from '@/shared'
 import { configureStore } from '@reduxjs/toolkit'
 
@@ -12,5 +13,6 @@ export const store = configureStore({
     [baseApi.reducerPath]: baseApi.reducer,
     createPost: createPostReducer,
     selectedPost: selectedPostReducer,
+    avatarPhoto: avatarReducer,
   },
 })

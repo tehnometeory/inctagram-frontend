@@ -30,7 +30,7 @@ export const UserProfile = ({ userId }: { userId?: string }) => {
   }
   const isOwner = me?.id === userId
 
-  const { aboutMe, postsCount, profileFollowers, profileFollowing, username } = data
+  const { aboutMe, postsCount, profileFollowers, profileFollowing, username, avatarUrl } = data
 
   return (
     <div className={s.userProfile}>
@@ -41,7 +41,7 @@ export const UserProfile = ({ userId }: { userId?: string }) => {
             className={s.avatar}
             height={204}
             priority
-            src={'/images/avatar-default.webp'}
+            src={avatarUrl || '/images/avatar-default.webp'}
             width={204}
           />
         </div>
