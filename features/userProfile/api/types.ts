@@ -8,6 +8,7 @@ export type ProfileUserResponse = {
   profileFollowers: number
   profileFollowing: number
   username: string
+  avatarUrl: string
 }
 
 export type ProfileUserPostsResponse = PostType[]

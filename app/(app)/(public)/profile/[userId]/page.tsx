@@ -16,7 +16,7 @@ export default async function ProfilePage({ params }: Props) {
       fetchProfile(userId),
     ])
 
-    return <UserProfile posts={posts} profile={profile} />
+    return <UserProfile userId={userId as string} posts={posts} profile={profile} />
   } catch (error) {
     notFound()
   }
