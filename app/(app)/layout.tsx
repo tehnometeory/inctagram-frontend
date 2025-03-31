@@ -12,7 +12,7 @@ interface AppLayoutProps {
 }
 
 const AppLayout: FC<AppLayoutProps> = ({ children, modal }) => {
-  const isAuth = useAppSelector(state => state.auth.isAuthorized)
+  const isAuth = useAppSelector(state => !!state.auth.accessToken)
 
   return (
     <>
