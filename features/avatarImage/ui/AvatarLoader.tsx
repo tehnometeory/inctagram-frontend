@@ -36,6 +36,7 @@ export const AvatarLoader = () => {
       setOpenDeleteModal(false)
       dispatch(clearAvatar())
       dispatch(setAlert({ message: 'Profile Avatar delete successfully', type: 'accepted' }))
+      await fetch('/api/revalidate?tag=profile-' + me?.id, { method: 'POST' })
     } catch (error) {
       dispatch(setAlert({ message: 'Error delete Avatar Photo', type: 'error' }))
     }
@@ -101,7 +102,7 @@ export const AvatarLoader = () => {
         onCloseOut={handlerOnClose}
         title={'Add a Profile Photo'}
       >
-        <ImageCropper onClose={handlerOnClose} />
+        <ImageCropper onClose={handlerOnClose} id={me?.id as string} />
       </Modal>
     </>
   )

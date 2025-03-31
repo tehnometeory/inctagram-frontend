@@ -1,31 +1,23 @@
-'use client'
+import { ProfileUserPostsResponse, ProfileUserResponse, fetchPosts, fetchProfile } from '@/features'
+import { UserProfile } from '@/features/userProfile/ui/UserProfile'
+import { notFound } from 'next/navigation'
 
-import { useEffect } from 'react'
+type Props = {
+  params: Promise<{ userId: string }>
+  searchParams: Promise<{ postId: string }>
+}
 
-import { EditPostContainer, SelectedPost, UserProfile, showPostModal, useGetPost } from '@/features'
-import { useAppDispatch } from '@/shared'
-import { useParams, useSearchParams } from 'next/navigation'
+export default async function ProfilePage({ params }: Props) {
+  const { userId } = await params
 
-export default function ProfilePage() {
-  const { userId } = useParams()
-  const params = useSearchParams()
-  const dispatch = useAppDispatch()
+  try {
+    const [posts, profile]: [ProfileUserPostsResponse, ProfileUserResponse] = await Promise.all([
+      fetchPosts(userId, 1),
+      fetchProfile(userId),
+    ])
 
-  const postId = params.get('postId')
-
-  useGetPost(postId || '')
-
-  useEffect(() => {
-    if (postId) {
-      dispatch(showPostModal())
-    }
-  }, [postId, dispatch])
-
-  return (
-    <>
-      <UserProfile userId={userId as string} />
-      <SelectedPost />
-      <EditPostContainer />
-    </>
-  )
+    return <UserProfile userId={userId as string} posts={posts} profile={profile} />
+  } catch (error) {
+    notFound()
+  }
 }
