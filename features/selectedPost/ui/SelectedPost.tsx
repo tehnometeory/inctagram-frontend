@@ -47,8 +47,8 @@ export const SelectedPost = ({ post: initialPost }: Props) => {
   const [saved, setSaved] = useState(false)
   const [openedMenu, setOpenedMenu] = useState(false)
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
-  const isAuthorized = useAppSelector(state => state.auth.isAuthorized)
   const postFromStore = useAppSelector(state => state.selectedPost.post)
+  const isAuthorized = useAppSelector(state => state.auth.accessToken)
   const dispatch = useAppDispatch()
   const router = useRouter()
 
@@ -144,7 +144,7 @@ export const SelectedPost = ({ post: initialPost }: Props) => {
         <div className={s.contentWrapper}>
           <div className={s.header}>
             <UserNameAndAvatar userName={postFromStore.user.username} />
-            {isAuthorized && (
+            {isAuthorized && isMyPost && (
               <div className={s.menu}>
                 <Button
                   autoFocus={false}
