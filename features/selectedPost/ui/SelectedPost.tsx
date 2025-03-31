@@ -6,6 +6,7 @@ import { setAlert, useMeQuery } from '@/entities'
 import { clearSelectedPost, hidePostModal, useDeletePostByIdMutation } from '@/features'
 import {
   Carousel,
+  PostType,
   ProfileConfirmationModal,
   UserNameAndAvatar,
   useAppDispatch,
@@ -27,7 +28,6 @@ import {
   TrashOutline,
 } from '@rambo-react/ui-meteors'
 import clsx from 'clsx'
-import { useParams } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 
 import s from './SelectedPost.module.scss'
@@ -36,6 +36,9 @@ import { setSelectedPost, showEditModal, showPostModal } from '..'
 import { convertToRelativeTime } from '../utils/convertToRelativeTime'
 import { getDateParts } from '../utils/getDateParts'
 
+type Props = {
+  post: PostType
+}
 
 export const SelectedPost = ({ post: initialPost }: Props) => {
   const [deletePost] = useDeletePostByIdMutation()
@@ -46,7 +49,6 @@ export const SelectedPost = ({ post: initialPost }: Props) => {
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const postFromStore = useAppSelector(state => state.selectedPost.post)
   const isAuthorized = useAppSelector(state => state.auth.accessToken)
-  const { data } = useMeQuery()
   const dispatch = useAppDispatch()
   const router = useRouter()
 
@@ -62,10 +64,6 @@ export const SelectedPost = ({ post: initialPost }: Props) => {
   const images = postFromStore?.photos?.map(photo => photo.url) ?? []
 
   const menuRef = useRef<HTMLDivElement | null>(null)
-
-  const { userId } = useParams()
-  const { data: me } = useMeQuery()
-  const isOwner = me?.id === userId
 
   const handleClickOutside = useCallback((event: MouseEvent) => {
     if (
@@ -146,7 +144,7 @@ export const SelectedPost = ({ post: initialPost }: Props) => {
         <div className={s.contentWrapper}>
           <div className={s.header}>
             <UserNameAndAvatar userName={postFromStore.user.username} />
-            {isAuthorized && (
+            {isAuthorized && isMyPost && (
               <div className={s.menu}>
                 <Button
                   autoFocus={false}
