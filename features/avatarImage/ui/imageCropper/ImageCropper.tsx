@@ -22,9 +22,10 @@ const ASPECT_RATIO = 1
 
 type Props = {
   onClose: () => void
+  id: string
 }
 
-export const ImageCropper = ({ onClose }: Props) => {
+export const ImageCropper = ({ onClose, id }: Props) => {
   const formData = new FormData()
   const [updateAvatar, { isLoading }] = useUpdateAvatarMutation()
   const dispatch = useAppDispatch()
@@ -61,6 +62,7 @@ export const ImageCropper = ({ onClose }: Props) => {
       formData.append('files', blob)
       await updateAvatar(formData).unwrap()
       dispatch(setAvatar(dataUrl))
+      await fetch('/api/revalidate?tag=profile-' + id, { method: 'POST' })
       onClose()
     } catch (error) {
       dispatch(
