@@ -1,17 +1,24 @@
+<<<<<<< HEAD
 'use client'
 
 import { useMeQuery } from '@/entities'
 import { Loader, useAppSelector } from '@/shared'
 import { Button } from '@rambo-react/ui-meteors'
 import { clsx } from 'clsx'
+=======
+import { PostType } from '@/shared'
+import clsx from 'clsx'
+>>>>>>> PROJ-66_User-profile-page
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 
 import s from './UserProfile.module.scss'
 
-import { useProfileByIdPostsQuery, useUserProfileByIdQuery } from '../api'
+import { ProfileUserResponse } from '../api'
 import { Post } from './Post'
+import { StatItem } from './StateItem'
 
+<<<<<<< HEAD
 export const UserProfile = ({ userId }: { userId?: string }) => {
   const router = useRouter()
   const { data: me, isLoading } = useMeQuery()
@@ -31,18 +38,28 @@ export const UserProfile = ({ userId }: { userId?: string }) => {
   const isOwner = me?.id === userId
 
   const { aboutMe, postsCount, profileFollowers, profileFollowing, username } = data
+=======
+export async function UserProfile({
+  posts,
+  profile,
+}: {
+  posts: PostType[]
+  profile: ProfileUserResponse
+  selectedPostId?: string
+}) {
+  const { aboutMe, postsCount, profileFollowers, profileFollowing, username } = profile
+>>>>>>> PROJ-66_User-profile-page
 
   return (
     <div className={s.userProfile}>
       <div className={s.profile}>
         <div className={clsx(s.item, s.itemImage)}>
           <Image
-            alt={'user avatar'}
-            className={s.avatar}
-            height={204}
-            priority
+            alt={profile.username}
+            className={'rounded-full'}
+            height={150}
             src={'/images/avatar-default.webp'}
-            width={204}
+            width={150}
           />
         </div>
         <div className={clsx(s.item, s.itemNameProfile)}>
@@ -69,24 +86,15 @@ export const UserProfile = ({ userId }: { userId?: string }) => {
           )}
         </div>
         <div className={clsx(s.item, s.itemStaticProfile)}>
-          <span className={s.statistic}>
-            {profileFollowing}
-            <br />
-            <small className={s.textStatistic}>Following</small>
-          </span>
-          <span className={s.statistic}>
-            {profileFollowers} <br />
-            <small className={s.textStatistic}> Followers</small>
-          </span>
-          <span className={s.statistic}>
-            {postsCount}
-            <br /> <small className={s.textStatistic}>Publications</small>
-          </span>
+          <StatItem label={'Following'} value={profileFollowing} />
+          <StatItem label={'Followers'} value={profileFollowers} />
+          <StatItem label={'Publications'} value={postsCount} />
         </div>
         <div className={clsx(s.item, s.itemAboutMe)}>
           <p className={s.textInfo}>{aboutMe}</p>
         </div>
       </div>
+
       <div className={s.posts}>{posts?.map(post => <Post key={post.id} post={post} />)}</div>
     </div>
   )
