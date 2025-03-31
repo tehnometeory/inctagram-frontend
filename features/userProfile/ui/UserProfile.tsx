@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation'
 
 import s from './UserProfile.module.scss'
 
-import { ProfileUserResponse, useProfileByIdPostsQuery, useUserProfileByIdQuery } from '../api'
+import { ProfileUserResponse } from '../api'
 import { Post } from './Post'
 import { StatItem } from './StateItem'
 
@@ -26,10 +26,6 @@ export const UserProfile = ({
   const router = useRouter()
   const { data: me, isLoading } = useMeQuery()
   const isAuth = useAppSelector(state => !!state.auth.accessToken)
-
-  // const { data } = useUserProfileByIdQuery(userId as string)
-
-  // const { data: posts } = useProfileByIdPostsQuery({ id: userId as string, page: 1 })
 
   if (isLoading) {
     return <Loader />

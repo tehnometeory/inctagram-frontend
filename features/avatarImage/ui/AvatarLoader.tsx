@@ -48,7 +48,7 @@ export const AvatarLoader = () => {
         onCloseOut={handlerOnClose}
         title={'Add a Profile Photo'}
       >
-        <ImageCropper onClose={handlerOnClose} />
+        <ImageCropper onClose={handlerOnClose} id={me?.id}/>
       </Modal>
     </>
   )

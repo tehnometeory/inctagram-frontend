@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   min-height: 475px;
   width: 100%;
 }
@@ -14,7 +14,6 @@
   width: 332px;
   height: 340px;
 }
-
 
 .buttonContainer {
   display: flex;
@@ -34,7 +33,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: start;
+  justify-content: flex-start;
   width: 492px;
   position: relative;
 
