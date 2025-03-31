@@ -2,7 +2,9 @@
 
 import { useState } from 'react'
 
+import { setAlert } from '@/entities'
 import {
+  hideEditModal,
   setSelectedPost,
   showPostModal,
   useSendNewDescriptionMutation,
@@ -10,6 +12,7 @@ import {
 import { DescriptionPost, useAppDispatch, useAppSelector } from '@/shared'
 import { Button } from '@rambo-react/ui-meteors'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 import s from './EditPost.module.scss'
 
@@ -21,17 +24,21 @@ export const EditPost = () => {
   const [newDescription, setNewDescription] = useState(post?.description || '')
   const [sendNewDescription, { isLoading }] = useSendNewDescriptionMutation()
   const dispatch = useAppDispatch()
+  const router = useRouter()
 
-  const handleSendNewDescription = () => {
+  const handleSendNewDescription = async () => {
     if (id && newDescription) {
-      sendNewDescription({ description: newDescription, id })
-        .then(response => {
-          dispatch(setSelectedPost({ ...post, description: newDescription }))
-          dispatch(showPostModal())
-        })
-        .catch(error => {
-          console.error('Error sending new description:', error)
-        })
+      try {
+        await sendNewDescription({ description: newDescription, id }).unwrap()
+        dispatch(setSelectedPost({ ...post, description: newDescription }))
+        dispatch(showPostModal())
+        dispatch(hideEditModal())
+        await fetch('/api/revalidate?tag=posts-' + post.userId, { method: 'POST' })
+        await fetch('/api/revalidate?tag=post-' + post.id, { method: 'POST' })
+        router.refresh()
+      } catch (error) {
+        dispatch(setAlert({ message: 'Error sending new description:', type: 'error' }))
+      }
     }
   }
 
