@@ -1,0 +1,28 @@
+.form {
+  max-width: 740px;
+  margin: 24px 0 26px 40px;
+
+  > * {
+    margin-bottom: 24px;
+  }
+}
+
+.cityAndCountry {
+  display: flex;
+
+  div {
+    width: 100%;
+  }
+
+  div:first-child {
+    margin-right: 24px;
+  }
+}
+
+.required {
+  color: var(--color-danger-500);
+}
+
+.date {
+  width: 100%;
+}

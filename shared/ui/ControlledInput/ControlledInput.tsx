@@ -1,11 +1,11 @@
 'use client'
 
-import { ComponentProps } from 'react'
+import { ComponentProps, ReactNode } from 'react'
 import { Controller, FieldValues, UseControllerProps } from 'react-hook-form'
 
 import { Input } from '@rambo-react/ui-meteors'
 
-type InputProps = ComponentProps<typeof Input>
+type InputProps = ComponentProps<typeof Input> & { label: ReactNode }
 
 export type ControlledInputProps<TFieldValues extends FieldValues> = Omit<
   InputProps,

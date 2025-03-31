@@ -12,4 +12,5 @@ export enum Endpoints {
   registration = 'auth/registration',
   resetPassword = 'auth/reset-password',
   setPassword = 'auth/set-password',
+  updateProfileInfo = '/profile/my-profile-data-update',
 }
