@@ -12,6 +12,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    min-width: 480px;
   }
 
   .customHeader {
@@ -25,7 +26,6 @@
     justify-content: space-between;
 
     padding: 12px 24px;
-
     border-bottom: 1px solid var(--color-dark-100);
   }
 
@@ -192,11 +192,11 @@
     height: 40px;
     min-height: 40px;
     padding-left: 0;
+    border: none;
 
     color: var(--color-light-900);
 
     background-color: var(--color-dark-300);
-    border: none;
     outline: none !important;
 
     &:focus,
