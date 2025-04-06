@@ -1,11 +1,15 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+
 import { useMeQuery } from '@/entities'
-import { Loader, PostType, useAppSelector } from '@/shared'
+import { setAvatar, setUserName } from '@/features/profileInfo'
+import { SelectedPost } from '@/features/selectedPost'
+import { Loader, PostType, useAppDispatch, useAppSelector } from '@/shared'
 import { Button } from '@rambo-react/ui-meteors'
 import { clsx } from 'clsx'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import s from './UserProfile.module.scss'
 
@@ -21,11 +25,24 @@ export const UserProfile = ({
   userId?: string
   posts: PostType[]
   profile: ProfileUserResponse
-  selectedPostId?: string
 }) => {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const [selectedPostId, setSelectedPostId] = useState<string | null>(searchParams.get('post'))
   const { data: me, isLoading } = useMeQuery()
+  const dispatch = useAppDispatch()
   const isAuth = useAppSelector(state => !!state.auth.accessToken)
+
+  useEffect(() => {
+    dispatch(setAvatar(profile?.avatarUrl))
+    dispatch(setUserName(profile?.username))
+  }, [profile?.avatarUrl, dispatch, profile?.username])
+
+  useEffect(() => {
+    const post = searchParams.get('post')
+
+    setSelectedPostId(post)
+  }, [searchParams])
 
   if (isLoading) {
     return <Loader />
@@ -34,6 +51,7 @@ export const UserProfile = ({
   const isOwner = me?.id === userId
 
   const { aboutMe, postsCount, profileFollowers, profileFollowing, username, avatarUrl } = profile
+  const selectedPost = posts.find(post => post.id === selectedPostId)
 
   return (
     <div className={s.userProfile}>
@@ -82,6 +100,7 @@ export const UserProfile = ({
       </div>
 
       <div className={s.posts}>{posts?.map(post => <Post key={post.id} post={post} />)}</div>
+      {selectedPost && <SelectedPost post={selectedPost} />}
     </div>
   )
 }

@@ -20,7 +20,6 @@ export const EditPost = () => {
   const post = useAppSelector(state => state.selectedPost.post)
   const id = post?.id
   const images = post?.photos?.map(photo => photo.url) ?? []
-  const userName = post?.user.username
   const [newDescription, setNewDescription] = useState(post?.description || '')
   const [sendNewDescription, { isLoading }] = useSendNewDescriptionMutation()
   const dispatch = useAppDispatch()
@@ -53,11 +52,7 @@ export const EditPost = () => {
           src={images[0]}
         />
       </div>
-      <DescriptionPost
-        description={newDescription}
-        sendNewPostDescription={setNewDescription}
-        userName={userName}
-      >
+      <DescriptionPost description={newDescription} sendNewPostDescription={setNewDescription}>
         <div className={s.buttonEdit}>
           <Button disabled={isLoading} onClick={handleSendNewDescription}>
             Save Changes

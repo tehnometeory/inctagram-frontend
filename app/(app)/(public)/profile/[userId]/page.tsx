@@ -4,7 +4,6 @@ import { notFound } from 'next/navigation'
 
 type Props = {
   params: Promise<{ userId: string }>
-  searchParams: Promise<{ postId: string }>
 }
 
 export default async function ProfilePage({ params }: Props) {

@@ -19,7 +19,7 @@ export const Post = ({ post }: Props) => {
     <div className={s.post} key={post.id}>
       <Link
         className={s.post}
-        href={`/profile/${post.userId}/posts/${post.id}`}
+        href={`/profile/${post.userId}/?post=${post.id}`}
         prefetch
         scroll={false}
       >

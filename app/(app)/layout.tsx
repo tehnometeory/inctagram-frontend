@@ -8,10 +8,9 @@ import { HeaderApp, HeaderPublic, SidebarApp } from '@/widgets'
 
 interface AppLayoutProps {
   children: ReactNode
-  modal: ReactNode
 }
 
-const AppLayout: FC<AppLayoutProps> = ({ children, modal }) => {
+const AppLayout: FC<AppLayoutProps> = ({ children }) => {
   const isAuth = useAppSelector(state => !!state.auth.accessToken)
 
   return (
@@ -25,7 +24,6 @@ const AppLayout: FC<AppLayoutProps> = ({ children, modal }) => {
       ) : (
         <ContentContainer>{children}</ContentContainer>
       )}
-      {modal}
       <CreatePost />
       <EditPostContainer />
     </>

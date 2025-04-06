@@ -3,6 +3,7 @@ import { useDropzone } from 'react-dropzone'
 import { ReactCrop } from 'react-image-crop'
 
 import { setAlert } from '@/entities'
+import { setAvatar } from '@/features/profileInfo'
 import { useAppDispatch } from '@/shared'
 import { Button, Card, ImageIconOutline } from '@rambo-react/ui-meteors'
 import clsx from 'clsx'
@@ -15,7 +16,6 @@ import s from './ImageCropper.module.scss'
 import { useUpdateAvatarMutation } from '../../api'
 import { useFileUpload } from '../../hooks/useFileUpload'
 import { useImageCrop } from '../../hooks/useImageCrop'
-import { setAvatar } from '../../model'
 
 const MIN_DIMENSION = 192
 const ASPECT_RATIO = 1
@@ -63,6 +63,7 @@ export const ImageCropper = ({ onClose, id }: Props) => {
       await updateAvatar(formData).unwrap()
       dispatch(setAvatar(dataUrl))
       await fetch('/api/revalidate?tag=profile-' + id, { method: 'POST' })
+      await fetch('/api/revalidate?tag=posts' + id, { method: 'POST' })
       onClose()
     } catch (error) {
       dispatch(

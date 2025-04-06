@@ -72,6 +72,7 @@ export const SelectedPost = ({ post: initialPost }: Props) => {
       !(event.target as HTMLElement).closest(`.${s.menuBtn}`)
     ) {
       setOpenedMenu(false)
+      router.replace(`/profile/${data?.id}`)
     }
   }, [])
 
@@ -117,7 +118,7 @@ export const SelectedPost = ({ post: initialPost }: Props) => {
       await Promise.all([
         fetch(`/api/revalidate?tag=posts-${postFromStore.userId}`, { method: 'POST' }),
         fetch(`/api/revalidate?tag=profile-${postFromStore.userId}`, { method: 'POST' }),
-        fetch(`/api/revalidate?tag=post-${postFromStore.id}`, { method: 'POST' }),
+        fetch(`/api/revalidate?tag=posts`, { method: 'POST' }),
       ])
 
       router.replace(`/profile/${postFromStore.userId}`)
@@ -134,7 +135,7 @@ export const SelectedPost = ({ post: initialPost }: Props) => {
       onCloseOut={() => {
         if (!openDeleteModal) {
           dispatch(hidePostModal())
-          router.back()
+          router.replace(`/profile/${postFromStore.userId}`)
         }
       }}
       withoutHeader
@@ -143,7 +144,7 @@ export const SelectedPost = ({ post: initialPost }: Props) => {
         <Carousel images={images} />
         <div className={s.contentWrapper}>
           <div className={s.header}>
-            <UserNameAndAvatar userName={postFromStore.user.username} />
+            <UserNameAndAvatar />
             {isAuthorized && isMyPost && (
               <div className={s.menu}>
                 <Button

@@ -45,8 +45,8 @@ export const Post = ({
   return (
     <div className={s.container}>
       <div className={s.publicPagePost}>
-        <Link href={`/profile/${userId}?postId=${postId}`}>
-          <div className={clsx(s.postImages, isDescriptionExpanded && s.hiden)}>{photo}</div>
+        <Link href={`/profile/${userId}?post=${postId}`}>
+          <div className={clsx(s.postImages, isDescriptionExpanded && s.hide)}>{photo}</div>
         </Link>
 
         <div className={s.user}>

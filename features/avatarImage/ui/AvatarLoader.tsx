@@ -3,21 +3,20 @@
 import { useState } from 'react'
 
 import { setAlert, useMeQuery } from '@/entities'
-import { useUserProfileByIdQuery } from '@/features/userProfile'
-import { ProfileConfirmationModal, useAppDispatch } from '@/shared'
+import { clearAvatar } from '@/features/profileInfo'
+import { ProfileConfirmationModal, useAppDispatch, useAppSelector } from '@/shared'
 import { Button, CloseOutline, ImageIconOutline, Modal } from '@rambo-react/ui-meteors'
 import Image from 'next/image'
 
 import s from './AvatarLoader.module.scss'
 
 import { useDeleteAvatarMutation } from '../api'
-import { clearAvatar } from '../model'
 import { ImageCropper } from './imageCropper/ImageCropper'
 
 export const AvatarLoader = () => {
   const [isModal, setIsModal] = useState(false)
   const { data: me } = useMeQuery()
-  const { data } = useUserProfileByIdQuery(me?.id as string)
+  const avatarUrl = useAppSelector(state => state.profile.avatarUrl)
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
   const dispatch = useAppDispatch()
   const [deleteAvatarPhoto] = useDeleteAvatarMutation()
@@ -37,6 +36,7 @@ export const AvatarLoader = () => {
       dispatch(clearAvatar())
       dispatch(setAlert({ message: 'Profile Avatar delete successfully', type: 'accepted' }))
       await fetch('/api/revalidate?tag=profile-' + me?.id, { method: 'POST' })
+      await fetch('/api/revalidate?tag=posts', { method: 'POST' })
     } catch (error) {
       dispatch(setAlert({ message: 'Error delete Avatar Photo', type: 'error' }))
     }
@@ -45,14 +45,14 @@ export const AvatarLoader = () => {
   return (
     <>
       <div>
-        {data?.avatarUrl ? (
+        {avatarUrl ? (
           <>
             <div className={s.itemImage}>
               <Image
                 alt={'Profile Photo'}
                 className={s.avatar}
                 height={192}
-                src={data.avatarUrl}
+                src={avatarUrl}
                 width={192}
               />
               <div className={s.overlay}>

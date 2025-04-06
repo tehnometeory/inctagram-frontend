@@ -10,14 +10,12 @@ type Props = {
   description: string
   sendNewPostDescription: (newDescription: string) => void
   showSeparator?: boolean
-  userName?: string
 }
 export const DescriptionPost = ({
   children,
   description,
   sendNewPostDescription,
   showSeparator = false,
-  userName = 'URLProfile',
 }: Props) => {
   const onChangeHandler = useCallback(
     (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -32,7 +30,7 @@ export const DescriptionPost = ({
     <div className={s.containerWrapper}>
       <div className={s.container}>
         <div className={s.userName}>
-          <UserNameAndAvatar userName={userName} />
+          <UserNameAndAvatar />
         </div>
         <TextArea
           className={s.description}

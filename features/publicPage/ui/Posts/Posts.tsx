@@ -1,7 +1,8 @@
-import { BASE_URL_API, PostType } from '@/shared'
+import { PostType } from '@/shared'
 
 import s from './Posts.module.scss'
 
+import { fetchPublicPost } from '../../api'
 import { Post } from './Post'
 
 export const Posts = async () => {
@@ -9,13 +10,7 @@ export const Posts = async () => {
   let posts: PostType[] = []
 
   try {
-    const response = await fetch(`${BASE_URL_API}posts/newest-posts`, {
-      next: {
-        revalidate: 60,
-      },
-    })
-
-    posts = await response.json()
+    posts = await fetchPublicPost()
   } catch {
     isError = true
   }

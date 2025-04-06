@@ -1,6 +1,21 @@
 'use client'
 
+import { useEffect } from 'react'
+
+import { useMeQuery } from '@/entities'
+import { setAvatar, setUserName, useUserProfileByIdQuery } from '@/features'
+import { useAppDispatch } from '@/shared'
+
 export default function HomePage() {
+  const { data: me } = useMeQuery()
+  const dispatch = useAppDispatch()
+  const { data: profile } = useUserProfileByIdQuery(me?.id as string)
+
+  useEffect(() => {
+    dispatch(setAvatar(profile?.avatarUrl))
+    dispatch(setUserName(profile?.username))
+  }, [profile?.avatarUrl, dispatch, profile?.username])
+
   return (
     <div>
       <h3>Home Page!!</h3>
