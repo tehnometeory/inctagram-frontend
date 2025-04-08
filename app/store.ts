@@ -1,5 +1,5 @@
 import { appReducer, authReducer } from '@/entities'
-import { createPostReducer, profileReducer, selectedPostReducer } from '@/features'
+import { createPostReducer, selectedPostReducer } from '@/features'
 import { loadingReducer } from '@/features/loadingBar/model/loadingSlice'
 import { baseApi, rtkQueryErrorLogger } from '@/shared'
 import { configureStore } from '@reduxjs/toolkit'
@@ -14,6 +14,5 @@ export const store = configureStore({
     createPost: createPostReducer,
     loading: loadingReducer,
     selectedPost: selectedPostReducer,
-    profile: profileReducer,
   },
 })

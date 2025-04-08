@@ -20,7 +20,7 @@ export const Posts = async () => {
       {isError ? (
         <h3>No posts...</h3>
       ) : (
-        posts.map(({ createdAt, description, id, photos, user: { username }, userId }) => (
+        posts.map(({ createdAt, description, id, photos, userId }) => (
           <Post
             description={description}
             key={id}
@@ -28,7 +28,6 @@ export const Posts = async () => {
             postId={id}
             publicationTime={createdAt}
             userId={userId}
-            username={username}
           />
         ))
       )}

@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form'
 
-import { setAlert } from '@/entities'
+import { setAlert, useMeQuery } from '@/entities'
 import { profileSchema, useUpdateProfileMutation } from '@/features'
 import {
   ControlledDatePicker,
@@ -48,6 +48,7 @@ export const GeneralInformationForm = () => {
     },
   })
   const dispatch = useAppDispatch()
+  const { data: me } = useMeQuery()
   const onFormSubmit = async (data: FormValues) => {
     try {
       const formattedData = {
@@ -58,11 +59,14 @@ export const GeneralInformationForm = () => {
       }
 
       await updateProfile(formattedData).unwrap()
+      await fetch('/api/revalidate?tag=profile-' + me?.id, { method: 'POST' })
+      await fetch('/api/revalidate?tag=posts-' + me?.id, { method: 'POST' })
+      await fetch('/api/revalidate?tag=posts', { method: 'POST' })
       dispatch(setAlert({ message: 'Your settings are saved!', type: 'accepted' }))
     } catch (error) {
       dispatch(
         setAlert({
-          message: `Error! Server is not available!`,
+          message: `Error! Server is not available!, ${error}`,
           type: 'error',
         })
       )

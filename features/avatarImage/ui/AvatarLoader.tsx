@@ -3,7 +3,7 @@
 import { useState } from 'react'
 
 import { setAlert, useMeQuery } from '@/entities'
-import { clearAvatar } from '@/features/profileInfo'
+import { useUserProfileByIdQuery } from '@/features/userProfile'
 import { ProfileConfirmationModal, useAppDispatch, useAppSelector } from '@/shared'
 import { Button, CloseOutline, ImageIconOutline, Modal } from '@rambo-react/ui-meteors'
 import Image from 'next/image'
@@ -16,7 +16,9 @@ import { ImageCropper } from './imageCropper/ImageCropper'
 export const AvatarLoader = () => {
   const [isModal, setIsModal] = useState(false)
   const { data: me } = useMeQuery()
-  const avatarUrl = useAppSelector(state => state.profile.avatarUrl)
+  const { avatarUrl } = useUserProfileByIdQuery(me?.id as string, {
+    selectFromResult: ({ data }) => ({ avatarUrl: data?.avatarUrl }),
+  })
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
   const dispatch = useAppDispatch()
   const [deleteAvatarPhoto] = useDeleteAvatarMutation()
@@ -33,10 +35,8 @@ export const AvatarLoader = () => {
     try {
       await deleteAvatarPhoto()
       setOpenDeleteModal(false)
-      dispatch(clearAvatar())
       dispatch(setAlert({ message: 'Profile Avatar delete successfully', type: 'accepted' }))
       await fetch('/api/revalidate?tag=profile-' + me?.id, { method: 'POST' })
-      await fetch('/api/revalidate?tag=posts', { method: 'POST' })
     } catch (error) {
       dispatch(setAlert({ message: 'Error delete Avatar Photo', type: 'error' }))
     }

@@ -3,9 +3,8 @@
 import { useEffect, useState } from 'react'
 
 import { useMeQuery } from '@/entities'
-import { setAvatar, setUserName } from '@/features/profileInfo'
 import { SelectedPost } from '@/features/selectedPost'
-import { Loader, PostType, useAppDispatch, useAppSelector } from '@/shared'
+import { Loader, PostType, useAppSelector } from '@/shared'
 import { Button } from '@rambo-react/ui-meteors'
 import { clsx } from 'clsx'
 import Image from 'next/image'
@@ -30,13 +29,7 @@ export const UserProfile = ({
   const searchParams = useSearchParams()
   const [selectedPostId, setSelectedPostId] = useState<string | null>(searchParams.get('post'))
   const { data: me, isLoading } = useMeQuery()
-  const dispatch = useAppDispatch()
   const isAuth = useAppSelector(state => !!state.auth.accessToken)
-
-  useEffect(() => {
-    dispatch(setAvatar(profile?.avatarUrl))
-    dispatch(setUserName(profile?.username))
-  }, [profile?.avatarUrl, dispatch, profile?.username])
 
   useEffect(() => {
     const post = searchParams.get('post')
@@ -67,11 +60,12 @@ export const UserProfile = ({
           />
         </div>
         <div className={clsx(s.item, s.itemNameProfile)}>
+          
           <span className={s.titleProfile}>{username}</span>
 
           {isOwner && (
             <Button
-              onClick={() => router.push('/profile-info/general-information')}
+              onClick={() => router.push(`/profile-info/general-information`)}
               className={s.btn}
               variant={'secondary'}
             >

@@ -6,11 +6,11 @@ import { CreatePost, EditPostContainer } from '@/features'
 import { ContentContainer, SidebarLayout, useAppSelector } from '@/shared'
 import { HeaderApp, HeaderPublic, SidebarApp } from '@/widgets'
 
-interface AppLayoutProps {
+type Props = {
   children: ReactNode
 }
 
-const AppLayout: FC<AppLayoutProps> = ({ children }) => {
+const AppLayout = ({ children }: Props) => {
   const isAuth = useAppSelector(state => !!state.auth.accessToken)
 
   return (

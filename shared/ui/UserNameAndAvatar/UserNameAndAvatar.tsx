@@ -1,11 +1,13 @@
-import { useAppSelector } from '@/shared/hooks'
 import Image from 'next/image'
 
 import s from './UserNameAndAvatar.module.scss'
 
-export const UserNameAndAvatar = () => {
-  const { avatarUrl, userName } = useAppSelector(state => state.profile)
+type Props = {
+  userName?: string
+  avatarUrl?: string
+}
 
+export const UserNameAndAvatar = ({ userName, avatarUrl }: Props) => {
   return (
     <div className={s.avaWrapper}>
       <Image

@@ -5,6 +5,7 @@ export const userProfileApi = baseApi.injectEndpoints({
   endpoints: builder => ({
     myProfile: builder.query<ProfileUserResponse, void>({
       providesTags: ['Profile', 'Post', 'Posts'],
+
       query: () => ({
         method: 'GET',
         url: Endpoints.myProfile,

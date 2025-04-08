@@ -1,5 +1,7 @@
 import React, { ChangeEvent, ReactNode, useCallback } from 'react'
 
+import { useMeQuery } from '@/entities'
+import { useUserProfileByIdQuery } from '@/features'
 import { UserNameAndAvatar } from '@/shared'
 import { TextArea } from '@rambo-react/ui-meteors'
 
@@ -17,6 +19,10 @@ export const DescriptionPost = ({
   sendNewPostDescription,
   showSeparator = false,
 }: Props) => {
+  const { data: me } = useMeQuery()
+  const { username, avatarUrl } = useUserProfileByIdQuery(me?.id as string, {
+    selectFromResult: ({ data }) => ({ username: data?.username, avatarUrl: data?.avatarUrl }),
+  })
   const onChangeHandler = useCallback(
     (event: ChangeEvent<HTMLTextAreaElement>) => {
       const newDescription = event.currentTarget.value
@@ -30,7 +36,7 @@ export const DescriptionPost = ({
     <div className={s.containerWrapper}>
       <div className={s.container}>
         <div className={s.userName}>
-          <UserNameAndAvatar />
+          <UserNameAndAvatar avatarUrl={avatarUrl} userName={username} />
         </div>
         <TextArea
           className={s.description}

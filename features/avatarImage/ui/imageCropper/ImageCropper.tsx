@@ -3,7 +3,6 @@ import { useDropzone } from 'react-dropzone'
 import { ReactCrop } from 'react-image-crop'
 
 import { setAlert } from '@/entities'
-import { setAvatar } from '@/features/profileInfo'
 import { useAppDispatch } from '@/shared'
 import { Button, Card, ImageIconOutline } from '@rambo-react/ui-meteors'
 import clsx from 'clsx'
@@ -57,18 +56,16 @@ export const ImageCropper = ({ onClose, id }: Props) => {
         return
       }
 
-      const { blob, dataUrl } = result
+      const { blob } = result
 
       formData.append('files', blob)
       await updateAvatar(formData).unwrap()
-      dispatch(setAvatar(dataUrl))
       await fetch('/api/revalidate?tag=profile-' + id, { method: 'POST' })
-      await fetch('/api/revalidate?tag=posts' + id, { method: 'POST' })
       onClose()
     } catch (error) {
       dispatch(
         setAlert({
-          message: `Error update avatar photo:`,
+          message: `Error update avatar photo: ${error}`,
           type: 'error',
         })
       )

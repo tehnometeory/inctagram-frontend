@@ -3,7 +3,12 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { setAlert, useMeQuery } from '@/entities'
-import { clearSelectedPost, hidePostModal, useDeletePostByIdMutation } from '@/features'
+import {
+  clearSelectedPost,
+  hidePostModal,
+  useDeletePostByIdMutation,
+  useUserProfileByIdQuery,
+} from '@/features'
 import {
   Carousel,
   PostType,
@@ -11,6 +16,7 @@ import {
   UserNameAndAvatar,
   useAppDispatch,
   useAppSelector,
+  Endpoints,
 } from '@/shared'
 import {
   Bookmark,
@@ -28,7 +34,7 @@ import {
   TrashOutline,
 } from '@rambo-react/ui-meteors'
 import clsx from 'clsx'
-import { useRouter } from 'next/navigation'
+import { useParams, useRouter } from 'next/navigation'
 
 import s from './SelectedPost.module.scss'
 
@@ -46,9 +52,14 @@ export const SelectedPost = ({ post: initialPost }: Props) => {
   const [liked, setLiked] = useState(false)
   const [saved, setSaved] = useState(false)
   const [openedMenu, setOpenedMenu] = useState(false)
+
   const [openDeleteModal, setOpenDeleteModal] = useState(false)
   const postFromStore = useAppSelector(state => state.selectedPost.post)
   const isAuthorized = useAppSelector(state => state.auth.accessToken)
+  const { userId } = useParams()
+  const { username, avatarUrl } = useUserProfileByIdQuery(userId as string, {
+    selectFromResult: ({ data }) => ({ username: data?.username, avatarUrl: data?.avatarUrl }),
+  })
   const dispatch = useAppDispatch()
   const router = useRouter()
 
@@ -72,7 +83,7 @@ export const SelectedPost = ({ post: initialPost }: Props) => {
       !(event.target as HTMLElement).closest(`.${s.menuBtn}`)
     ) {
       setOpenedMenu(false)
-      router.replace(`/profile/${data?.id}`)
+      router.replace(`/${Endpoints.profile}/${data?.id}`)
     }
   }, [])
 
@@ -121,7 +132,7 @@ export const SelectedPost = ({ post: initialPost }: Props) => {
         fetch(`/api/revalidate?tag=posts`, { method: 'POST' }),
       ])
 
-      router.replace(`/profile/${postFromStore.userId}`)
+      router.replace(`/${Endpoints.profile}/${postFromStore.userId}`)
       dispatch(setAlert({ message: 'Post deleted', type: 'accepted' }))
     } catch (error) {
       dispatch(setAlert({ message: 'Error deleting post', type: 'error' }))
@@ -135,7 +146,7 @@ export const SelectedPost = ({ post: initialPost }: Props) => {
       onCloseOut={() => {
         if (!openDeleteModal) {
           dispatch(hidePostModal())
-          router.replace(`/profile/${postFromStore.userId}`)
+          router.replace(`/${Endpoints.profile}/${postFromStore.userId}`)
         }
       }}
       withoutHeader
@@ -144,7 +155,7 @@ export const SelectedPost = ({ post: initialPost }: Props) => {
         <Carousel images={images} />
         <div className={s.contentWrapper}>
           <div className={s.header}>
-            <UserNameAndAvatar />
+            <UserNameAndAvatar avatarUrl={avatarUrl} userName={username} />
             {isAuthorized && isMyPost && (
               <div className={s.menu}>
                 <Button
@@ -203,7 +214,7 @@ export const SelectedPost = ({ post: initialPost }: Props) => {
           <div className={s.descriptionAndCommentsBlock}>
             <div className={s.descriptionBlock}>
               <div className={s.descriptionText}>
-                <span className={s.descriptionUserName}>{postFromStore.user.username}</span>{' '}
+                <span className={s.descriptionUserName}>{username}</span>{' '}
                 <span>{postFromStore.description}</span>
               </div>
               <p className={s.time}>{timeAgo}</p>
