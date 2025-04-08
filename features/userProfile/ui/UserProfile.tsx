@@ -60,7 +60,6 @@ export const UserProfile = ({
           />
         </div>
         <div className={clsx(s.item, s.itemNameProfile)}>
-          
           <span className={s.titleProfile}>{username}</span>
 
           {isOwner && (
@@ -94,7 +93,7 @@ export const UserProfile = ({
       </div>
 
       <div className={s.posts}>{posts?.map(post => <Post key={post.id} post={post} />)}</div>
-      {selectedPost && <SelectedPost post={selectedPost} />}
+      {selectedPost && <SelectedPost post={{...selectedPost}} />}
     </div>
   )
 }

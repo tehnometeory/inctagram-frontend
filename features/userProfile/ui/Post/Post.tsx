@@ -1,4 +1,4 @@
-import { PostType } from '@/shared'
+import { PostType, Endpoints } from '@/shared'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -19,7 +19,7 @@ export const Post = ({ post }: Props) => {
     <div className={s.post} key={post.id}>
       <Link
         className={s.post}
-        href={`/profile/${post.userId}/?post=${post.id}`}
+        href={`/${Endpoints.profile}/${post.userId}/?post=${post.id}`}
         prefetch
         scroll={false}
       >
