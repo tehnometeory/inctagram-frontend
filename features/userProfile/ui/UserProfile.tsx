@@ -27,7 +27,6 @@ export const UserProfile = ({
 }) => {
   const router = useRouter()
   const searchParams = useSearchParams()
-  let selectedPost
   const [selectedPostId, setSelectedPostId] = useState<string | null>(null)
   const { data: me, isLoading } = useMeQuery()
   const isAuth = useAppSelector(state => !!state.auth.accessToken)
@@ -46,9 +45,7 @@ export const UserProfile = ({
 
   const { aboutMe, postsCount, profileFollowers, profileFollowing, username, avatarUrl } = profile
 
-  if (selectedPostId) {
-    selectedPost = posts.find(post => post.id === selectedPostId)
-  }
+  const selectedPost = posts.find(post => post.id === selectedPostId)
 
   return (
     <div className={s.userProfile}>
