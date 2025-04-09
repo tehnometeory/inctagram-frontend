@@ -88,6 +88,7 @@ export const ImageCropper = ({ onClose, id }: Props) => {
               onChange={(percentCrop, pixelCrop) => setCrop(percentCrop)}
             >
               <Image
+                className={s.image}
                 alt={imgSrc}
                 height={340}
                 onLoad={onImageLoad}

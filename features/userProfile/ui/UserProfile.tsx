@@ -12,7 +12,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 
 import s from './UserProfile.module.scss'
 
-import { ProfileUserResponse } from '../api'
+import { ProfileUserResponse, useUserProfileByIdQuery } from '../api'
 import { Post } from './Post'
 import { StatItem } from './StateItem'
 
@@ -31,6 +31,11 @@ export const UserProfile = ({
   const { data: me, isLoading } = useMeQuery()
   const isAuth = useAppSelector(state => !!state.auth.accessToken)
 
+  const { data: freshProfile } = useUserProfileByIdQuery(userId!, {
+    skip: !userId,
+  })
+  const currentProfile = freshProfile || profile
+
   useEffect(() => {
     const post = searchParams.get('post')
 
@@ -43,7 +48,8 @@ export const UserProfile = ({
 
   const isOwner = me?.id === userId
 
-  const { aboutMe, postsCount, profileFollowers, profileFollowing, username, avatarUrl } = profile
+  const { aboutMe, postsCount, profileFollowers, profileFollowing, username, avatarUrl } =
+    currentProfile
 
   const selectedPost = posts.find(post => post.id === selectedPostId)
 
@@ -94,7 +100,7 @@ export const UserProfile = ({
       </div>
 
       <div className={s.posts}>{posts?.map(post => <Post key={post.id} post={post} />)}</div>
-      {selectedPost && <SelectedPost post={{ ...selectedPost }} />}
+      {selectedPost && <SelectedPost post={selectedPost} />}
     </div>
   )
 }

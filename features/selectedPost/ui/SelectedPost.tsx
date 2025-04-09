@@ -83,7 +83,6 @@ export const SelectedPost = ({ post: initialPost }: Props) => {
       !(event.target as HTMLElement).closest(`.${s.menuBtn}`)
     ) {
       setOpenedMenu(false)
-      router.replace(`/${Endpoints.profile}/${data?.id}`)
     }
   }, [])
 

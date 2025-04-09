@@ -4,7 +4,7 @@ import { useState } from 'react'
 
 import { setAlert, useMeQuery } from '@/entities'
 import { useUserProfileByIdQuery } from '@/features/userProfile'
-import { ProfileConfirmationModal, useAppDispatch, useAppSelector } from '@/shared'
+import { ProfileConfirmationModal, useAppDispatch } from '@/shared'
 import { Button, CloseOutline, ImageIconOutline, Modal } from '@rambo-react/ui-meteors'
 import Image from 'next/image'
 
