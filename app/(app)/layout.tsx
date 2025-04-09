@@ -1,6 +1,6 @@
 'use client'
 
-import { FC, ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 import { CreatePost, EditPostContainer } from '@/features'
 import { ContentContainer, SidebarLayout, useAppSelector } from '@/shared'
@@ -24,8 +24,12 @@ const AppLayout = ({ children }: Props) => {
       ) : (
         <ContentContainer>{children}</ContentContainer>
       )}
-      <CreatePost />
-      <EditPostContainer />
+      {isAuth && (
+        <>
+          <CreatePost />
+          <EditPostContainer />
+        </>
+      )}
     </>
   )
 }

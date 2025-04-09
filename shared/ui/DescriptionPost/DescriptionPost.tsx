@@ -19,8 +19,10 @@ export const DescriptionPost = ({
   sendNewPostDescription,
   showSeparator = false,
 }: Props) => {
-  const { data: me } = useMeQuery()
-  const { username, avatarUrl } = useUserProfileByIdQuery(me?.id as string, {
+  const { userId } = useMeQuery(undefined, {
+    selectFromResult: ({ data }) => ({ userId: data?.id }),
+  })
+  const { username, avatarUrl } = useUserProfileByIdQuery(userId as string, {
     selectFromResult: ({ data }) => ({ username: data?.username, avatarUrl: data?.avatarUrl }),
   })
   const onChangeHandler = useCallback(

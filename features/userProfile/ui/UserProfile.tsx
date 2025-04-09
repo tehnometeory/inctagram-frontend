@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 import { useMeQuery } from '@/entities'
 import { SelectedPost } from '@/features/selectedPost'
-import { Loader, PostType, useAppSelector } from '@/shared'
+import { Loader, PostType, useAppSelector, Endpoints } from '@/shared'
 import { Button } from '@rambo-react/ui-meteors'
 import { clsx } from 'clsx'
 import Image from 'next/image'
@@ -27,7 +27,8 @@ export const UserProfile = ({
 }) => {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const [selectedPostId, setSelectedPostId] = useState<string | null>(searchParams.get('post'))
+  let selectedPost
+  const [selectedPostId, setSelectedPostId] = useState<string | null>(null)
   const { data: me, isLoading } = useMeQuery()
   const isAuth = useAppSelector(state => !!state.auth.accessToken)
 
@@ -44,7 +45,10 @@ export const UserProfile = ({
   const isOwner = me?.id === userId
 
   const { aboutMe, postsCount, profileFollowers, profileFollowing, username, avatarUrl } = profile
-  const selectedPost = posts.find(post => post.id === selectedPostId)
+
+  if (selectedPostId) {
+    selectedPost = posts.find(post => post.id === selectedPostId)
+  }
 
   return (
     <div className={s.userProfile}>
@@ -64,7 +68,7 @@ export const UserProfile = ({
 
           {isOwner && (
             <Button
-              onClick={() => router.push(`/profile-info/general-information`)}
+              onClick={() => router.push(`${Endpoints.profileInfoGeneralInformation}`)}
               className={s.btn}
               variant={'secondary'}
             >
@@ -93,7 +97,7 @@ export const UserProfile = ({
       </div>
 
       <div className={s.posts}>{posts?.map(post => <Post key={post.id} post={post} />)}</div>
-      {selectedPost && <SelectedPost post={{...selectedPost}} />}
+      {selectedPost && <SelectedPost post={{ ...selectedPost }} />}
     </div>
   )
 }

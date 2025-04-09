@@ -2,11 +2,6 @@ import { ErrorsMessagesResponse } from '@/shared'
 
 export type PostResponse<T> = ErrorsMessagesResponse | T
 
-export type PublishPostArg = {
-  description: string
-  files: string[]
-}
-
 export type Publish = {
   id: string
 }
