@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 
+import { useUserProfileByIdQuery } from '@/features/userProfile'
 import { Carousel, Photo, getTimeAgo } from '@/shared'
 import clsx from 'clsx'
 import Image from 'next/image'
@@ -10,25 +11,18 @@ import Link from 'next/link'
 import s from './Post.module.scss'
 
 type Props = {
-  avatar?: string
   description: string
   photos: Photo[]
   postId: string
   publicationTime: string
   userId: string
-  username: string
 }
 
-export const Post = ({
-  avatar,
-  description,
-  photos,
-  postId,
-  publicationTime,
-  userId,
-  username,
-}: Props) => {
+export const Post = ({ description, photos, postId, publicationTime, userId }: Props) => {
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false)
+  const { username, avatarUrl } = useUserProfileByIdQuery(userId, {
+    selectFromResult: ({ data }) => ({ username: data?.username, avatarUrl: data?.avatarUrl }),
+  })
 
   const onShowMoreClickHandler = () => setIsDescriptionExpanded(!isDescriptionExpanded)
 
@@ -45,8 +39,8 @@ export const Post = ({
   return (
     <div className={s.container}>
       <div className={s.publicPagePost}>
-        <Link href={`/profile/${userId}?postId=${postId}`}>
-          <div className={clsx(s.postImages, isDescriptionExpanded && s.hiden)}>{photo}</div>
+        <Link href={`/profile/${userId}?post=${postId}`}>
+          <div className={clsx(s.postImages, isDescriptionExpanded && s.hide)}>{photo}</div>
         </Link>
 
         <div className={s.user}>
@@ -55,7 +49,7 @@ export const Post = ({
             className={s.avatar}
             height={36}
             priority
-            src={avatar || '/images/avatar-default.webp'}
+            src={avatarUrl || '/images/avatar-default.webp'}
             width={36}
           />
 

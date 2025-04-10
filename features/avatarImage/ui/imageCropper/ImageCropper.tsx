@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { useDropzone } from 'react-dropzone'
 import { ReactCrop } from 'react-image-crop'
@@ -15,7 +16,6 @@ import s from './ImageCropper.module.scss'
 import { useUpdateAvatarMutation } from '../../api'
 import { useFileUpload } from '../../hooks/useFileUpload'
 import { useImageCrop } from '../../hooks/useImageCrop'
-import { setAvatar } from '../../model'
 
 const MIN_DIMENSION = 192
 const ASPECT_RATIO = 1
@@ -57,17 +57,16 @@ export const ImageCropper = ({ onClose, id }: Props) => {
         return
       }
 
-      const { blob, dataUrl } = result
+      const { blob } = result
 
       formData.append('files', blob)
       await updateAvatar(formData).unwrap()
-      dispatch(setAvatar(dataUrl))
       await fetch('/api/revalidate?tag=profile-' + id, { method: 'POST' })
       onClose()
     } catch (error) {
       dispatch(
         setAlert({
-          message: `Error update avatar photo:`,
+          message: `Error update avatar photo: ${error}`,
           type: 'error',
         })
       )
@@ -90,6 +89,7 @@ export const ImageCropper = ({ onClose, id }: Props) => {
               onChange={(percentCrop, pixelCrop) => setCrop(percentCrop)}
             >
               <Image
+                className={s.image}
                 alt={imgSrc}
                 height={340}
                 onLoad={onImageLoad}

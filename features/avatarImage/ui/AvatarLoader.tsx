@@ -11,13 +11,14 @@ import Image from 'next/image'
 import s from './AvatarLoader.module.scss'
 
 import { useDeleteAvatarMutation } from '../api'
-import { clearAvatar } from '../model'
-import { ImageCropper } from './imageCropper/ImageCropper'
+import { ImageCropper } from './imageCropper'
 
 export const AvatarLoader = () => {
   const [isModal, setIsModal] = useState(false)
   const { data: me } = useMeQuery()
-  const { data } = useUserProfileByIdQuery(me?.id as string)
+  const { avatarUrl } = useUserProfileByIdQuery(me?.id as string, {
+    selectFromResult: ({ data }) => ({ avatarUrl: data?.avatarUrl }),
+  })
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
   const dispatch = useAppDispatch()
   const [deleteAvatarPhoto] = useDeleteAvatarMutation()
@@ -34,25 +35,24 @@ export const AvatarLoader = () => {
     try {
       await deleteAvatarPhoto()
       setOpenDeleteModal(false)
-      dispatch(clearAvatar())
-      dispatch(setAlert({ message: 'Profile Avatar delete successfully', type: 'accepted' }))
+      dispatch(setAlert({ message: 'Profile avatar deleted successfully', type: 'accepted' }))
       await fetch('/api/revalidate?tag=profile-' + me?.id, { method: 'POST' })
     } catch (error) {
-      dispatch(setAlert({ message: 'Error delete Avatar Photo', type: 'error' }))
+      dispatch(setAlert({ message: 'Error delete avatar photo', type: 'error' }))
     }
   }
 
   return (
     <>
       <div>
-        {data?.avatarUrl ? (
+        {avatarUrl ? (
           <>
             <div className={s.itemImage}>
               <Image
                 alt={'Profile Photo'}
                 className={s.avatar}
                 height={192}
-                src={data.avatarUrl}
+                src={avatarUrl}
                 width={192}
               />
               <div className={s.overlay}>

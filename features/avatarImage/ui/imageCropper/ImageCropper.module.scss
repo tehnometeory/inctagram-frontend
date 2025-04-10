@@ -13,6 +13,10 @@
   margin-top: 28px;
   width: 332px;
   height: 340px;
+
+  .image {
+    object-fit: cover;
+  }
 }
 
 .buttonContainer {

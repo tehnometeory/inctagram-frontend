@@ -1,5 +1,7 @@
+import { BASE_URL_API, Endpoints } from '@/shared'
+
 export const fetchProfile = async (userId: string) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_API}profile/${userId}`, {
+  const res = await fetch(`${BASE_URL_API}${Endpoints.profile}/${userId}`, {
     next: {
       revalidate: 3600,
       tags: [`profile-${userId}`],
@@ -17,28 +19,10 @@ export const fetchProfile = async (userId: string) => {
 }
 
 export const fetchPosts = async (userId: string, page: number) => {
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL_API}posts/profile-posts/${userId}?page=${page}`,
-    {
-      next: {
-        revalidate: 3600,
-        tags: [`posts-${userId}`],
-      },
-    }
-  )
-
-  if (!res.ok) {
-    throw new Error('Posts fetch failed')
-  }
-
-  return res.json()
-}
-
-export const fetchPost = async (postId: string) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL_API}posts/${postId}`, {
+  const res = await fetch(`${BASE_URL_API}${Endpoints.profilePosts}/${userId}?page=${page}`, {
     next: {
       revalidate: 3600,
-      tags: [`post-${postId}`],
+      tags: [`posts-${userId}`],
     },
   })
 
