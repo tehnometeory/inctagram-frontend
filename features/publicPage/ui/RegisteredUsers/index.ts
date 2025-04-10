@@ -1,2 +1,2 @@
 export * from './RegisteredUsers'
-export * from './Skeleton'
+export * from './RegisteredUsersSkeleton'

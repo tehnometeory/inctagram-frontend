@@ -1,17 +1,16 @@
 'use client'
 
-import { FC, ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 import { CreatePost, EditPostContainer } from '@/features'
 import { ContentContainer, SidebarLayout, useAppSelector } from '@/shared'
 import { HeaderApp, HeaderPublic, SidebarApp } from '@/widgets'
 
-interface AppLayoutProps {
+type Props = {
   children: ReactNode
-  modal: ReactNode
 }
 
-const AppLayout: FC<AppLayoutProps> = ({ children, modal }) => {
+const AppLayout = ({ children }: Props) => {
   const isAuth = useAppSelector(state => !!state.auth.accessToken)
 
   return (
@@ -25,9 +24,12 @@ const AppLayout: FC<AppLayoutProps> = ({ children, modal }) => {
       ) : (
         <ContentContainer>{children}</ContentContainer>
       )}
-      {modal}
-      <CreatePost />
-      <EditPostContainer />
+      {isAuth && (
+        <>
+          <CreatePost />
+          <EditPostContainer />
+        </>
+      )}
     </>
   )
 }

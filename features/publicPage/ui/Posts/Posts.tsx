@@ -1,7 +1,8 @@
-import { BASE_URL_API, PostType } from '@/shared'
+import { PostType } from '@/shared'
 
 import s from './Posts.module.scss'
 
+import { fetchPublicPost } from '../../api'
 import { Post } from './Post'
 
 export const Posts = async () => {
@@ -9,13 +10,7 @@ export const Posts = async () => {
   let posts: PostType[] = []
 
   try {
-    const response = await fetch(`${BASE_URL_API}posts/newest-posts`, {
-      next: {
-        revalidate: 60,
-      },
-    })
-
-    posts = await response.json()
+    posts = await fetchPublicPost()
   } catch {
     isError = true
   }
@@ -25,7 +20,7 @@ export const Posts = async () => {
       {isError ? (
         <h3>No posts...</h3>
       ) : (
-        posts.map(({ createdAt, description, id, photos, user: { username }, userId }) => (
+        posts.map(({ createdAt, description, id, photos, userId }) => (
           <Post
             description={description}
             key={id}
@@ -33,7 +28,6 @@ export const Posts = async () => {
             postId={id}
             publicationTime={createdAt}
             userId={userId}
-            username={username}
           />
         ))
       )}

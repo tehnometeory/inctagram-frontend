@@ -1,15 +1,18 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+
 import { useMeQuery } from '@/entities'
-import { Loader, PostType, useAppSelector } from '@/shared'
+import { SelectedPost } from '@/features/selectedPost'
+import { Loader, PostType, useAppSelector, Endpoints } from '@/shared'
 import { Button } from '@rambo-react/ui-meteors'
 import { clsx } from 'clsx'
 import Image from 'next/image'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 
 import s from './UserProfile.module.scss'
 
-import { ProfileUserResponse } from '../api'
+import { ProfileUserResponse, useUserProfileByIdQuery, useProfileByIdPostsQuery } from '../api'
 import { Post } from './Post'
 import { StatItem } from './StateItem'
 
@@ -21,11 +24,32 @@ export const UserProfile = ({
   userId?: string
   posts: PostType[]
   profile: ProfileUserResponse
-  selectedPostId?: string
 }) => {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const [selectedPostId, setSelectedPostId] = useState<string | null>(null)
   const { data: me, isLoading } = useMeQuery()
   const isAuth = useAppSelector(state => !!state.auth.accessToken)
+
+  const { data: freshProfile } = useUserProfileByIdQuery(userId!, {
+    skip: !userId,
+  })
+  const { data: freshPostsData } = useProfileByIdPostsQuery(
+    { id: userId!, page: 1 },
+    {
+      skip: !userId,
+    }
+  )
+
+  const currentPosts = freshPostsData || posts
+
+  const currentProfile = freshProfile || profile
+
+  useEffect(() => {
+    const post = searchParams.get('post')
+
+    setSelectedPostId(post)
+  }, [searchParams])
 
   if (isLoading) {
     return <Loader />
@@ -33,7 +57,10 @@ export const UserProfile = ({
 
   const isOwner = me?.id === userId
 
-  const { aboutMe, postsCount, profileFollowers, profileFollowing, username, avatarUrl } = profile
+  const { aboutMe, postsCount, profileFollowers, profileFollowing, username, avatarUrl } =
+    currentProfile
+
+  const selectedPost = currentPosts.find(post => post.id === selectedPostId)
 
   return (
     <div className={s.userProfile}>
@@ -53,7 +80,7 @@ export const UserProfile = ({
 
           {isOwner && (
             <Button
-              onClick={() => router.push('/profile-info/general-information')}
+              onClick={() => router.push(`${Endpoints.profileInfoGeneralInformation}`)}
               className={s.btn}
               variant={'secondary'}
             >
@@ -81,7 +108,8 @@ export const UserProfile = ({
         </div>
       </div>
 
-      <div className={s.posts}>{posts?.map(post => <Post key={post.id} post={post} />)}</div>
+      <div className={s.posts}>{currentPosts?.map(post => <Post key={post.id} post={post} />)}</div>
+      {selectedPost && <SelectedPost post={selectedPost} />}
     </div>
   )
 }
