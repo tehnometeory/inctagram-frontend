@@ -1,2 +1,2 @@
 export * from './Post'
-export * from './Skeleton'
+export * from './PostSkeleton'

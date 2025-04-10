@@ -11,7 +11,7 @@ import Image from 'next/image'
 import s from './AvatarLoader.module.scss'
 
 import { useDeleteAvatarMutation } from '../api'
-import { ImageCropper } from './imageCropper/ImageCropper'
+import { ImageCropper } from './imageCropper'
 
 export const AvatarLoader = () => {
   const [isModal, setIsModal] = useState(false)
@@ -35,10 +35,10 @@ export const AvatarLoader = () => {
     try {
       await deleteAvatarPhoto()
       setOpenDeleteModal(false)
-      dispatch(setAlert({ message: 'Profile Avatar delete successfully', type: 'accepted' }))
+      dispatch(setAlert({ message: 'Profile avatar deleted successfully', type: 'accepted' }))
       await fetch('/api/revalidate?tag=profile-' + me?.id, { method: 'POST' })
     } catch (error) {
-      dispatch(setAlert({ message: 'Error delete Avatar Photo', type: 'error' }))
+      dispatch(setAlert({ message: 'Error delete avatar photo', type: 'error' }))
     }
   }
 
