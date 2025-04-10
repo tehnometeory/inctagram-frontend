@@ -1,0 +1,7 @@
+@use '@rambo-react/ui-meteors/dist/typography' as typography;
+  .location {
+    margin-top: 43px;
+    @include typography.Regular_text_14;
+
+  color: var(--color-light-900);
+  }

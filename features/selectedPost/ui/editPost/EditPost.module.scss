@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+}
+
+.imageContainer {
+  height: 503px;
+  width: 490px;
+}
+
+.imageWrapper {
+  height: 503px;
+  position: relative;
+  width: 490px;
+}
+
+.image {
+  object-fit: cover;
+  position: absolute;
+}
+
+.buttonEdit {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 196px;
+}
+
+.modal {
+  min-width: 500px;
+}

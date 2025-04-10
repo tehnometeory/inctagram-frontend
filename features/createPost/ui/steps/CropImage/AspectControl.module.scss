@@ -1,0 +1,85 @@
+@use '@rambo-react/ui-meteors/dist/typography' as typography;
+
+.aspectContainer {
+  user-select: none;
+
+  position: absolute;
+  z-index: 4;
+  bottom: 10px;
+  left: 10px;
+}
+
+.aspectButton {
+  width: 36px;
+  height: 36px;
+}
+
+.aspectRatioList {
+  position: absolute;
+  bottom: 38px;
+  left: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+
+  width: 130px;
+  padding: 10px 12px;
+
+  background-color: rgb(23 23 23 / 80%);
+  border-radius: 2px;
+}
+
+.aspectRatioItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  min-height: 24px;
+
+  color: var(--color-light-900);
+
+  @include typography.Regular_text_16;
+
+  &:hover {
+    cursor: pointer;
+    color: var(--color-light-700);
+  }
+
+  &.active {
+    @include typography.H3;
+
+    color: var(--color-light-100);
+  }
+}
+
+.originalImage {
+  position: relative;
+  left: 3px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.oneToOne {
+  width: 18px;
+  height: 18px;
+}
+
+.fourToFive {
+  width: 18px;
+  height: 26px;
+}
+
+.sixteenToNine {
+  width: 26px;
+  height: 20px;
+}
+
+.oneToOne,
+.fourToFive,
+.sixteenToNine {
+  border: 2px solid currentcolor;
+  border-radius: 3px;
+}

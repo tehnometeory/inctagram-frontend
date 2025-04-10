@@ -1,0 +1,37 @@
+@use '@rambo-react/ui-meteors/dist/typography' as typography;
+
+.headerContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+
+  .title {
+    @include typography.H1;
+
+    margin: 0;
+  }
+
+  .rightButton {
+    @include typography.H3;
+
+    user-select: none;
+    padding: 6px 12px;
+  }
+
+  .leftButton {
+    cursor: pointer;
+
+    svg {
+      fill: var(--color-light-100);
+    }
+
+    &:hover,
+    &:focus {
+      svg {
+        fill: var(--color-accent-100);
+        transition: all 0.1s ease-in-out;
+      }
+    }
+  }
+}

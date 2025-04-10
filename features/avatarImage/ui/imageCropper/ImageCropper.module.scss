@@ -1,0 +1,90 @@
+@use '@rambo-react/ui-meteors/dist/typography' as typography;
+
+.cropContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-height: 475px;
+  width: 100%;
+}
+
+.imageAndCrop {
+  margin-top: 28px;
+  width: 332px;
+  height: 340px;
+
+  .image {
+    object-fit: cover;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: flex-end;
+
+  .cropButton {
+    width: 86px;
+    height: 36px;
+    margin-top: 36px;
+    margin-right: 24px;
+  }
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 492px;
+  position: relative;
+
+  .errorMessage {
+    margin-top: 5px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 55px;
+    width: 445px;
+    padding: 0 55px;
+    @include typography.Bold_text_14;
+
+    background: var(--color-danger-900);
+    border: 1px solid var(--color-danger-500);
+    border-radius: 2px;
+  }
+
+  .card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 220px;
+    height: 228px;
+    margin-bottom: 60px;
+    padding: 88px 87px;
+
+    border-radius: 2px;
+
+    &.dragActive {
+      outline: 1px solid var(--color-accent-500);
+      outline-offset: -1px;
+    }
+  }
+
+  .selectButton {
+    margin-bottom: 24px;
+    width: 220px;
+  }
+}
+
+.imageContainer {
+  width: 100%;
+  height: 503px;
+  padding: 72px 135px 48px;
+}

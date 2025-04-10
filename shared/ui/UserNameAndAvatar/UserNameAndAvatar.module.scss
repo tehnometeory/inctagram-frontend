@@ -1,0 +1,19 @@
+@use '@rambo-react/ui-meteors/dist/typography' as typography;
+
+.ava {
+  width: 36px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.avaWrapper {
+  display: flex;
+  align-items: center;
+}
+
+.urlProfile {
+  @include typography.H3;
+
+  padding-left: 12px;
+}

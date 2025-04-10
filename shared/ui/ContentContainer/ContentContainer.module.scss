@@ -1,0 +1,11 @@
+.container {
+  overflow-y: auto;
+  width: 100%;
+  padding: 36px 60px 36px 24px;
+}
+
+@media (width<=425px) {
+  .container {
+    padding: 24px 15px;
+  }
+}

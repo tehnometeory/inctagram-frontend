@@ -1,0 +1,92 @@
+.showThubmsButton {
+  width: 36px;
+  height: 36px;
+}
+
+.thumbsContainer {
+  position: absolute;
+  right: 0;
+  bottom: 38px;
+
+  display: flex;
+
+  padding: 12px;
+
+  visibility: hidden;
+  background-color: rgb(23 23 23 / 80%);
+  border-radius: 2px;
+
+  &.gap {
+    gap: 12px;
+  }
+
+  &.showThumbs {
+    visibility: visible;
+  }
+}
+
+.thumbsControl {
+  user-select: none;
+
+  position: absolute;
+  z-index: 3;
+  right: 10px;
+  bottom: 10px;
+}
+
+.thumbContainer {
+  position: relative;
+  width: 80px;
+  height: 82px;
+
+  .image {
+    opacity: 0.5;
+  }
+
+  .removeButton {
+    cursor: pointer;
+
+    position: absolute;
+    top: 2px;
+    right: 2px;
+
+    display: none;
+
+    width: 12px;
+    height: 12px;
+  }
+
+  &.activeSlide {
+    .image {
+      opacity: 1;
+    }
+
+    .removeButton {
+      display: flex;
+    }
+  }
+}
+
+.addImageButton {
+  cursor: pointer;
+  clip-path: circle(43% at 50% 50%);
+  border-radius: 50%;
+
+  &:hover {
+    background-color: var(--color-dark-100);
+  }
+}
+
+.swiperThumbs {
+  overflow: hidden;
+  max-width: 456px;
+
+  &.withAddButton {
+    max-width: 408px;
+  }
+}
+
+.swiperSlideThumb {
+  flex-shrink: 0;
+  width: 80px !important;
+}

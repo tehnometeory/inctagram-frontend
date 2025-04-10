@@ -1,0 +1,40 @@
+@use '@rambo-react/ui-meteors/dist/typography' as typography;
+
+.container {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+
+  min-width: 462px;
+  padding: 24px;
+
+  p {
+    top: 215px;
+    right: 25px;
+    color: var(--color-light-900);
+  }
+
+  .description {
+    max-width: 433px;
+    min-height: 120px;
+  }
+
+  .separator {
+    position: absolute;
+    top: 80%;
+    left: 0%;
+
+    box-sizing: border-box;
+    width: 462px;
+    height: 1px;
+    padding: 0;
+
+    background-color: var(--color-dark-100);
+    border: none;
+  }
+
+  .userName {
+    margin-bottom: 24px;
+  }
+}

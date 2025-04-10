@@ -1,0 +1,15 @@
+.cropWrapper {
+  position: relative;
+  width: 500px;
+  height: 500px;
+}
+
+.zoomButton {
+  position: absolute;
+  z-index: 10;
+  bottom: 10px;
+  left: 70px;
+
+  width: 36px;
+  height: 36px;
+}

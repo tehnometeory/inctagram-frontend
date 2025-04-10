@@ -1,0 +1,59 @@
+@use '@rambo-react/ui-meteors/dist/typography' as typography;
+
+.container {
+  width: 234px;
+}
+
+.publicPagePost {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.postImages {
+  overflow: hidden;
+  width: 234px;
+  height: 240px;
+
+  img {
+    object-fit: cover;
+    object-position: center;
+  }
+
+  &.hide {
+    height: 120px;
+  }
+}
+
+.user {
+  @include typography.H3;
+
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.avatar {
+  border-radius: 50%;
+}
+
+.publicationTime {
+  @include typography.Small_text;
+
+  color: var(--color-light-900);
+}
+
+.description {
+  @include typography.Regular_text_14;
+
+  overflow: hidden;
+  margin-top: 3px;
+  margin-bottom: 0;
+}
+
+.showMore {
+  cursor: pointer;
+  display: inline;
+  color: var(--color-accent-500);
+  text-decoration: underline;
+}

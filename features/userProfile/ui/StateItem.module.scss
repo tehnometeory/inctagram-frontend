@@ -1,0 +1,22 @@
+@use '@rambo-react/ui-meteors/dist/typography' as typography;
+
+
+  .statistic {
+    text-align: start;
+
+    @include typography.Bold_text_14;
+
+    .textStatistic {
+      @include typography.Regular_text_14;
+    }
+  }
+
+  .statistic:nth-child(1) {
+    margin-right: 100px;
+  }
+
+  .statistic:nth-child(2) {
+    margin-right: 88px;
+  }
+
+

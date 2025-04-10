@@ -1,0 +1,38 @@
+@use '@rambo-react/ui-meteors/dist/typography' as typography;
+
+.registeredUsers {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  max-width: 972px;
+  height: 72px;
+  padding: 12px 24px;
+
+  background-color: var(--color-dark-500);
+  border: 1px solid var(--color-dark-300);
+  border-radius: 2px;
+
+  @include typography.H2;
+}
+
+.counter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 203px;
+  height: 48px;
+  padding: 8px 12px;
+
+  background-color: var(--color-dark-700);
+  border: inherit;
+  border-radius: inherit;
+}
+
+.separator {
+  width: 1px;
+  height: 100%;
+  background-color: var(--color-dark-300);
+}

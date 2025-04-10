@@ -1,0 +1,29 @@
+.post {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.imagePost {
+  cursor: pointer;
+  object-fit: cover;
+  transition: transform 0.3s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+@media (width <= 970px) {
+  .imagePost {
+    width: 200px;
+    height: 200px;
+  }
+}
+
+@media (width <= 820px) {
+  .imagePost {
+    width: 108px;
+    height: 108px;
+  }
+}

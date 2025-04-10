@@ -1,0 +1,70 @@
+.swiperButtonNext,
+.swiperButtonPrev {
+  cursor: pointer;
+
+  position: absolute;
+  z-index: 10;
+  top: 50%;
+  transform: translateY(-50%);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background-color: rgb(51 51 51 / 60%);
+  border-radius: 2px;
+}
+
+.swiperButtonNext {
+  right: 10px;
+}
+
+.swiperButtonPrev {
+  left: 10px;
+}
+
+.swiperPagination {
+  position: absolute;
+  z-index: 2;
+  left: 50% !important;
+  transform: translate(-50%, -50%);
+
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  justify-content: center;
+
+  width: auto !important;
+  min-width: 20px !important;
+  height: 24px;
+  padding: 8px;
+
+  background-color: rgb(51 51 51 / 60%);
+  border-radius: 2px;
+}
+
+.swiperPagination :global(.swiper-pagination-button) {
+  cursor: pointer;
+
+  width: 8px;
+  height: 8px;
+
+  background-color: var(--color-light-100);
+  border-radius: 50%;
+}
+
+.swiperPagination :global(.swiper-pagination-button-active) {
+  background-color: var(--color-accent-500);
+}
+
+.swiperPaginationMini {
+  bottom: 8px;
+  gap: 8px;
+  height: 12px;
+  padding: 3px 8px;
+}
+
+.swiperPaginationMini :global(.swiper-pagination-button) {
+  width: 6px;
+  height: 6px;
+}

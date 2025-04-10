@@ -1,0 +1,8 @@
+.appAlert {
+  bottom: 24px;
+  left: 13vw;
+
+  @media (width <= 768px) {
+    left: 0;
+  }
+}

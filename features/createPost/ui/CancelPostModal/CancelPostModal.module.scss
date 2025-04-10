@@ -1,0 +1,24 @@
+@use '@rambo-react/ui-meteors/dist/typography' as typography;
+
+.modal {
+  max-width: 360px;
+}
+
+.container {
+  padding: 30px 21px 36px 24px;
+}
+
+.text {
+  @include typography.Regular_text_16;
+
+  margin-bottom: 18px;
+
+  p {
+    margin: 0;
+  }
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-between;
+}
