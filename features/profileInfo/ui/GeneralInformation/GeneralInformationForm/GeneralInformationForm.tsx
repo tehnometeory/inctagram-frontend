@@ -55,13 +55,14 @@ export const GeneralInformationForm = () => {
         ...data,
         dateOfBirth:
           data.dateOfBirth instanceof Date ? data.dateOfBirth.toISOString().split('T')[0] : null,
-        // Преобразуем дату в формат "YYYY-MM-DD"
       }
 
       await updateProfile(formattedData).unwrap()
-      await fetch('/api/revalidate?tag=profile-' + me?.id, { method: 'POST' })
-      await fetch('/api/revalidate?tag=posts-' + me?.id, { method: 'POST' })
-      await fetch('/api/revalidate?tag=posts', { method: 'POST' })
+      await Promise.all([
+        fetch('/api/revalidate?tag=profile-' + me?.id, { method: 'POST' }),
+        fetch('/api/revalidate?tag=posts-' + me?.id, { method: 'POST' }),
+        fetch('/api/revalidate?tag=posts', { method: 'POST' }),
+      ])
       dispatch(setAlert({ message: 'Your settings are saved!', type: 'accepted' }))
     } catch (error) {
       dispatch(
