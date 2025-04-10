@@ -12,7 +12,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 
 import s from './UserProfile.module.scss'
 
-import { ProfileUserResponse, useUserProfileByIdQuery } from '../api'
+import { ProfileUserResponse, useUserProfileByIdQuery, useProfileByIdPostsQuery } from '../api'
 import { Post } from './Post'
 import { StatItem } from './StateItem'
 
@@ -34,6 +34,15 @@ export const UserProfile = ({
   const { data: freshProfile } = useUserProfileByIdQuery(userId!, {
     skip: !userId,
   })
+  const { data: freshPostsData } = useProfileByIdPostsQuery(
+    { id: userId!, page: 1 },
+    {
+      skip: !userId,
+    }
+  )
+
+  const currentPosts = freshPostsData || posts
+
   const currentProfile = freshProfile || profile
 
   useEffect(() => {
@@ -51,7 +60,7 @@ export const UserProfile = ({
   const { aboutMe, postsCount, profileFollowers, profileFollowing, username, avatarUrl } =
     currentProfile
 
-  const selectedPost = posts.find(post => post.id === selectedPostId)
+  const selectedPost = currentPosts.find(post => post.id === selectedPostId)
 
   return (
     <div className={s.userProfile}>
@@ -99,7 +108,7 @@ export const UserProfile = ({
         </div>
       </div>
 
-      <div className={s.posts}>{posts?.map(post => <Post key={post.id} post={post} />)}</div>
+      <div className={s.posts}>{currentPosts?.map(post => <Post key={post.id} post={post} />)}</div>
       {selectedPost && <SelectedPost post={selectedPost} />}
     </div>
   )
