@@ -11,13 +11,14 @@ import Image from 'next/image'
 import s from './AvatarLoader.module.scss'
 
 import { useDeleteAvatarMutation } from '../api'
+import { AvatarSkeleton } from './AvatarSkeleton'
 import { ImageCropper } from './imageCropper'
 
 export const AvatarLoader = () => {
   const [isModal, setIsModal] = useState(false)
   const { data: me } = useMeQuery()
-  const { avatarUrl } = useUserProfileByIdQuery(me?.id as string, {
-    selectFromResult: ({ data }) => ({ avatarUrl: data?.avatarUrl }),
+  const { avatarUrl, isLoading } = useUserProfileByIdQuery(me?.id as string, {
+    selectFromResult: ({ data, isLoading }) => ({ avatarUrl: data?.avatarUrl, isLoading }),
   })
   const [openDeleteModal, setOpenDeleteModal] = useState<boolean>(false)
   const dispatch = useAppDispatch()
@@ -42,55 +43,66 @@ export const AvatarLoader = () => {
     }
   }
 
+  const renderContent = () => {
+    if (isLoading) {
+      return <AvatarSkeleton />
+    }
+
+    if (avatarUrl) {
+      return (
+        <>
+          <div className={s.itemImage}>
+            <Image
+              alt={'Profile Photo'}
+              className={s.avatar}
+              height={192}
+              src={avatarUrl}
+              width={192}
+            />
+            <div className={s.overlay}>
+              <div
+                aria-label={'delete avatar'}
+                className={s.circle}
+                onClick={handleShowDeletePostModal}
+                role={'button'}
+                tabIndex={0}
+              >
+                <CloseOutline
+                  className={s.cross}
+                  fill={'var(--color-light-100)'}
+                  height={16}
+                  width={16}
+                />
+              </div>
+            </div>
+          </div>
+          <ProfileConfirmationModal
+            buttonMode={'double'}
+            childClassName={s.deleteModalChild}
+            isOpen={openDeleteModal}
+            onCloseHandler={() => {
+              setOpenDeleteModal(false)
+            }}
+            onConfirmHandler={handleDeleteAvatarPhoto}
+            titleModal={'Delete Photo'}
+          >
+            <p className={s.modalText}>Are you sure you want to delete the photo?</p>
+          </ProfileConfirmationModal>
+        </>
+      )
+    }
+
+    return (
+      <div className={s.photo}>
+        <ImageIconOutline fill={'var(--color-light-100)'} height={48} width={48} />
+      </div>
+    )
+  }
+
   return (
     <>
       <div>
-        {avatarUrl ? (
-          <>
-            <div className={s.itemImage}>
-              <Image
-                alt={'Profile Photo'}
-                className={s.avatar}
-                height={192}
-                src={avatarUrl}
-                width={192}
-              />
-              <div className={s.overlay}>
-                <div
-                  aria-label={'delete avatar'}
-                  className={s.circle}
-                  onClick={handleShowDeletePostModal}
-                  role={'button'}
-                  tabIndex={0}
-                >
-                  <CloseOutline
-                    className={s.cross}
-                    fill={'var(--color-light-100)'}
-                    height={16}
-                    width={16}
-                  />
-                </div>
-              </div>
-            </div>
-            <ProfileConfirmationModal
-              buttonMode={'double'}
-              childClassName={s.deleteModalChild}
-              isOpen={openDeleteModal}
-              onCloseHandler={() => {
-                setOpenDeleteModal(false)
-              }}
-              onConfirmHandler={handleDeleteAvatarPhoto}
-              titleModal={'Delete Photo'}
-            >
-              <p className={s.modalText}>Are you sure you want to delete the photo?</p>
-            </ProfileConfirmationModal>
-          </>
-        ) : (
-          <div className={s.photo}>
-            <ImageIconOutline fill={'var(--color-light-100)'} height={48} width={48} />
-          </div>
-        )}
-
+        {renderContent()}
         <Button type={'button'} variant={'outline'} onClick={() => setIsModal(true)}>
           Add a Profile Photo
         </Button>
