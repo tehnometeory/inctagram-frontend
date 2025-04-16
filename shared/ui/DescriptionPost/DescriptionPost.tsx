@@ -22,8 +22,12 @@ export const DescriptionPost = ({
   const { userId } = useMeQuery(undefined, {
     selectFromResult: ({ data }) => ({ userId: data?.id }),
   })
-  const { username, avatarUrl } = useUserProfileByIdQuery(userId as string, {
-    selectFromResult: ({ data }) => ({ username: data?.username, avatarUrl: data?.avatarUrl }),
+  const { username, avatarUrl, isLoading } = useUserProfileByIdQuery(userId as string, {
+    selectFromResult: ({ data, isLoading }) => ({
+      username: data?.username,
+      avatarUrl: data?.avatarUrl,
+      isLoading,
+    }),
   })
   const onChangeHandler = useCallback(
     (event: ChangeEvent<HTMLTextAreaElement>) => {
@@ -38,7 +42,7 @@ export const DescriptionPost = ({
     <div className={s.containerWrapper}>
       <div className={s.container}>
         <div className={s.userName}>
-          <UserNameAndAvatar avatarUrl={avatarUrl} userName={username} />
+          <UserNameAndAvatar avatarUrl={avatarUrl} userName={username} isLoading={isLoading} />
         </div>
         <TextArea
           className={s.description}
